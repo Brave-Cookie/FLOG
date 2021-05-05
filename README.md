@@ -77,11 +77,11 @@
 ## 🤝 기타 협업
 
 ### 의존성 관리
-> [링크](https://github.com/Brave-Cookie/Wiki/blob/master/%EC%9D%98%EC%A1%B4%EC%84%B1%EA%B4%80%EB%A6%AC.md)
+> [문서 링크](https://github.com/Brave-Cookie/Wiki/blob/master/%EC%9D%98%EC%A1%B4%EC%84%B1%EA%B4%80%EB%A6%AC.md)
 
-- 모듈을 전역으로 설치한 경우 Wiki 레포의 의존성 관리 파일에 기록!
+- 모듈을 전역으로 설치한 경우 Wiki 레포의 의존성 관리 문서에 기록!
 
 ### Rest API 통신 
-> [링크](https://github.com/Brave-Cookie/Wiki/blob/master/rest%ED%86%B5%EC%8B%A0%EC%82%AC%EC%A0%84.md)
+> [문서 링크](https://github.com/Brave-Cookie/Wiki/blob/master/rest%ED%86%B5%EC%8B%A0%EC%82%AC%EC%A0%84.md)
 
 - 프론트 - 백 협업시 데이터 타입이나 URL 경로를 한 문서에 기록하여 혼란을 차단하자!
