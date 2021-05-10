@@ -1,9 +1,9 @@
 <template>
   <div>
     <h2>Login</h2>
-    <form @submit.prevent="onSubmit(id, password)">
-      <input type="text" v-model="id" placeholder="ID" />
-      <input type="password" v-model="password" placeholder="Password" />
+    <form @submit.prevent="onSubmit(user_id, user_pw)">
+      <input type="text" v-model="user_id" placeholder="ID" />
+      <input type="password" v-model="user_pw" placeholder="Password" />
       <input type="submit" value="Login" />
       <p><i>{{msg}}</i></p>
       <br><br>
@@ -20,8 +20,8 @@ export default {
   
     data() {
       return {
-        id: "",
-        password: "",
+        user_id: "",
+        user_pw: "",
         msg: "",
       }
     },
