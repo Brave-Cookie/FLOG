@@ -4,7 +4,7 @@ import axios from "axios"
 
 Vue.use(Vuex)
 
-const resourceHost = "http://localhost:3000/api"
+// const resourceHost = "http://localhost:3000/api"
 
 export default new Veux.Store({
   state: {
