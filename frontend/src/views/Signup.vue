@@ -2,28 +2,28 @@
   <div>
     <h2>회원가입</h2>
     <!-- prevent는 새로고침 방지 -->
-    <form id='content' @submit.prevent="submitForm">
+    <form id='content' @submit="checkForm" @submit.prevent="submitForm">		
       <div>
-				<label for="name">이름 </label>
+				<label for="user_name">이름 </label>
         <!-- v-model: data 속성과 연결 -->
-				<input type="text" id="name" v-model="name" />
+				<input type="text" id="user_name" v-model="user_name" />
 			</div>
       <div>
-				<label for="id">아이디 </label>
-				<input type="text" id="id" v-model="id" />
+				<label for="user_id">아이디 </label>
+				<input type="text" id="user_id" v-model="user_id" />
 			</div>
 			<div>
-				<label for="email">이메일 </label>
-				<input type="text" id="email" v-model="email" />
+				<label for="user_email">이메일 </label>
+				<input type="text" id="user_email" v-model="user_email" />
 			</div>
 			<div>
-				<label for="password">비밀번호 </label>
-				<input type="password" id="password" v-model="password" />
+				<label for="user_pw">비밀번호 </label>
+				<input type="password" id="user_pw" v-model="user_pw" />
 			</div>
 			<div>
-				<label for="passwordConfirm">비밀번호 확인 </label>
-				<input type="password" id="passwordConfirm" v-model="passwordConfirm" />
-				<div v-if="!passwordCheck"> 비밀번호가 동일하지 않습니다. </div>
+				<label for="pwConfirm">비밀번호 확인 </label>
+				<input type="password" id="pwConfirm" v-model="pwConfirm" />
+
 			</div>
       <br>
 			<button type="submit">가입하기</button>
@@ -37,24 +37,25 @@
 import { registerUser } from '@/api/axios';
 export default {
 	name: 'SignupForm',
+	
 	data() {
 		return {
-      name: '',
-      id: '',
-			email: '',
-			password: '',
-			passwordConfirm: '',
-		};
+      user_name: '',
+      user_id: '',
+			user_email: '',
+			user_pw: '',
+			pwConfirm: '',
+		}; 
 	},
 
 	methods: {
-	  async submitForm() {
+		async submitForm() {
       // 전달할 데이터
       const userData = {
-        name: this.name,
-        id: this.id,
-        email: this.email,
-        password: this.password,
+        user_name: this.user_name,
+        user_id: this.user_id,
+        user_email: this.user_email,
+        user_pw: this.user_pw,
       }
 
       const response = await registerUser(userData);
@@ -65,20 +66,40 @@ export default {
       else {
         alert(response.data)
       }
-	  console.log('회원가입이 완료되었습니다.');
-	  },
-
-	  passwordCheck () { 
-		if (this.signup.password === this.passwordCheck) {
-			this.passwordCheckFlag = true 
-		  } 
-		else { 
-			this.passwordCheckFlag = false
-		  }
-	  }
-
-
+		alert('회원가입이 완료되었습니다.');
 	},
+	},
+
+	checkForm: function (e) {
+      this.errors = [];
+
+      if (!this.user_name) {
+        this.errors.push("이름을 입력하세요.");
+		alert("이름을 입력하세요.");
+      }
+      if (!this.user_email) {
+        this.errors.push('이메일을 입력하세요.');
+		alert('이메일을 입력하세요.');
+    }
+		if (!this.user_pw) {
+        this.errors.push('비밀번호를 입력하세요.');
+		alert('비밀번호를 입력하세요.');
+      } else if (!this.checkPW(this.user_pw, this.pwConfirm)) {
+        this.errors.push('비밀번호가 일치하지 않습니다.');
+		alert('비밀번호가 일치하지 않습니다.');
+      }
+
+      if (!this.errors.length) {
+        return true;
+      }
+
+      e.preventDefault();
+    },
+
+	checkPW: function (user_pw, pwConfirm) {
+      return (user_pw==pwConfirm);
+    }
+
 };
 </script>
 

@@ -7,7 +7,7 @@ const instance = axios.create({
 */
 
 function registerUser(userData) {
-    const url = 'http://localhost:3000/signup';
+    const url = '/auth/register';
     return axios.post(url, userData);
 }
 
