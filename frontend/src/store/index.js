@@ -7,6 +7,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     accessToken: null,
+    user_name: null, // 엑세스 토큰과 함께 로그인한 유저 이름을 받아옴
   },
   getters: {
     /*
