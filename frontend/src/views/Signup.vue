@@ -23,6 +23,7 @@
 			<div>
 				<label for="passwordConfirm">비밀번호 확인 </label>
 				<input type="password" id="passwordConfirm" v-model="passwordConfirm" />
+				<div v-if="!passwordCheck"> 비밀번호가 동일하지 않습니다. </div>
 			</div>
       <br>
 			<button type="submit">가입하기</button>
@@ -47,14 +48,13 @@ export default {
 	},
 
 	methods: {
-		async submitForm() {
+	  async submitForm() {
       // 전달할 데이터
       const userData = {
         name: this.name,
         id: this.id,
         email: this.email,
         password: this.password,
-        passwordConfirm: this.passwordConfirm,
       }
 
       const response = await registerUser(userData);
@@ -65,11 +65,18 @@ export default {
       else {
         alert(response.data)
       }
-			console.log('sign up!');
+	  console.log('회원가입이 완료되었습니다.');
+	  },
 
-      // 가입 후 폼 초기화
+	  passwordCheck () { 
+		if (this.signup.password === this.passwordCheck) {
+			this.passwordCheckFlag = true 
+		  } 
+		else { 
+			this.passwordCheckFlag = false
+		  }
+	  }
 
-		},
 
 	},
 };
