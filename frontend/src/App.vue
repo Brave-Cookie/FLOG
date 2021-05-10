@@ -1,24 +1,19 @@
 <template>
-
-  <!-- 아래서 불러온 컴포넌트 별명대로 쓰면됨. -->
-  <Header />
-  <br>
-
-  <div class='container'>
-    <router-view></router-view>
+  <div id="nav">
+      <!-- 아래서 불러온 컴포넌트 별명대로 쓰면됨. -->
+    <Header />
+    <br>
+  <router-view>
+  </router-view>
   </div>
-    
+
 </template>
 
-
 <script>
-// 헤더 컴포넌트를 불러온다
-import Header from "./components/header.vue";
-
+// 컴포넌트 등록
+import Header from '@/components/Header.vue';
 export default {
-  // 이 폴더의 별명 지정(필수아님)
   name: 'App',
-  // 추가로 참조할 컴포넌트 추가
   components: {
     Header,
   }
@@ -26,8 +21,22 @@ export default {
 </script>
 
 <style>
-.container{
-  border :1px solid black;
-  margin:0 4rem 0 4rem;
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
 }
+
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #7b68ee;
+}
+
 </style>

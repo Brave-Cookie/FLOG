@@ -1,7 +1,11 @@
 <template>
-    <div class='h_div'>헤더</div>
-
-    
+    <div id='header'> 
+        <div id='menuWrap'>
+        <router-link to="/">Home</router-link> |
+        <router-link to="/login">Login</router-link> |
+        <router-link to="/mypage">Mypage</router-link>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -10,13 +14,15 @@ export default {
 </script>
 
 <!-- scoped 형태로 클래스 선언하면 해당 컴포넌트 내에서만 사용가능  -->
-<style scoped>
-  .h_div{
-    text-align: center;
-    background-color: red;
+<style>
+  #header {
+    background-color: #b9bada;
     width:auto;
-    height:2rem;
-    margin-bottom:3rem;
+    height:3rem;
+  }
+
+  #menuWrap {
+    text-align: right;
+    margin-right:1rem;
   }
 </style>
-
