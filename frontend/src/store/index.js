@@ -2,11 +2,9 @@ import Vue from "vue"
 import Vuex from "vuex"
 import axios from "axios"
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
-// const resourceHost = "http://localhost:3000/api"
-
-export default new Veux.Store({
+export const store = new Vuex.Store({
   state: {
     accessToken: null,
   },
