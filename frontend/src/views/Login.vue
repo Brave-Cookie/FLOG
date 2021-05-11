@@ -26,9 +26,11 @@ export default {
       }
     },
     methods: {
-      onsubmit(user_id, user_pw){
+      onSubmit(user_id, user_pw){
+        console.log(user_id)
+        console.log(user_pw)
         // LOGIN action 실행
-        this.$store.dispatch("LOGIN", { user_id, user_pw })
+        this.$store.createStore().dispatch("LOGIN", { user_id, user_pw })
           .then(() => this.redirect())
       },
       redirect() {

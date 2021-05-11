@@ -32,6 +32,8 @@ export const store = createStore ({
      이후 상태변이를 기록
     */
     LOGIN({ commit }, { user_id, user_pw }) {
+      console.log('여기는 스토어 ', user_id)
+      console.log('여기는 스토어 ', user_pw)
       return axios
         .post('/api/auth/login', { user_id, user_pw })
         .then(({ data }) => commit("LOGIN", data))
