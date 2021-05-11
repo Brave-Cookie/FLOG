@@ -39,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', require('./routes/index'));
 
 // 테스트 화면 라우팅
-app.use('/', require('./test/test_route'));
+//app.use('/', require('./test/test_route'));
 
 // vue 라우터와 express 라우터를 연동
 //app.use(require('connect-history-api-fallback')());

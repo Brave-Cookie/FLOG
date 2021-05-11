@@ -7,8 +7,8 @@ exports.register = async (req, res, next) => {
         const req_ui = req.body ;
         // 사용할 user_info 테이블을 객체에 저장
         const table_ui = models.user_info;
-
-        // 테이블에서 프론트에서 넘어온 id에 해당하는 row를 찾음
+        
+        // 테이블에서 프론트에서 넘v어온 id에 해당하는 row를 찾음
         table_ui.findOne({where: {user_id : req_ui.user_id} }).then(
             (row) => {
                 // id가 중복된다면 (row가 존재한다면) 중복메시지 보냄
@@ -21,6 +21,7 @@ exports.register = async (req, res, next) => {
                 }
                 // 만약 중복 id가 없다면
                 else{
+
                     console.log('삽입 성공');
                     // DB에 삽입하기
                     table_ui.create({
@@ -51,10 +52,7 @@ exports.login = async (req, res, next) => {
         const table_ui = models.user_info;
         // 전송받은 데이터 꺼냄
         const req_data = req.body ;
-        console.log(req_data)
-       
-        // 
-        
+               
         table_ui.findOne({where: {user_id : req_data.user_id} }).then(
             (row) => {
                 if(row){
@@ -75,7 +73,7 @@ exports.login = async (req, res, next) => {
                                 user_id,
                                 user_name,
                                 user_email
-                            }, 
+                            },
                             jwt_key
                             );
 
