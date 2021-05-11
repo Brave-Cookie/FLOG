@@ -1,5 +1,5 @@
 const models  = require('../../models');
-
+const jwt = require("jsonwebtoken");
 // 
 exports.register = async (req, res, next) => {
     try{
@@ -62,8 +62,28 @@ exports.login = async (req, res, next) => {
                     // 3. 비번 맞음
                     if(row.user_pw == req_data.user_pw){
                         console.log("로그인 성공")
+                        //-------------------------
+                        const jwt_key = require('../config/config.json').JWT_SECRET;
+                        console.log(jwt_key)
+
+                        const user_id = row.user_id;
+                        const user_name = row.user_name;
+                        const user_email = row.user_email
+
+                        var mytoken = jwt.sign(
+                            {
+                                user_id,
+                                user_name,
+                                user_email
+                            }, 
+                            jwt_key
+                            );
+
+                        console.log(mytoken)
+                        //-------------------------
                         return res.status(200).json({
-                            message : '로그인성공'
+                            message : '로그인성공',
+                            mytoken
                             })
                     }
                     // 2. 비번 틀림
@@ -96,11 +116,6 @@ exports.login = async (req, res, next) => {
     }
 
     
-
-    // id 확인
-
-
-
 
 
     /*
