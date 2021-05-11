@@ -1,11 +1,13 @@
 
-// 함수를 기능별로 분리
+// 함수를 기능별로 분리하는 파일 -> *.controller.js
 
 // models 폴더에서 js로 작성된 모델을 모두 참조
 const models  = require('../../models');
 
 
-// 
+// req는 프론트에서 넘어오는 '요청'
+// res는 백엔드에서 프론트로 넘겨줄 '응답'
+// exports로 밖으로 '내보내기'를 해줘야 다른 폴더에서 참조해서 사용가능
 exports.chk_DB = (req, res, next) => {
 
     // 1. models 폴더에서 test_table을 몽땅 가져온다.
@@ -27,14 +29,4 @@ exports.chk_DB = (req, res, next) => {
             });
         }
       )
-  
-      /*
-      console.log('요청 왔어요!')
-          
-      // 응답으로 context를 보낸다
-      res.status(200).json(
-        {
-          t : 1
-        });
-        */
 }
