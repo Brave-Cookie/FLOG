@@ -93,7 +93,7 @@ exports.login = async (req, res, next) => {
                             code : 'login_2',
                             message : '비밀번호 틀립니다'
                             })
-                    } 1
+                    } 
                 }   
                 // 1. 가입되지 않은 ID
                 else{
@@ -103,8 +103,6 @@ exports.login = async (req, res, next) => {
                         message : '가입되지 않은 ID'
                         })
                 }
-               
-                
             }
         )
 
@@ -113,16 +111,5 @@ exports.login = async (req, res, next) => {
         res.status(400).json({
             message : '/login 에서 에러'
         });
-    }
-
-    
-
-
-    /*
-
-    // jwt 시크릿 키 추출
-    const jwt_key = require('../../config/config.json').JWT_SECRET;
-    */
-    
-    
+    }   
 }
