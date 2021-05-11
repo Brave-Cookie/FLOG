@@ -60,6 +60,8 @@ export default {
 
       const response = await registerUser(userData);
 
+      console.log(response.data.code);
+
       if(response.status == 200){
         alert('Hello World!');
         this.$router.push('/login');

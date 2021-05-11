@@ -13,19 +13,21 @@ exports.register = async (req, res, next) => {
             (row) => {
                 // id가 중복된다면 (row가 존재한다면) 중복메시지 보냄
                 if(row){
-                    return res.status(204).json({
+                    console.log('id 중복');
+                    return res.status(202).json({
                         code : 'resgister_1' ,
                         message : '중복된 ID 있음'
                     });
                 }
                 // 만약 중복 id가 없다면
                 else{
+                    console.log('삽입 성공');
                     // DB에 삽입하기
                     tabe_ui.create({
                         user_id : req_ui.user_id,
                         user_pw : req_ui.user_pw,
                         user_email : req_ui.user_email,
-                        user_name : req_ui.user_name
+                        user_name : req_ui.user_namez
                     })
                     // 그리고 삽입 성공 신호 200을 보낸다.
                     return res.status(200).json({message : '삽입성공'});
