@@ -21,15 +21,13 @@ exports.register = async (req, res, next) => {
                 }
                 // 만약 중복 id가 없다면
                 else{
-
-                    console.log('삽입 성공');
                     // DB에 삽입하기
                     table_ui.create({
                         user_id : req_ui.user_id,
                         user_pw : req_ui.user_pw,
                         user_email : req_ui.user_email,
-                        user_name : req_ui.user_namez
-                    })
+                        user_name : req_ui.user_name
+                    })  
                     // 그리고 삽입 성공 신호 200을 보낸다.
                     return res.status(200).json({message : '삽입성공'});
                 }
