@@ -1,15 +1,15 @@
 const models  = require('../../models');
-
+const jwt = require("jsonwebtoken");
 // 
 exports.register = async (req, res, next) => {
     try{
         // 프론트에서 넘어온 요청의 body에서 데이터를 꺼낸다
         const req_ui = req.body ;
         // 사용할 user_info 테이블을 객체에 저장
-        const tabe_ui = models.user_info;
+        const table_ui = models.user_info;
 
         // 테이블에서 프론트에서 넘어온 id에 해당하는 row를 찾음
-        tabe_ui.findOne({where: {user_id : req_ui.user_id} }).then(
+        table_ui.findOne({where: {user_id : req_ui.user_id} }).then(
             (row) => {
                 // id가 중복된다면 (row가 존재한다면) 중복메시지 보냄
                 if(row){
@@ -23,7 +23,7 @@ exports.register = async (req, res, next) => {
                 else{
                     console.log('삽입 성공');
                     // DB에 삽입하기
-                    tabe_ui.create({
+                    table_ui.create({
                         user_id : req_ui.user_id,
                         user_pw : req_ui.user_pw,
                         user_email : req_ui.user_email,
@@ -48,19 +48,61 @@ exports.login = async (req, res, next) => {
 
     try{
         // 사용할 테이블 저장
-        const tabe_ui = models.user_info;
+        const table_ui = models.user_info;
         // 전송받은 데이터 꺼냄
         const req_data = req.body ;
         console.log(req_data)
-
+       
         // 
-        tabe_ui.findOne({where: {user_id : req_data.user_id} }).then(
+        
+        table_ui.findOne({where: {user_id : req_data.user_id} }).then(
             (row) => {
+                if(row){
+                    console.log("가입된 ID")
+                    // 3. 비번 맞음
+                    if(row.user_pw == req_data.user_pw){
+                        console.log("로그인 성공")
+                        //-------------------------
+                        const jwt_key = require('../config/config.json').JWT_SECRET;
+                        console.log(jwt_key)
+
+                        const user_id = row.user_id;
+                        const user_name = row.user_name;
+                        const user_email = row.user_email
+
+                        var mytoken = jwt.sign(
+                            {
+                                user_id,
+                                user_name,
+                                user_email
+                            }, 
+                            jwt_key
+                            );
+
+                        console.log(mytoken)
+                        //-------------------------
+                        return res.status(200).json({
+                            message : '로그인성공',
+                            mytoken
+                            })
+                    }
+                    // 2. 비번 틀림
+                    else{
+                        console.log("로그인실패 비밀번호가 다릅니다")
+                        return res.status(202).json({
+                            code : 'login_2',
+                            message : '비밀번호 틀립니다'
+                            })
+                    } 
+                }   
                 // 1. 가입되지 않은 ID
-                
-                // 2. 비번 틀림
-                // 3. 비번 맞음
-                
+                else{
+                    console.log("가입되지않은 ID")
+                    return res.status(202).json({
+                        code : 'login_1',
+                        message : '가입되지 않은 ID'
+                        })
+                }
             }
         )
 
@@ -69,21 +111,5 @@ exports.login = async (req, res, next) => {
         res.status(400).json({
             message : '/login 에서 에러'
         });
-    }
-
-    
-
-    // id 확인
-
-
-
-
-
-    /*
-
-    // jwt 시크릿 키 추출
-    const jwt_key = require('../../config/config.json').JWT_SECRET;
-    */
-    
-    
+    }   
 }
