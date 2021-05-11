@@ -13,31 +13,39 @@
 </template>
 
 <script>
+import { useStore } from 'vuex'
+
+  function onSubmit(user_id, user_pw){
+    const store = useStore();
+    // LOGIN action 실행
+    store.dispatch("LOGIN", { user_id, user_pw })
+    .then(() => this.redirect())
+  }
 
 export default {
   // 이 폴더의 별명 지정(필수아님)
   name: 'Login',
-  
-    data() {
-      return {
-        user_id: "",
-        user_pw: "",
-        msg: "",
-      }
-    },
-    methods: {
-      onsubmit(user_id, user_pw){
-        // LOGIN action 실행
-        this.$store.dispatch("LOGIN", { user_id, user_pw })
-          .then(() => this.redirect())
-      },
-      redirect() {
-        // url이 블로그의 코드랑은 다른것 같아서 일단 파싱 안하고 로그인 성공후 마이페이지로 넘어가게함
-        // message가 필요한가?
 
-        // 경로가 mypage:id 처럼 접속한 사람 정보를 가지고 있는게 맞는거 같음
-        this.$router.push("/mypage")
-      }
+  data() {
+      return {
+      user_id: "",
+      user_pw: "",
+      msg: "",
+    }
+  },
+
+  setup() {
+
+  },
+    methods: {
+      onSubmit(user_id, user_pw){
+        const store = useStore()
+        // LOGIN action 실행
+        store.dispatch("LOGIN", { user_id, user_pw })
+        //this.$store.dispatch("LOGIN", { user_id, user_pw })
+        //  .then(() => this.redirect())
+      },
+      
       /*onSubmit(user_id, user_pw) {
         // LOGIN 액션 실행
         this.$store
