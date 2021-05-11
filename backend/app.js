@@ -14,13 +14,13 @@ var app = express();
 
 // ------------------------------------------------------( 폴더 설정)------------------------------------------------------
 
-/* ejs 사용할때. api서버로 사용하기때문에 안쓴다.
+/* ejs 사용할때. api서버로 사용하기때문에 안쓴다.*/
 
-// veiws 기능 폴더를 'veiws' 이름을 가진 폴더로 지정.
-app.set('views', path.join(__dirname, 'views'));
+// veiws 기능 폴더를 'test' 이름을 가진 폴더로 지정.
+app.set('views', path.join(__dirname, 'test'));
 // view engine을 ejs로 지정
 app.set('view engine', 'ejs');
-*/
+
 
 // ------------------------------------------------------( 미들웨어 등록 )------------------------------------------------------
 
@@ -39,13 +39,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // api 라우터에 index.js 매핑
 app.use('/api', require('./routes/index'));
 
-
-/* ejs 사용할때. vue와 연동 후 필요없음
-app.use('/', require('./routes/r_index'));
-app.use('/next', require('./routes/r_next'));
-app.use('/check_DB', require('./routes/r_chk_DB'));
-app.use('/run_py', require('./routes/r_run_py'));
-*/
+// 테스트 화면 라우팅
+app.use('/', require('./test/test_route'));
 
 // vue 라우터와 express 라우터를 연동
 //app.use(require('connect-history-api-fallback')());
