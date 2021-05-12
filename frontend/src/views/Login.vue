@@ -32,7 +32,11 @@ export default {
       onSubmit: function(user_id, user_pw){
         // LOGIN action 실행
         this.$store.dispatch("LOGIN", { user_id, user_pw })
-          .then(() => this.redirect())
+          .then(
+            () => {
+              this.redirect()
+              }
+            )
           .catch(({ message }) => (this.msg = message))
       },
       redirect() {
