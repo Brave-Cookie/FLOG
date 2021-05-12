@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id='content'>
     <h2>Login</h2>
     <form @submit.prevent="onSubmit(user_id, user_pw)">
       <input type="text" v-model="user_id" placeholder="ID" />
@@ -15,6 +15,7 @@
 
 
 <script>
+
 export default {
   // 이 폴더의 별명 지정(필수아님)
   name: 'Login',
@@ -27,15 +28,11 @@ export default {
     }
   },
 
-  setup() {
-    
-  },
     methods: {
       onSubmit(user_id, user_pw){
         // LOGIN action 실행
-        store.dispatch("LOGIN", { user_id, user_pw })
-        //this.$store.dispatch("LOGIN", { user_id, user_pw })
-        //  .then(() => this.redirect())
+        this.$store.dispatch("LOGIN", { user_id, user_pw })
+          .then(() => this.redirect())
       },
       
       /*onSubmit(user_id, user_pw) {
@@ -60,3 +57,10 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+  #content {
+    text-align: center;
+  }
+
+</style>

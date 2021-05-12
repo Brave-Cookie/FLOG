@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id='content'>
     <h2>회원가입</h2>
     <!-- prevent는 새로고침 방지 -->
     <form id='content' @submit="checkForm" @submit.prevent="submitForm">		
@@ -26,7 +26,7 @@
 
 			</div>
       <br>
-			<button type="submit">가입하기</button>
+			<button type="submit" onclick="checkForm()">가입하기</button>
 		</form>
 
 
@@ -63,52 +63,58 @@ export default {
       console.log(response)
 
       if(response.status == 200){
-        alert('회원가입이 완료되었습니다.');
+        alert('회원가입이 완료되었습니다. 로그인 화면으로 이동합니다.');
         this.$router.push('/login');
       }
       else if(response.status == 202){
-        /*if(response.data(code)=='resgister_1'){
+        if(response.data.code=='resgister_1'){
           alert('중복된 아이디가 존재합니다.')
-        }*/
-        alert(response.data);
+        }
       }
 		
-	},
-	},
+	  },
 
-	checkForm: function (e) {
+  	checkForm() {
       this.errors = [];
 
       if (!this.user_name) {
         this.errors.push("이름을 입력하세요.");
-		alert("이름을 입력하세요.");
+		    alert("이름을 입력하세요.");
       }
       if (!this.user_email) {
         this.errors.push('이메일을 입력하세요.');
-		alert('이메일을 입력하세요.');
-    }
-		if (!this.user_pw) {
+		    alert('이메일을 입력하세요.');
+      }
+		  if (!this.user_pw) {
         this.errors.push('비밀번호를 입력하세요.');
-		alert('비밀번호를 입력하세요.');
+	    	alert('비밀번호를 입력하세요.');
       } else if (!this.checkPW(this.user_pw, this.pwConfirm)) {
         this.errors.push('비밀번호가 일치하지 않습니다.');
-		alert('비밀번호가 일치하지 않습니다.');
+		    alert('비밀번호가 일치하지 않습니다.');
       }
 
       if (!this.errors.length) {
         return true;
       }
-
-      e.preventDefault();
+      else return false;
+      //e.preventDefault();
     },
 
-	checkPW: function (user_pw, pwConfirm) {
+	  checkPW(user_pw, pwConfirm) {
       return (user_pw==pwConfirm);
     }
+  },
 
 };
 </script>
 
 <style scoped>
+  #content {
+    text-align: center;
+  }
+
+  #content h2 {
+    text-align: center;
+  }
 
 </style>
