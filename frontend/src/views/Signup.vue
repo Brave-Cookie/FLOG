@@ -56,6 +56,7 @@ export default {
         user_id: this.user_id,
         user_email: this.user_email,
         user_pw: this.user_pw,
+        pwConfirm: this.pwConfirm,
       }
 
       const response = await registerUser(userData);
