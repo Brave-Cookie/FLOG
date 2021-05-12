@@ -19,7 +19,8 @@ export const store = new Vuex.Store({
 
     LOGOUT(state) {
       // 로그아웃 시에는 토큰을 null로 초기화해준다.
-      state.accessToken = null
+      state.accessToken = null;
+      delete localStorage.accessToken;
     },
   },
   actions: {
