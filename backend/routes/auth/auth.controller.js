@@ -67,14 +67,16 @@ exports.login = async (req, res, next) => {
                         const user_email = row.user_email
 
                         var accessToken = jwt.sign(
+                            
+                            // PAYLOAD
                             {
                                 user_id,
                                 user_name,
                                 user_email
                             },
+                            // SIGNATURE
                             jwt_key
                             );
-
                         console.log(accessToken)
                         //-------------------------
                         return res.status(200).json({

@@ -2,6 +2,7 @@ import Vue from "vue"
 import Vuex from "vuex"
 import axios from "axios"
 
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -16,7 +17,6 @@ export const store = new Vuex.Store({
       // payload라고 하는 추가 인자임
       state.accessToken = accessToken;
       localStorage.accessToken = accessToken;
-
     },
 
     LOGOUT(state) {
@@ -32,7 +32,6 @@ export const store = new Vuex.Store({
       return axios
         .post('/api/auth/login', { user_id, user_pw })
         .then(({ data }) => {
-          console.log(data)
           commit("LOGIN", data)
         })
     },
