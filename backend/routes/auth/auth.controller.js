@@ -59,7 +59,7 @@ exports.login = async (req, res, next) => {
                     if(row.user_pw == req_data.user_pw){
                         console.log("로그인 성공")
                         //-------------------------
-                        const jwt_key = require('../config/config.json').JWT_SECRET;
+                        const jwt_key = require('../../config/config.json').JWT_SECRET;
                         console.log(jwt_key)
 
                         const user_id = row.user_id;
