@@ -32,7 +32,6 @@ export default {
   },
     methods: {
       onSubmit(user_id, user_pw){
-        const store = useStore()
         // LOGIN action 실행
         store.dispatch("LOGIN", { user_id, user_pw })
         //this.$store.dispatch("LOGIN", { user_id, user_pw })

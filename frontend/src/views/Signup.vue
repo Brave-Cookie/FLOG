@@ -63,13 +63,16 @@ export default {
       console.log(response)
 
       if(response.status == 200){
-        alert('Hello World!');
+        alert('회원가입이 완료되었습니다.');
         this.$router.push('/login');
       }
-      else {
-        alert(response.data)
+      else if(response.status == 202){
+        /*if(response.data(code)=='resgister_1'){
+          alert('중복된 아이디가 존재합니다.')
+        }*/
+        alert(response.data);
       }
-		alert('회원가입이 완료되었습니다.');
+		
 	},
 	},
 
