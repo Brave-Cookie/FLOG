@@ -8,14 +8,6 @@ import Vue from 'vue'
 
 Vue.use(VueRouter);
 
-const requireAuth = (to, from, next) => {
-  const isAuth = false //localStorage.getItem('token')
-  isAuth ? next() : next('/')
-  if (isAuth==false) {
-    alert('로그인이 필요한 서비스입니다.')
-  }
-}
-
 const router = new VueRouter({
   mode: "history",
   routes: [
@@ -44,15 +36,14 @@ const router = new VueRouter({
       name: 'Mypage',
       component: Mypage,
       // 인증 후에만 접근할 수 있음
-       beforeEnter: [requireAuth]
-      // 메타 필드
-      // meta: { requiresAuth: true }
+       beforeEnter: (to, from, next) => {
+        const isAuth = false //localStorage.getItem('token')
+        isAuth ? next() : next('/')
+        if (isAuth==false) {
+          alert('로그인이 필요한 서비스입니다.')
+        }
+      }
     }
-  
-    /*
-      // dynamic segments start with a colon
-    { path: '/users/:id', component: User }, // 유저 이름을 동적으로 url에 사용, :id 부분에 id가 들어감
-    */
   ]
 });
 
