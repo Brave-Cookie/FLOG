@@ -66,7 +66,7 @@ exports.login = async (req, res, next) => {
                         const user_name = row.user_name;
                         const user_email = row.user_email
 
-                        var mytoken = jwt.sign(
+                        var accessToken = jwt.sign(
                             {
                                 user_id,
                                 user_name,
@@ -75,16 +75,16 @@ exports.login = async (req, res, next) => {
                             jwt_key
                             );
 
-                        console.log(mytoken)
+                        console.log(accessToken)
                         //-------------------------
                         return res.status(200).json({
                             message : '로그인성공',
-                            mytoken
+                            accessToken
                             })
                     }
                     // 2. 비번 틀림
                     else{
-                        console.log("로그인실패 비밀번호가 다릅니다")
+                        console.log("로그인실패 : 비밀번호가 다릅니다")
                         return res.status(202).json({
                             code : 'login_2',
                             message : '비밀번호 틀립니다'
@@ -93,7 +93,7 @@ exports.login = async (req, res, next) => {
                 }   
                 // 1. 가입되지 않은 ID
                 else{
-                    console.log("가입되지않은 ID")
+                    console.log("로그인 실패 : 가입되지않은 ID")
                     return res.status(202).json({
                         code : 'login_1',
                         message : '가입되지 않은 ID'
