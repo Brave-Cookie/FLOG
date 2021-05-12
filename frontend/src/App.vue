@@ -1,5 +1,5 @@
 <template>
-  <div id="nav">
+    <div id="nav">
       <!-- 아래서 불러온 컴포넌트 별명대로 쓰면됨. -->
     <Header />
     <br>
@@ -10,13 +10,13 @@
 </template>
 
 <script>
-// 컴포넌트 등록
-import Header from '@/components/Header.vue';
+import Header from './components/Header.vue'
+
 export default {
-  name: 'App',
+  name: 'app',
   components: {
-    Header,
-  },
+    Header
+  }
 }
 </script>
 
