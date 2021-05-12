@@ -15,14 +15,6 @@
 
 
 <script>
-import { useStore } from 'vuex'
-
-  function onSubmit(user_id, user_pw){
-    const store = useStore();
-    // LOGIN action 실행
-    store.dispatch("LOGIN", { user_id, user_pw })
-    .then(() => this.redirect())
-  }
 
 export default {
   // 이 폴더의 별명 지정(필수아님)
@@ -41,7 +33,6 @@ export default {
   },
     methods: {
       onSubmit(user_id, user_pw){
-        const store = useStore()
         // LOGIN action 실행
         store.dispatch("LOGIN", { user_id, user_pw })
         //this.$store.dispatch("LOGIN", { user_id, user_pw })
