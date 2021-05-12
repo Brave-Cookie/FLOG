@@ -103,7 +103,7 @@ export default {
         return true;
       }
       else return false;
-      //e.preventDefault();
+
     },
 
 	  checkPW(user_pw, pwConfirm) {
