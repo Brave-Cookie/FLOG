@@ -1,7 +1,9 @@
 <template>
-    <div id="nav">
-      <!-- 아래서 불러온 컴포넌트 별명대로 쓰면됨. -->
-    <Header />
+    <div id="app">
+      <div id="header">
+        <Header />
+        <!--<component :is="Header"></component>-->
+      </div>
     <br>
   <router-view>
   </router-view>
@@ -11,11 +13,18 @@
 
 <script>
 import Header from './components/Header.vue'
+import HeaderAuth from './components/HeaderAuth.vue'
 
 export default {
   name: 'app',
   components: {
-    Header
+    Header, 
+    HeaderAuth
+  },
+  methods: {
+    //changeHeader: function(HeaderAuth) {
+    //  this.Header = HeaderAuth;
+    //}
   }
 }
 </script>
@@ -30,12 +39,12 @@ export default {
 }
 
 
-#nav a {
+#header a {
   font-weight: bold;
   color: #2c3e50;
 }
 
-#nav a.router-link-exact-active {
+#header a.router-link-exact-active {
   color: #7b68ee;
 }
 
