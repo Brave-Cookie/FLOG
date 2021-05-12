@@ -23,6 +23,7 @@ export default {
 
   #menuWrap {
     text-align: right;
+    font-size: 20px;
     margin-right:1rem;
   }
 </style>
