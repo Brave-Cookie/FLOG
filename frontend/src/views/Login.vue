@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id='content'>
     <h2>Login</h2>
     <form @submit.prevent="onSubmit(user_id, user_pw)">
       <input type="text" v-model="user_id" placeholder="ID" />
@@ -57,3 +57,10 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+  #content {
+    text-align: center;
+  }
+
+</style>

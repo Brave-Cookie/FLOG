@@ -25,7 +25,7 @@
 
 <style scoped>
   #body {
-    
+    text-align: center;
   }
   #name {
     color: #6D43F3;
