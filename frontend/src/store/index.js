@@ -1,11 +1,10 @@
 import Vue from "vue"
 import Vuex from "vuex"
-// import { createStore, Store } from 'vuex';
 import axios from "axios"
 
 Vue.use(Vuex);
 
-export default new Veux.Store({
+export const store = new Vuex.Store({})({
   state: {
     accessToken: null,
     //user_name: null, // 엑세스 토큰과 함께 로그인한 유저 이름을 받아옴 -> 이게 맞나?
@@ -60,3 +59,5 @@ export default new Veux.Store({
     },
   },
 })
+
+export default store
