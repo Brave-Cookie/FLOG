@@ -14,7 +14,9 @@ export const store = new Vuex.Store({
     LOGIN(state, { accessToken }) {
       // { accessToken }: 백엔드에서 넘겨준 토큰인가봄
       // payload라고 하는 추가 인자임
-      state.accessToken = { accessToken }
+      state.accessToken = accessToken;
+      localStorage.accessToken = accessToken;
+
     },
 
     LOGOUT(state) {
@@ -30,10 +32,13 @@ export const store = new Vuex.Store({
       return axios
         .post('/api/auth/login', { user_id, user_pw })
         .then(({ data }) => {
-          commit("LOGIN", data)})
+          console.log(data)
+          commit("LOGIN", data)
+        })
     },
     LOGOUT({ commit }) {
       commit("LOGOUT")
     },
   },
 })
+

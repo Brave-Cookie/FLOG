@@ -37,7 +37,10 @@ const router = new VueRouter({
       component: Mypage,
       // 인증 후에만 접근할 수 있음
        beforeEnter: (to, from, next) => {
-        const isAuth = false //localStorage.getItem('token')
+        var isAuth = false 
+        if(localStorage.getItem('accessToken')){
+          isAuth = true
+        }
         isAuth ? next() : next('/')
         if (isAuth==false) {
           alert('로그인이 필요한 서비스입니다.')
