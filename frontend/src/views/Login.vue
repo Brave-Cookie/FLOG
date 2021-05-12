@@ -29,11 +29,15 @@ export default {
   },
 
     methods: {
-      onSubmit(user_id, user_pw){
+      onSubmit: function(user_id, user_pw){
         // LOGIN action 실행
         this.$store.dispatch("LOGIN", { user_id, user_pw })
           .then(() => this.redirect())
+          .catch(({ message }) => (this.msg = message))
       },
+      redirect() {
+        this.$router.push('/mypage')
+      }
       
       /*onSubmit(user_id, user_pw) {
         // LOGIN 액션 실행
