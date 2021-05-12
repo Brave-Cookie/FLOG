@@ -2,7 +2,7 @@
   <div id='content'>
     <h2>회원가입</h2>
     <!-- prevent는 새로고침 방지 -->
-    <form id='content' @submit="checkForm" @submit.prevent="submitForm">		
+    <form id='content' @submit.prevent="submitForm">		
       <div>
 				<label for="user_name">이름 </label>
         <!-- v-model: data 속성과 연결 -->
@@ -26,7 +26,7 @@
 
 			</div>
       <br>
-			<button type="submit" onclick="checkForm()">가입하기</button>
+			<button type="submit">가입하기</button>
 		</form>
 
 
@@ -58,7 +58,10 @@ export default {
         user_pw: this.user_pw,
         pwConfirm: this.pwConfirm,
       }
-
+      if (!this.checkForm()){
+        // 모든 데이터를 정상적으로 입력하지 않으면 실행하지 않음
+        return false;
+      }
       const response = await registerUser(userData);
 
       console.log(response)
@@ -81,17 +84,21 @@ export default {
       if (!this.user_name) {
         this.errors.push("이름을 입력하세요.");
 		    alert("이름을 입력하세요.");
+        return false;
       }
       if (!this.user_email) {
         this.errors.push('이메일을 입력하세요.');
 		    alert('이메일을 입력하세요.');
+        return false;
       }
 		  if (!this.user_pw) {
         this.errors.push('비밀번호를 입력하세요.');
 	    	alert('비밀번호를 입력하세요.');
+        return false;
       } else if (!this.checkPW(this.user_pw, this.pwConfirm)) {
         this.errors.push('비밀번호가 일치하지 않습니다.');
 		    alert('비밀번호가 일치하지 않습니다.');
+        return false;
       }
 
       if (!this.errors.length) {
