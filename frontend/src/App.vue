@@ -1,7 +1,8 @@
 <template>
     <div id="app">
       <div id="header">
-        <Header />
+        <component :is="getIsAuth() ? 'HeaderAuth' : 'Header'"></component> 
+
         <!--<component :is="Header"></component>-->
       </div>
     <br>
@@ -22,9 +23,15 @@ export default {
     HeaderAuth
   },
   methods: {
-    //changeHeader: function(HeaderAuth) {
-    //  this.Header = HeaderAuth;
-    //}
+    getIsAuth() {
+      if(localStorage.accessToken){
+        return 1;
+      }
+      else{
+        return 0;
+      }
+      
+    }
   }
 }
 </script>
