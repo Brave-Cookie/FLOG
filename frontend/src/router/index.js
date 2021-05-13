@@ -30,7 +30,7 @@ const router = new VueRouter({
       name: 'Mypage',
       component: Mypage,
       // 인증 후에만 접근할 수 있음
-       beforeEnter: (to, from, next) => {
+      beforeEnter: (to, from, next) => {
         var isAuth = false 
         if(localStorage.getItem('accessToken')){
           isAuth = true
@@ -43,6 +43,5 @@ const router = new VueRouter({
     }
   ]
 });
-
 
 export default router

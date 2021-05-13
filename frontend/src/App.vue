@@ -1,7 +1,7 @@
 <template>
     <div id="app">
       <div id="header">
-        <component :is="getIsAuth() ? 'HeaderAuth' : 'Header'"></component> 
+        <Header />
       </div>
     <br>
   <router-view>
@@ -12,24 +12,15 @@
 
 <script>
 import Header from './components/Header.vue'
-import HeaderAuth from './components/HeaderAuth.vue'
 
 export default {
   name: 'app',
   components: {
     Header, 
-    HeaderAuth
+
   },
   methods: {
-    getIsAuth() {
-      if(localStorage.accessToken){
-        return 1;
-      }
-      else{
-        return 0;
-      }
-      
-    }
+
   }
 }
 </script>
