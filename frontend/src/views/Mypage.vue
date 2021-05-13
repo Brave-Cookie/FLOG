@@ -2,6 +2,19 @@
   <div id="content">
     <h2>Mypage</h2>
     <header>'{{ user_name }}'님 환영합니다 :)</header>
+    <br>
+    
+    <div id="buttons">
+      <button @click="showModal = true" type="button">프로젝트 생성</button>
+        <!--<Modal v-if="showModal" @close="showModal = false" />-->
+      <button @click="attendMeetig()" type="button">회의 참여하기</button>
+    </div>
+
+
+    <div id="list">
+      <h3>나의 프로젝트</h3>
+      <hr color="#b9bada" noshade="noshade" size="1">
+    </div>
   </div>
 </template>
 
@@ -9,20 +22,29 @@
 <script>
 // jwt 해독하는 모듈
 import jwt_decode from 'jwt-decode';
+//import Modal from "./components/Modal";
 
 export default {
 	data() {
 		return {
-      user_name: ''
+      user_name: '',
+      getModal: false,
+      project_id: '',
+      showModal: false,
 		}; 
 	},
+
+  components: {
+    //Modal,
+  },
 
   methods: {
     getUserName() {
       const token = localStorage.accessToken;
 
       this.user_name = jwt_decode(token).user_name;
-    }
+    },
+
   },
 
   created() {
@@ -42,6 +64,13 @@ export default {
 <style scoped>
   #content {
     text-align: center;
+  }
+
+  #list {
+    text-align: left;
+    margin-left: 15rem;
+    margin-right: 15rem;
+    color: #2c3e50;
   }
 
 </style>
