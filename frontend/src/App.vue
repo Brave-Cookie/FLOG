@@ -2,8 +2,6 @@
     <div id="app">
       <div id="header">
         <component :is="getIsAuth() ? 'HeaderAuth' : 'Header'"></component> 
-
-        <!--<component :is="Header"></component>-->
       </div>
     <br>
   <router-view>

@@ -15,8 +15,10 @@ export default {
     data: {},
     methods: {
         onClickLogout() {
-            this.$store.dispatch("LOGOUT").
-              then(() => this.$router.push("/"));
+          this.$store.dispatch("LOGOUT").
+            then(() => this.$router.push("/"));
+
+          alert("로그아웃되었습니다. 홈으로 돌아갑니다.")
         }
     },
 }
