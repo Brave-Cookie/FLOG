@@ -33,6 +33,7 @@ export default {
     // 이 과정을 하나의 함수로 만들어서 따로 빼놔야할듯!!
     //this.user_name = jwt_decode(localStorage.accessToken).user_name;
     this.getUserName();
+    console.log(localStorage.accessToken)
   }
 
 }

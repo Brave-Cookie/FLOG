@@ -5,7 +5,7 @@
       <input type="text" v-model="user_id" placeholder="ID" />
       <input type="password" v-model="user_pw" placeholder="Password" />
       <input type="submit" value="Login" />
-      <p><i>{{msg}}</i></p>
+      <!--<p><i>{{msg}}</i></p>-->
       <br><br>
       <router-link to="/signup">회원가입</router-link>
     </form>
@@ -24,7 +24,7 @@ export default {
       return {
       user_id: "",
       user_pw: "",
-      msg: "",
+      code: "",
     }
   },
 
@@ -32,12 +32,11 @@ export default {
       onSubmit: function(user_id, user_pw){
         // LOGIN action 실행
         this.$store.dispatch("LOGIN", { user_id, user_pw })
-          .then(
-            () => {
+          .then(() => {
               this.redirect()
-              }
-            )
-          .catch(({ message }) => (this.msg = message))
+              })
+          .catch(({ code }) => (this.code = code))
+
       },
       redirect() {
         this.$router.push('/mypage')

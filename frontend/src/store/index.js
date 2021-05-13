@@ -27,9 +27,19 @@ export const store = new Vuex.Store({
     LOGIN({ commit }, { user_id, user_pw }) {
       return axios
         .post('/api/auth/login', { user_id, user_pw })
-        .then(({ data }) => {
-          commit("LOGIN", data)
-        })
+        //.then(({ data }) => {
+        //  commit("LOGIN", data)
+        //})
+        .then((response) => {if(response.status==202){
+          if(response.data.code=='login_1'){
+            alert('가입되지 않은 아이디입니다.')
+          } else if(response.data.code=='login_2'){
+            alert('비밀번호가 일치하지 않습니다.')
+          }
+          else{
+            commit("LOGIN",data)
+          }
+        }})
     },
     LOGOUT({ commit }) {
       commit("LOGOUT")
