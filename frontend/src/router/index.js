@@ -26,7 +26,7 @@ const router = new VueRouter({
       component: Signup
     },
     {
-      path: '/mypage',
+      path: '/mypage/:userId',
       name: 'Mypage',
       component: Mypage,
       // 인증 후에만 접근할 수 있음

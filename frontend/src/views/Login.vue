@@ -39,7 +39,8 @@ export default {
 
       },
       redirect() {
-        this.$router.push('/mypage')
+        //this.$router.push('/mypage')
+        this.$router.push({name: 'Mypage', params: {userId : this.user_id}});
       }
     },
 }

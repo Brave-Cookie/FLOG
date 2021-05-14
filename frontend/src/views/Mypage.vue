@@ -52,6 +52,7 @@ export default {
 	data() {
 		return {
       user_name: '',
+      user_id: '',
       
       project_name: '',
       meeting_code: '',
@@ -65,16 +66,16 @@ export default {
   },
 
   methods: {
-    getUserName() {
+    getUserInfo() {
       const token = localStorage.accessToken;
 
       this.user_name = jwt_decode(token).user_name;
+      this.user_id = jwt_decode(token).user_id;
     },
 
     createProject() {
       if(this.project_name.length > 0)
       {
-        //this.$emit("createProject", this.project_name);
         alert(this.project_name);
         // clear input
         this.project_name="";
@@ -89,7 +90,6 @@ export default {
     joinMeeting() {
       if(this.meeting_code.length > 0)
       {
-        //this.$emit("createProject", this.project_name);
         alert(this.meeting_code);
         this.meeting_code="";
         this.meetingModal=false;
@@ -104,7 +104,6 @@ export default {
       this.projectModal=false;
       this.meetingModal=false;
     },
-
   },
 
   created() {
@@ -114,7 +113,8 @@ export default {
     // 4. 해독한 payload에서 user_name만 추출
     // 이 과정을 하나의 함수로 만들어서 따로 빼놔야할듯!!
     //this.user_name = jwt_decode(localStorage.accessToken).user_name;
-    this.getUserName();
+    this.getUserInfo();
+    console.log(this.$route.params.userId)
   }
 
 }

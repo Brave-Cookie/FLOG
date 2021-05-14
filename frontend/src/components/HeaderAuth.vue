@@ -2,7 +2,8 @@
 <template>
     <div id='header'> 
         <div id='menuWrap'>
-        <router-link to="/mypage">Mypage</router-link> |
+        <!--<router-link to="mypage">Mypage</router-link>-->
+        <a @click="goMypage()">Mypage</a> |
         <a @click.prevent="onClickLogout()">Logout</a>
         </div>
     </div>
@@ -10,9 +11,13 @@
 
 <script>
 //import store from "../store"
+import jwt_decode from 'jwt-decode';
 export default {
-    data: {},
     methods: {
+        goMypage(){
+          let user_id = jwt_decode(token).user_id;
+          this.$router.push({name: 'Mypage', params: {userId : user_id}});
+        },
         onClickLogout() {
           this.$store.dispatch("LOGOUT").
             then(() => this.$router.push("/"));
