@@ -3,7 +3,6 @@
     <div id='header'> 
         <div id='menuWrap'>
         <router-link to="/mypage">Mypage</router-link> |
-        <router-link to="/">Home</router-link> |
         <a @click.prevent="onClickLogout()">Logout</a>
         </div>
     </div>
