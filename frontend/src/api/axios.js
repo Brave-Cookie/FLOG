@@ -8,4 +8,9 @@ function registerUser(userData) {
     return axios.post(url, userData);
 }
 
-export { registerUser }
+function createProject(user_id, project_name) {
+    const url = '/api/project/create';
+    return axios.post(url, { user_id, project_name });
+}
+
+export { registerUser, createProject }

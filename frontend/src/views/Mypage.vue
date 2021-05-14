@@ -47,6 +47,7 @@
 // jwt 해독하는 모듈
 import jwt_decode from 'jwt-decode';
 import Modal from "../components/Modal";
+import { createProject } from '../api/axios';
 
 export default {
 	data() {
@@ -76,7 +77,11 @@ export default {
     createProject() {
       if(this.project_name.length > 0)
       {
-        alert(this.project_name);
+        const res = createProject(user_id, project_name);
+        if (res.status == 200) 
+        {
+          alert('프로젝트가 생성되었습니다.');
+        }
         // clear input
         this.project_name="";
         this.projectModal=false;
