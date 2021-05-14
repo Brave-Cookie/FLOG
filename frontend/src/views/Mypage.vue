@@ -15,6 +15,7 @@
           </p>
           <template slot="footer">
             <button @click="createProject()">생성하기</button>
+            <button @click="closeModal()">창 닫기</button>
           </template>
 
         </Modal>
@@ -28,6 +29,7 @@
           </p>
           <template slot="footer">
             <button @click="joinMeeting()">참여하기</button>
+            <button @click="closeModal()">창 닫기</button>
           </template>
         </Modal>
     </div>
@@ -96,6 +98,11 @@ export default {
       {
         alert("코드를 입력해주세요.")
       }
+    },
+
+    closeModal() {
+      this.projectModal=false;
+      this.meetingModal=false;
     },
 
   },
