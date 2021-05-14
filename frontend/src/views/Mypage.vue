@@ -59,6 +59,8 @@ export default {
       meeting_code: '',
       projectModal: false,
       meetingModal: false,
+
+      project_list: [],
 		}; 
 	},
 
@@ -77,7 +79,7 @@ export default {
     createProject() {
       if(this.project_name.length > 0)
       {
-        const res = createProject(user_id, project_name);
+        const res = createProject(this.user_id, this.project_name);
         if (res.status == 200) 
         {
           alert('프로젝트가 생성되었습니다.');
@@ -119,7 +121,7 @@ export default {
     // 이 과정을 하나의 함수로 만들어서 따로 빼놔야할듯!!
     //this.user_name = jwt_decode(localStorage.accessToken).user_name;
     this.getUserInfo();
-    console.log(this.$route.params.userId)
+    //console.log(this.$route.params.userId)
   }
 
 }

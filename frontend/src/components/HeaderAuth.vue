@@ -15,7 +15,7 @@ import jwt_decode from 'jwt-decode';
 export default {
     methods: {
         goMypage(){
-          let user_id = jwt_decode(token).user_id;
+          let user_id = jwt_decode(localStorage.accessToken).user_id;
           this.$router.push({name: 'Mypage', params: {userId : user_id}});
         },
         onClickLogout() {
