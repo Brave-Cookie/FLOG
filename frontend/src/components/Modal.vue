@@ -1,20 +1,22 @@
 <template>
     <transition name="modal">
-        <div class="modal-mask">
+        <div class="modal-mask" @click.self="$emit('close')">
         <div class="modal-wrapper">
         <div class="modal-container">
             <div class="header">
-                <slot name="header">프로젝트 생성</slot>
+                <!-- slot 태그를 통해 하위컴포넌트(모달)에서는 틀만 정의하고
+                상위 컴포넌트(mypage)에서 화면에 보여질 데이터 정의 -->
+                <slot name="header"> (모달 이름) </slot>
             </div>
 
             <div class="modal-body">
-                <slot name="body">프로젝트의 이름을 입력해주세요.</slot>
+                <slot name="body"> (내용) </slot>
             </div>
 
             <div class="footer">
                 <slot name="footer">
                 <button class="modal-button" @click="$emit('close')">
-                    생성하기
+                    완료
                 </button>
                 </slot>
             </div>

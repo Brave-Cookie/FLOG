@@ -6,8 +6,25 @@
     
     <div id="buttons">
       <button @click="showModal = true" type="button">프로젝트 생성</button>
-        <!--<Modal v-if="showModal" @close="showModal = false" />-->
-      <button @click="attendMeetig()" type="button">회의 참여하기</button>
+        
+        <Modal v-if="showModal" @close="showModal = false">
+          <h4 slot="header">프로젝트 생성</h4>
+          <p slot="body">프로젝트의 이름을 입력해주세요.</p>
+
+          <div><input v-model="project_name"></div>
+
+          <template slot="footer">
+            <button @click="createProject">생성하기</button>
+          </template>
+
+        </Modal>
+
+      <button @click="showModal = true" type="button">회의 참여하기</button>
+        <!--<Modal v-if="showModal" @close="showModal = false">
+          <h4 slot="header">회의 참여하기</h4>
+          <p slot="body">회의 코드를 입력하세요.</p>
+          
+        </Modal>-->
     </div>
 
 
@@ -22,20 +39,20 @@
 <script>
 // jwt 해독하는 모듈
 import jwt_decode from 'jwt-decode';
-//import Modal from "./components/Modal";
+import Modal from "../components/Modal";
 
 export default {
 	data() {
 		return {
       user_name: '',
-      getModal: false,
-      project_id: '',
+      project_name: '',
+      meeting_code: '',
       showModal: false,
 		}; 
 	},
 
   components: {
-    //Modal,
+    Modal,
   },
 
   methods: {
@@ -44,6 +61,28 @@ export default {
 
       this.user_name = jwt_decode(token).user_name;
     },
+
+    createProject() {
+      if(this.project_name.length > 0)
+      {
+        //this.$emit("createProject", this.project_name);
+        alert(this.project_name);
+        // clear input
+        this.project_name="";
+      } 
+      else
+      {
+        alert("프로젝트 이름을 입력해주세요.")
+      }
+    },
+
+    joinMeeting() {
+      if(this.meeting_code)
+      {
+        this.$emit("joinMeeting", this.meeting_code);
+        this.meeting_code="";
+      }
+    }
 
   },
 
@@ -68,8 +107,8 @@ export default {
 
   #list {
     text-align: left;
-    margin-left: 15rem;
-    margin-right: 15rem;
+    margin-left: 14rem;
+    margin-right: 14rem;
     color: #2c3e50;
   }
 
