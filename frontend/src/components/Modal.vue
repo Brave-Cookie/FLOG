@@ -1,5 +1,5 @@
 <template>
-    <transition name="modal">
+    <transition name="modal" appear>
         <div class="modal-mask" @click.self="$emit('close')">
         <div class="modal-wrapper">
         <div class="modal-container">
@@ -13,13 +13,13 @@
                 <slot name="body"> (내용) </slot>
             </div>
 
-            <div class="footer">
+            <footer class="footer">
                 <slot name="footer">
                 <button class="modal-button" @click="$emit('close')">
-                    완료
+                    (닫기)
                 </button>
                 </slot>
-            </div>
+            </footer>
         </div>
         </div>
         </div>

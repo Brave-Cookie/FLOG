@@ -5,26 +5,31 @@
     <br>
     
     <div id="buttons">
-      <button @click="showModal = true" type="button">프로젝트 생성</button>
+      <button @click="projectModal = true" type="button">프로젝트 생성</button>
         
-        <Modal v-if="showModal" @close="showModal = false">
+        <Modal v-if="projectModal" @close="projectModal = false">
           <h4 slot="header">프로젝트 생성</h4>
-          <p slot="body">프로젝트의 이름을 입력해주세요.</p>
-
-          <div><input v-model="project_name"></div>
-
+          <p slot="body">
+            프로젝트의 이름을 입력해주세요.
+            <input type="text" v-model="project_name" />
+          </p>
           <template slot="footer">
-            <button @click="createProject">생성하기</button>
+            <button @click="createProject()">생성하기</button>
           </template>
 
         </Modal>
 
-      <button @click="showModal = true" type="button">회의 참여하기</button>
-        <!--<Modal v-if="showModal" @close="showModal = false">
+      <button @click="meetingModal = true" type="button">회의 참여하기</button>
+        <Modal v-if="meetingModal" @close="meetingModal = false">
           <h4 slot="header">회의 참여하기</h4>
-          <p slot="body">회의 코드를 입력하세요.</p>
-          
-        </Modal>-->
+          <p slot="body">
+            회의 코드를 입력하세요.
+            <input type="text" v-model="meeting_code" />
+          </p>
+          <template slot="footer">
+            <button @click="joinMeeting()">참여하기</button>
+          </template>
+        </Modal>
     </div>
 
 
@@ -45,9 +50,11 @@ export default {
 	data() {
 		return {
       user_name: '',
+      
       project_name: '',
       meeting_code: '',
-      showModal: false,
+      projectModal: false,
+      meetingModal: false,
 		}; 
 	},
 
@@ -69,6 +76,7 @@ export default {
         alert(this.project_name);
         // clear input
         this.project_name="";
+        this.projectModal=false;
       } 
       else
       {
@@ -77,12 +85,18 @@ export default {
     },
 
     joinMeeting() {
-      if(this.meeting_code)
+      if(this.meeting_code.length > 0)
       {
-        this.$emit("joinMeeting", this.meeting_code);
+        //this.$emit("createProject", this.project_name);
+        alert(this.meeting_code);
         this.meeting_code="";
+        this.meetingModal=false;
+      } 
+      else
+      {
+        alert("코드를 입력해주세요.")
       }
-    }
+    },
 
   },
 
