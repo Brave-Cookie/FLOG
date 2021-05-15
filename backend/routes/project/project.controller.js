@@ -18,7 +18,7 @@ exports.create = async (req, res, next) => {
                     console.log('project_name 중복');
                     return res.status(202).json({
                         code : 'create_1' ,
-                        message : '중복된 회의이름 있음'
+                        message : '중복된 프로젝트이름 있음'
                     });
                 }
                 // 만약 중복 project_name이 없다면
@@ -27,7 +27,7 @@ exports.create = async (req, res, next) => {
                     table_pi.create({
                         project_name: req_pi.project_name
                     })
-                    
+
                     console.log('project_info DB삽입 성공')
                 
                     // 그리고 삽입 성공 신호 200을 보낸다.
