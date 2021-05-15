@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('user_project', {
+  return sequelize.define('user_project', 
+  {
     user_id: {
       type: DataTypes.STRING(20),
       allowNull: false,
@@ -17,7 +18,9 @@ module.exports = function(sequelize, DataTypes) {
         key: 'project_id'
       }
     }
-  }, {
+  },
+  
+  {
     sequelize,
     tableName: 'user_project',
     timestamps: false,
@@ -37,5 +40,7 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
     ]
-  });
+  },
+  { timestamps: false },
+  );
 };

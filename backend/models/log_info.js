@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     log_time: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING(10),
       allowNull: false
     },
     log_feeling: {
