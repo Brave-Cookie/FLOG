@@ -27,6 +27,7 @@ exports.create = async (req, res, next) => {
                     table_pi.create({
                         project_name: req_pi.project_name
                     })
+                    
                     console.log('project_info DB삽입 성공')
                 
                     // 그리고 삽입 성공 신호 200을 보낸다.
