@@ -14,7 +14,7 @@
             <input type="text" v-model="project_name" />
           </p>
           <template slot="footer">
-            <button @click="createProject()">생성하기</button>
+            <button @click="registProject()">생성하기</button>
             <button @click="closeModal()">창 닫기</button>
           </template>
 
@@ -76,7 +76,7 @@ export default {
       this.user_id = jwt_decode(token).user_id;
     },
 
-    createProject() {
+    registProject() {
       if(this.project_name.length > 0)
       {
         const res = createProject(this.user_id, this.project_name);
