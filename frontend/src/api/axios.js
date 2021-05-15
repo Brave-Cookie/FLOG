@@ -13,4 +13,9 @@ function createProject(user_id, project_name) {
     return axios.post(url, { user_id, project_name });
 }
 
-export { registerUser, createProject }
+function getProject() {
+    const url = '/api/list/:user-id';
+    return axios.get(url)
+}
+
+export { registerUser, createProject, getProject }

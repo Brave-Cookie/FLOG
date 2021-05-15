@@ -38,6 +38,12 @@
     <div id="list">
       <h3>나의 프로젝트</h3>
       <hr color="#b9bada" noshade="noshade" size="1">
+
+      <ul id="project_list">
+        <li id="prject_item" v-for="project in project_list" v-bind:key="project">
+          {{ project.name }}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -47,7 +53,7 @@
 // jwt 해독하는 모듈
 import jwt_decode from 'jwt-decode';
 import Modal from "../components/Modal";
-import { createProject } from '../api/axios';
+import { createProject, getProject } from '../api/axios';
 
 export default {
 	data() {
@@ -60,7 +66,10 @@ export default {
       projectModal: false,
       meetingModal: false,
 
-      project_list: [],
+      project_list: [
+        { name: 'test', id:'0'}
+      ],
+
 		}; 
 	},
 
@@ -111,17 +120,24 @@ export default {
       this.projectModal=false;
       this.meetingModal=false;
     },
+
+    async getProjectList() {
+      // 비동기 필요한가?
+      const res = await getProject();
+      // 프로젝트가 없으면 없다고 띄우는것도 좋을듯
+      for(var i=0; i<res.data.list.length; i++){
+        // push(i)가 맞..나...?
+        this.project_list.push(i);
+      }
+    },
   },
 
   created() {
-    // 1. data()의 user_name 호출
-    // 2. localStorage.accessToken : 브라우저의 로컬스토리지에 저장된 암호화된 accessToken을 불러옴
-    // 3. 그 토큰을 jwt-decode 모듈로 해독 --> { user_id: "test", user_name: "test", user_email: "test", iat: 1620816476 } iat는 무시.
-    // 4. 해독한 payload에서 user_name만 추출
-    // 이 과정을 하나의 함수로 만들어서 따로 빼놔야할듯!!
-    //this.user_name = jwt_decode(localStorage.accessToken).user_name;
+    // localstorage.accessToken에서 해독 
+    //--> { user_id: "test", user_name: "test", user_email: "test", iat: 1620816476 } iat는 무시
     this.getUserInfo();
-    //console.log(this.$route.params.userId)
+    
+    
   }
 
 }
@@ -138,6 +154,10 @@ export default {
     margin-left: 14rem;
     margin-right: 14rem;
     color: #2c3e50;
+  }
+
+  #project_list {
+    font-size: medium;
   }
 
 </style>
