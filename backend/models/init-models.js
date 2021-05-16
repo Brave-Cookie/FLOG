@@ -18,12 +18,18 @@ function initModels(sequelize) {
   var user_info = _user_info(sequelize, DataTypes);
   var user_project = _user_project(sequelize, DataTypes);
 
+  meeting_info.belongsToMany(project_info, { as: 'projects', through: project_meeting, foreignKey: "meeting_id", otherKey: "project_id" });
+  meeting_info.belongsToMany(user_info, { as: 'users', through: log_info, foreignKey: "meeting_id", otherKey: "user_id" });
+  project_info.belongsToMany(meeting_info, { as: 'meetings', through: project_meeting, foreignKey: "project_id", otherKey: "meeting_id" });
+  project_info.belongsToMany(user_info, { as: 'users', through: user_project, foreignKey: "project_id", otherKey: "user_id" });
+  user_info.belongsToMany(meeting_info, { as: 'meetings', through: log_info, foreignKey: "user_id", otherKey: "meeting_id" });
+  user_info.belongsToMany(project_info, { as: 'projects', through: user_project, foreignKey: "user_id", otherKey: "project_id" });
   log_info.belongsTo(meeting_info, { as: "meeting", foreignKey: "meeting_id"});
   meeting_info.hasMany(log_info, { as: "log_infos", foreignKey: "meeting_id"});
   project_meeting.belongsTo(meeting_info, { as: "meeting", foreignKey: "meeting_id"});
   meeting_info.hasMany(project_meeting, { as: "project_meetings", foreignKey: "meeting_id"});
   project_issue.belongsTo(project_info, { as: "project", foreignKey: "project_id"});
-  project_info.hasMany(project_issue, { as: "project_issues", foreignKey: "project_id"});
+  project_info.hasOne(project_issue, { as: "project_issue", foreignKey: "project_id"});
   project_meeting.belongsTo(project_info, { as: "project", foreignKey: "project_id"});
   project_info.hasMany(project_meeting, { as: "project_meetings", foreignKey: "project_id"});
   user_project.belongsTo(project_info, { as: "project", foreignKey: "project_id"});
