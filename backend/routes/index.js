@@ -7,5 +7,7 @@ const router = require('express').Router();
 router.use('/test', require('./test/index'))
 router.use('/auth', require('./auth/index'))
 
+router.use('/project',require('./project/index'))
+
 
 module.exports = router;

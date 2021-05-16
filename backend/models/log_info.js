@@ -4,6 +4,7 @@ module.exports = function(sequelize, DataTypes) {
     meeting_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true,
       references: {
         model: 'meeting_info',
         key: 'meeting_id'
@@ -12,13 +13,14 @@ module.exports = function(sequelize, DataTypes) {
     user_id: {
       type: DataTypes.STRING(20),
       allowNull: false,
+      primaryKey: true,
       references: {
         model: 'user_info',
         key: 'user_id'
       }
     },
     log_time: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING(10),
       allowNull: false
     },
     log_feeling: {
@@ -34,6 +36,15 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'log_info',
     timestamps: false,
     indexes: [
+      {
+        name: "PRIMARY",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "meeting_id" },
+          { name: "user_id" },
+        ]
+      },
       {
         name: "li_mi_idx",
         using: "BTREE",

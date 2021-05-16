@@ -4,6 +4,7 @@ module.exports = function(sequelize, DataTypes) {
     user_id: {
       type: DataTypes.STRING(20),
       allowNull: false,
+      primaryKey: true,
       references: {
         model: 'user_info',
         key: 'user_id'
@@ -12,6 +13,7 @@ module.exports = function(sequelize, DataTypes) {
     project_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true,
       references: {
         model: 'project_info',
         key: 'project_id'
@@ -22,6 +24,15 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'user_project',
     timestamps: false,
     indexes: [
+      {
+        name: "PRIMARY",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "project_id" },
+          { name: "user_id" },
+        ]
+      },
       {
         name: "up_ui_idx",
         using: "BTREE",
