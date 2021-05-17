@@ -2,7 +2,6 @@
 <template>
     <div id='header'> 
         <div id='menuWrap'>
-        <!--<router-link to="mypage">Mypage</router-link>-->
         <a @click="goMypage()">Mypage</a> |
         <a @click.prevent="onClickLogout()">Logout</a>
         </div>
