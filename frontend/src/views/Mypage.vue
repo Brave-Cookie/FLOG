@@ -42,7 +42,7 @@
       <ul id="project_list">
         <li id="prject_item" v-for="(project, id) in project_list" v-bind:key="id">
           <!--{{ project.name }}-->
-          <router-link :to='`/${user_id}/project/${id}`'>
+          <router-link :to='`/${user_id}/project/${id}/log`'>
             {{ project.name }}
           </router-link>
         </li>

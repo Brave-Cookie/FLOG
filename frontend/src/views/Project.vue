@@ -1,7 +1,10 @@
 <template>
-    <div id="content">
+    <div>
         <Sidebar />
-        <h2> project {{ $route.params.projectId }}</h2>
+        <div id="content">
+            <h2> project {{ $route.params.projectId }}</h2>
+            <router-view id="view"></router-view>
+        </div>
     </div>
 </template>
 
@@ -19,5 +22,11 @@ export default {
 
 
 <style scoped>
-
+#content {
+    margin-left: 180px;
+    background-color: azure;
+}
+#view {
+    background-color: cadetblue;
+}
 </style>
