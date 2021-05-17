@@ -3,7 +3,6 @@
       <div id="header">
         <component :is="getIsAuth() ? 'HeaderAuth' : 'Header'"></component> 
       </div>
-    <br>
   <router-view>
   </router-view>
   </div>

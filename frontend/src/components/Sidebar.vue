@@ -59,6 +59,7 @@ export default {
 
 #menu a {
     color: #293046;
+    text-decoration: none;
 }
 
 </style>
