@@ -16,22 +16,41 @@ router.get('/console', function(req, res, next) {
 
     // --------------------- 콘솔로 테스트할 코드 쓰는곳 ---------------------
     
-    const table_pi = models.project_info;
+     const user_id = 'test'
+        var table_up = models.user_project;
+        var table_pi = models.project_info;
+        var project_dict = {}
+        // 현재 프로젝트의 마지막 id 찾기
+        table_up.findAll({
+            raw : true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
+            attributes: ['project_id'], // p_i 속성만 고르겠다~
+            where: {
+                user_id : user_id
+                    },
+        }).then(
+            (result) => {
+                for (i = 0; i < result.length; i++){
+                    table_pi.findOne({
+                        raw : true,
+                        where: { project_id: result[i].project_id }
+                    }).then(
+                        (row) => {
+                            console.log(row.project_id)
+                            console.log(row.project_name)
 
-    // 컬럼(열, 속성) 하나만 출력하기
-    table_pi.findAll({
-        raw : true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
-        attributes : ['project_id']
-    }).then(
-        // 결과 쿼리셋 생성
-        (result) => {
-            console.log(result);
-            // 마지막 행의 값 추출
-            var last_pi = result[result.length-1].project_id 
-            console.log(last_pi);
-        }
+                            project_dict[row.project_id] = row.project_name
+                            
+                        }   
+                    )
+
+                }
+               
+              
+            }
+           
     )
-
+     console.log(project_dict)
+      
     // ----------------------------------------------------------------------
 
 

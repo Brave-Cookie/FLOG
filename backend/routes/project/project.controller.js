@@ -39,3 +39,52 @@ exports.create = async (req, res, next) => {
         });
     }
 }
+
+exports.list = async (req, res, next) => {
+    try{
+        const user_id = req.params.user_id
+        var table_up = models.user_project;
+        var table_pi = models.project_info;
+        var project_dict = {}
+        // 현재 프로젝트의 마지막 id 찾기
+        table_up.findAll({
+            raw : true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
+           // attributes: ['project_id'], // p_i 속성만 고르겠다~
+            where: {
+                user_id : user_id
+                    },
+        }).then(
+            (result) => {
+               console.log(result)
+                for (i = 0; i < result.length; i++){
+                    table_pi.findOne({where: {project_id : result[i].project_id} }).then(
+                        (row) => {
+                            console.log(row.project_name)
+                            project_dict['result[i].project_id']='row.project_name'
+                        }   
+                    )
+
+                }
+               
+                console.log(project_dict)
+            }
+            
+        )
+      
+     } catch(err){   // 에러나면 로그 찍고 실패 신호 보냄
+        console.log(err);
+        res.status(400).json({
+            message : '/list 에서 에러'
+        });
+    }
+}
+
+
+
+
+
+
+
+
+
+
