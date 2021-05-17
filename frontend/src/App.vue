@@ -40,17 +40,18 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  margin: 0px;
+  color: #293046;
 }
 
 
 #header a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #FFFFB9;
 }
 
 #header a.router-link-exact-active {
-  color: #7b68ee;
+  color: #6D42F8;
 }
 
 </style>

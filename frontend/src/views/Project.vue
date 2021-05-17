@@ -1,12 +1,19 @@
 <template>
     <div id="content">
-        <h2> project</h2>
+        <Sidebar />
+        <h2> project {{ $route.params.projectId }}</h2>
     </div>
 </template>
 
 
 <script>
+import Sidebar from '../components/Sidebar.vue';
 
+export default {
+    components: {
+        Sidebar,
+    },
+}
 
 </script>
 

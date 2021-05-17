@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import Mypage from '../views/Mypage.vue'
 import Project from '../views/Project.vue'
+import Issue from '../views/Issue.vue'
 import Vue from 'vue'
 
 Vue.use(VueRouter);
@@ -46,7 +47,13 @@ const router = new VueRouter({
       path: '/:userId/project/:projectId',
       name: 'Project',
       component: Project,
-      children: [],
+      children: [
+        {
+          path: 'issue',
+          name: 'Issue',
+          component: Issue,
+        }
+      ],
     }
 
   ]
