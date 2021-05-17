@@ -67,7 +67,7 @@ export default {
       meetingModal: false,
 
       project_list: [
-        { name: 'test', id:'0'}
+        //{ name: 'test', id:'0'}
       ],
 
 		}; 
@@ -85,10 +85,11 @@ export default {
       this.user_id = jwt_decode(token).user_id;
     },
 
-    registProject() {
+    async registProject() {
       if(this.project_name.length > 0)
       {
-        const res = createProject(this.user_id, this.project_name);
+        // 서버에 요청을 보내는 경우는 모두 비동기 처리해주기 
+        const res = await createProject(this.user_id, this.project_name);
         if (res.status == 200) 
         {
           alert('프로젝트가 생성되었습니다.');
