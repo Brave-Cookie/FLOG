@@ -128,6 +128,7 @@ export default {
 
     async getProjectList() {
       const res = await getProject(this.user_id);
+      console.log(res.data)
       // 프로젝트가 없으면 없다고 띄우는것도 좋을듯
       for(var i=0; i<res.data.list.length; i++){
         // push(i)가 맞..나...?
