@@ -3,6 +3,7 @@
         <Sidebar />
         <div id="content">
             <h2> project {{ $route.params.projectId }}</h2>
+            <p>프로젝트 홈입니다.</p>
             <router-view id="view"></router-view>
         </div>
     </div>

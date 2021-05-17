@@ -1,11 +1,11 @@
 <template>
     <div id="left-sidebar">
-        <div id="title">{{ this.project_name }}</div>
+        <div id="title">{{ $route.params.projectId }}</div>
         <hr color="#D8D5EB" noshade="noshade" size="1">
         <ul id="menu">
-            <li><router-link to="log">회의LOG 관리</router-link></li><br>
-            <li><router-link to="issue">ISSUE 관리</router-link></li><br>
-            <li><router-link to="participant">참여자 관리</router-link></li>
+            <li><router-link :to="`/${$route.params.userId}/project/${$route.params.projectId}/home`">회의LOG 관리</router-link></li><br>
+            <li><router-link :to="`/${$route.params.userId}/project/${$route.params.projectId}/home/issue`">ISSUE 관리</router-link></li><br>
+            <li><router-link :to="`/${$route.params.userId}/project/${$route.params.projectId}/home/participant`">참여자 관리</router-link></li>
         </ul>
     </div>
 </template>
@@ -16,7 +16,7 @@ export default {
     name: 'left_sidebar',
     data() {
         return {
-            project_name: "test Project",
+            project_name: "",
 
         };
     },
