@@ -14,7 +14,7 @@ function createProject(user_id, project_name) {
 }
 
 function getProject() {
-    const url = '/api/list/:user-id';
+    const url = '/api/project/list/:user-id';
     return axios.get(url)
 }
 

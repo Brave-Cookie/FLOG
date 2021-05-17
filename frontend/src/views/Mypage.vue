@@ -40,7 +40,7 @@
       <hr color="#b9bada" noshade="noshade" size="1">
 
       <ul id="project_list">
-        <li id="prject_item" v-for="project in project_list" v-bind:key="project">
+        <li id="prject_item" v-for="(project, id) in project_list" v-bind:key="id" @click="enterProject(project.name)">
           {{ project.name }}
         </li>
       </ul>
@@ -68,6 +68,7 @@ export default {
 
       project_list: [
         { name: 'test', id:'0'}
+        //'test'
       ],
 
 		}; 
@@ -85,10 +86,11 @@ export default {
       this.user_id = jwt_decode(token).user_id;
     },
 
-    registProject() {
+    async registProject() {
       if(this.project_name.length > 0)
       {
-        const res = createProject(this.user_id, this.project_name);
+        // 서버에 요청을 보내는 경우는 모두 비동기 처리해주기 
+        const res = await createProject(this.user_id, this.project_name);
         if (res.status == 200) 
         {
           alert('프로젝트가 생성되었습니다.');
@@ -122,7 +124,6 @@ export default {
     },
 
     async getProjectList() {
-      // 비동기 필요한가?
       const res = await getProject();
       // 프로젝트가 없으면 없다고 띄우는것도 좋을듯
       for(var i=0; i<res.data.list.length; i++){
@@ -130,14 +131,20 @@ export default {
         this.project_list.push(i);
       }
     },
+
+    enterProject(project_name) {
+      //let project_name = this.project_list.name;
+      console.log(project_name);
+      //this.$router.push({name: 'Project', params: {projectName : project_name}});
+      //this.$router.push("/project/:projectId");
+    }
   },
 
   created() {
     // localstorage.accessToken에서 해독 
     //--> { user_id: "test", user_name: "test", user_email: "test", iat: 1620816476 } iat는 무시
     this.getUserInfo();
-    
-    
+    //getProjectList();
   }
 
 }
