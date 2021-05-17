@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import Mypage from '../views/Mypage.vue'
 import Project from '../views/Project.vue'
+import Log from '../views/Log.vue'
 import Issue from '../views/Issue.vue'
 import Participant from '../views/Participant.vue'
 import Vue from 'vue'
@@ -45,13 +46,13 @@ const router = new VueRouter({
       },
     },
     {
-      path: '/:userId/project/:projectId/log',
-      name: 'Project',
+      path: '/:userId/project/:projectId/home',
       component: Project,
       children: [
         {
-          path: '/',
-          component: Project,
+          path: '',
+          name: 'Log',
+          component: Log,
         },
         {
           path: 'issue',
