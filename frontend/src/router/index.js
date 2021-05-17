@@ -4,9 +4,9 @@ import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import Mypage from '../views/Mypage.vue'
 import Project from '../views/Project.vue'
-import Log from '../views/Log.vue'
-import Issue from '../views/Issue.vue'
-import Participant from '../views/Participant.vue'
+import Log from '../views/project/Log.vue'
+import Issue from '../views/project/Issue.vue'
+import Participant from '../views/project/Participant.vue'
 import Vue from 'vue'
 
 Vue.use(VueRouter);
