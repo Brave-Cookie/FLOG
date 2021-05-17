@@ -42,7 +42,7 @@
       <ul id="project_list">
         <li id="prject_item" v-for="(project, id) in project_list" v-bind:key="id">
           <!--{{ project.name }}-->
-          <router-link :to='`/mypage/${user_id}/project/${id}`'>
+          <router-link :to='`/${user_id}/project/${id}`'>
             {{ project.name }}
           </router-link>
         </li>
@@ -134,12 +134,6 @@ export default {
         this.project_list.push(i);
       }
     },
-
-    enterProject(project_id) {
-      
-      this.$router.push({name: 'Mypage', params: {userId : this.user_id, projectId : project_id}});
-      //this.$router.push('/mypage/' + this.user_id+'/project/'+project_id);
-    }
   },
 
   created() {
@@ -147,7 +141,6 @@ export default {
     //--> { user_id: "test", user_name: "test", user_email: "test", iat: 1620816476 } iat는 무시
     // 함수 쓸때 제발 this. 으로 시작하기
     this.getUserInfo();
-    console.log(this.user_id);
     this.getProjectList();
   }
 

@@ -41,15 +41,13 @@ const router = new VueRouter({
           alert('로그인이 필요한 서비스입니다.')
         }
       },
-      children: [
-        {
-          // 중첩할때의 path에는 /로 시작 x (/project/:.. 이런식으로 하면 새로운 경로가 되어버림)
-          path: 'project/:projectId',
-          name: 'Project',
-          component: Project,
-        }
-      ]
     },
+    {
+      path: '/:userId/project/:projectId',
+      name: 'Project',
+      component: Project,
+      children: [],
+    }
 
   ]
 });
