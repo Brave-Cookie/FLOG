@@ -82,7 +82,28 @@ exports.list = async (req, res, next) => {
         }
 }
 
-
+exports.issue = async (req, res, next) => {
+    try{
+        const table_pi = models.project_issue;
+        const req_pi = req.body;
+        table_pi.findOne({where: {project_id : project_id} }).then(
+            (row) => {
+                    // DB에 삽입하기
+                    table_pi.create({
+                        project_id: req_pi.project_id,
+                        issue_content : req_pi.issue_content
+                    })  
+                    // 그리고 삽입 성공 신호 200을 보낸다.
+                    return res.status(200).json({message : '삽입성공'});
+                }
+        )
+        } catch(err){   // 에러나면 로그 찍고 실패 신호 보냄
+            console.log(err);
+            res.status(400).json({
+                message : '/issue 에서 에러'
+            });
+        }
+}
 
 
 
