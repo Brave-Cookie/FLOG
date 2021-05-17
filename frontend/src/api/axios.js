@@ -13,9 +13,14 @@ function createProject(user_id, project_name) {
     return axios.post(url, { user_id, project_name });
 }
 
-function getProject() {
-    const url = '/api/project/list/:user-id';
+function getProject(user_id) {
+    const url = '/api/project/list/' + user_id;
     return axios.get(url)
 }
 
-export { registerUser, createProject, getProject }
+function getProjectName() {
+    const url = '/api/project/list/:project-id';
+    return axios.get(url);
+}
+
+export { registerUser, createProject, getProject, getProjectName }

@@ -40,7 +40,7 @@
       <hr color="#b9bada" noshade="noshade" size="1">
 
       <ul id="project_list">
-        <li id="prject_item" v-for="(project, id) in project_list" v-bind:key="id" @click="enterProject(project.name)">
+        <li id="prject_item" v-for="(project, id) in project_list" v-bind:key="id" @click="enterProject(project.id)">
           {{ project.name }}
         </li>
       </ul>
@@ -67,7 +67,7 @@ export default {
       meetingModal: false,
 
       project_list: [
-        { name: 'test', id:'0'}
+        { name: 'testPJ', id:'0'}
         //'test'
       ],
 
@@ -124,7 +124,7 @@ export default {
     },
 
     async getProjectList() {
-      const res = await getProject();
+      const res = await getProject(this.user_id);
       // 프로젝트가 없으면 없다고 띄우는것도 좋을듯
       for(var i=0; i<res.data.list.length; i++){
         // push(i)가 맞..나...?
@@ -132,19 +132,18 @@ export default {
       }
     },
 
-    enterProject(project_name) {
-      //let project_name = this.project_list.name;
-      console.log(project_name);
-      //this.$router.push({name: 'Project', params: {projectName : project_name}});
-      //this.$router.push("/project/:projectId");
+    enterProject(project_id) {
+      this.$router.push({name: 'Project', params: {projectId : project_id}});
+      //this.$router.push('/mypage/:userId/project');
     }
   },
 
   created() {
     // localstorage.accessToken에서 해독 
     //--> { user_id: "test", user_name: "test", user_email: "test", iat: 1620816476 } iat는 무시
+    // 함수 쓸때 제발 this. 으로 시작하기
     this.getUserInfo();
-    //getProjectList();
+    this.getProjectList();
   }
 
 }
