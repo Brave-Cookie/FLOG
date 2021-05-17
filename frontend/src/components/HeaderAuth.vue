@@ -2,7 +2,6 @@
 <template>
     <div id='header'> 
         <div id='menuWrap'>
-        <!--<router-link to="mypage">Mypage</router-link>-->
         <a @click="goMypage()">Mypage</a> |
         <a @click.prevent="onClickLogout()">Logout</a>
         </div>
@@ -31,13 +30,19 @@ export default {
 <!-- scoped 형태로 클래스 선언하면 해당 컴포넌트 내에서만 사용가능  -->
 <style>
   #header {
-    background-color: #b9bada;
+    background-color: #9172F6;
     width:auto;
     height:3rem;
+    color: #FFFFB9;
   }
 
   #menuWrap {
     text-align: right;
     margin-right:1rem;
   }
+
+  #menuWrap a.router-link-exact-active {
+  color: #6D42F8;
+  }
+  
 </style>

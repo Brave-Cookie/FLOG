@@ -3,6 +3,9 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import Mypage from '../views/Mypage.vue'
+import Project from '../views/Project.vue'
+import Issue from '../views/Issue.vue'
+import Participant from '../views/Participant.vue'
 import Vue from 'vue'
 
 Vue.use(VueRouter);
@@ -39,8 +42,31 @@ const router = new VueRouter({
         if (isAuth==false) {
           alert('로그인이 필요한 서비스입니다.')
         }
-      }
-    }
+      },
+    },
+    {
+      path: '/:userId/project/:projectId/log',
+      name: 'Project',
+      component: Project,
+      children: [
+        {
+          path: '/',
+          component: Project,
+        },
+        {
+          path: 'issue',
+          name: 'Issue',
+          component: Issue,
+        },
+        {
+          path: 'participant',
+          name: 'Participant',
+          component: Participant,
+        },
+      ]
+    },
+    
+
   ]
 });
 

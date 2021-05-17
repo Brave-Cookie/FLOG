@@ -40,8 +40,11 @@
       <hr color="#b9bada" noshade="noshade" size="1">
 
       <ul id="project_list">
-        <li id="prject_item" v-for="(project, id) in project_list" v-bind:key="id" @click="enterProject(project.id)">
-          {{ project.name }}
+        <li id="prject_item" v-for="(project, id) in project_list" v-bind:key="id">
+          <!--{{ project.name }}-->
+          <router-link :to='`/${user_id}/project/${id}/log`'>
+            {{ project.name }}
+          </router-link>
         </li>
       </ul>
     </div>
@@ -131,11 +134,6 @@ export default {
         this.project_list.push(i);
       }
     },
-
-    enterProject(project_id) {
-      this.$router.push({name: 'Project', params: {projectId : project_id}});
-      //this.$router.push('/mypage/:userId/project');
-    }
   },
 
   created() {
