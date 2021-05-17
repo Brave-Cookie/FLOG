@@ -39,13 +39,12 @@
       <h3>나의 프로젝트</h3>
       <hr color="#b9bada" noshade="noshade" size="1">
 
-      <ul id="project_list">
+      <ul id="project-list">
         <li id="prject_item" v-for="(project, id) in project_list" v-bind:key="id">
-          <!--{{ project.name }}-->
-          <router-link :to='`/${user_id}/project/${id}/log`'>
-            {{ project.name }}
+          <router-link :to='`/${user_id}/project/${project.project_id}/home`'>
+            {{ project.project_name }}
           </router-link>
-        </li>
+        </li><br>
       </ul>
     </div>
   </div>
@@ -69,11 +68,7 @@ export default {
       projectModal: false,
       meetingModal: false,
 
-      project_list: [
-        { name: 'testPJ', id:'0'}
-        //'test'
-      ],
-
+      project_list: [ ],
 		}; 
 	},
 
@@ -128,11 +123,9 @@ export default {
 
     async getProjectList() {
       const res = await getProject(this.user_id);
-      console.log(res.data)
-      // 프로젝트가 없으면 없다고 띄우는것도 좋을듯
+      console.log(res.data.list)
       for(var i=0; i<res.data.list.length; i++){
-        // push(i)가 맞..나...?
-        this.project_list.push(i);
+        this.project_list.push(res.data.list[i]);
       }
     },
   },
@@ -161,8 +154,13 @@ export default {
     color: #2c3e50;
   }
 
-  #project_list {
-    font-size: medium;
+  #project-list {
+    font-size: 18px;
+  }
+
+  #list a{
+    color: #293046;
+    text-decoration: none;
   }
 
 </style>
