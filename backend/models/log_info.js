@@ -3,21 +3,11 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('log_info', {
     meeting_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'meeting_info',
-        key: 'meeting_id'
-      }
+      allowNull: false
     },
     user_id: {
       type: DataTypes.STRING(20),
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'user_info',
-        key: 'user_id'
-      }
+      allowNull: false
     },
     log_time: {
       type: DataTypes.STRING(10),
@@ -30,6 +20,12 @@ module.exports = function(sequelize, DataTypes) {
     log_text: {
       type: DataTypes.STRING(100),
       allowNull: false
+    },
+    idx: {
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true
     }
   }, {
     sequelize,
@@ -41,22 +37,7 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "meeting_id" },
-          { name: "user_id" },
-        ]
-      },
-      {
-        name: "li_mi_idx",
-        using: "BTREE",
-        fields: [
-          { name: "meeting_id" },
-        ]
-      },
-      {
-        name: "li_ui_idx",
-        using: "BTREE",
-        fields: [
-          { name: "user_id" },
+          { name: "idx" },
         ]
       },
     ]

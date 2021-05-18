@@ -3,16 +3,17 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('project_issue', {
     project_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'project_info',
-        key: 'project_id'
-      }
+      allowNull: false
     },
     issue_content: {
       type: DataTypes.STRING(100),
       allowNull: false
+    },
+    idx: {
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true
     }
   }, {
     sequelize,
@@ -24,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "project_id" },
+          { name: "idx" },
         ]
       },
       {
