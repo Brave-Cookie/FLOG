@@ -1,0 +1,42 @@
+.App {
+  text-align: center;
+}
+
+.header {
+  background-color: #9172F6;
+  width: 100%;
+  display: flex;
+  color: #FFFFB9;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.content {
+  color: #2c3750;
+}
+
+.header-nav {
+  text-align: right;
+  color: #6D42F8;
+}
+
+.list {
+  text-align: left;
+  margin-left: 14rem;
+  margin-right: 14rem;
+
+}
