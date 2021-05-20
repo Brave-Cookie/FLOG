@@ -8,6 +8,7 @@ import { addIssue } from '../api/axios';
 async function addNewIssue(project_id, issue_content) {
     var res = await addIssue(project_id, issue_content);
     console.log(res);
+
     return res;
 }
 
@@ -15,6 +16,7 @@ function Issue(props) {
 
     const [user_id, set_userId] = useState(props.match.params.userId);
     const [project_id, set_projectId] = useState(props.match.params.projectId);
+    const [project_name, set_projectName] = useState(props.match.params.projectName);
     const [issue, set_issue] = useState("");
     const [issues, set_issues] = useState([]);
     const [modal, set_modal] = useState(false);
@@ -45,10 +47,10 @@ function Issue(props) {
     return(
         <div>
             <HeaderAuth />
-            <Sidebar user_id={user_id} project_id={project_id}/>
+            <Sidebar user_id={user_id} project_id={project_id} project_name={project_name} />
             <br /><br />
 
-            <div className="issue">
+            <div className="project-content">
                 <h3>✔ Issue <button className="issue_button" onClick={openModal}>+ 이슈 등록</button></h3> 
                 
 
@@ -59,16 +61,16 @@ function Issue(props) {
             </div>
             
                 
-                <Modal visible={modal} width="400" height="300" effect="fadeInUp" onClickAway={() => this.closeModal()}>
-                <div>
-                    <h4>내용을 입력하세요.</h4>
-                    <br />
-                    <input type="text" value={issue} onChange={onIssueHandler} />
-                    <br /><br />
-                    <button className="close" onClick={newIssue}>이슈 등록</button>
-                    <button className="close" onClick={closeModal}>창 닫기</button>
-                </div>
-                </Modal>
+            <Modal visible={modal} width="400" height="300" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+            <div>
+                <h4>내용을 입력하세요.</h4>
+                <br />
+                <input type="text" value={issue} onChange={onIssueHandler} />
+                <br /><br />
+                <button className="close" onClick={newIssue}>이슈 등록</button>
+                <button className="close" onClick={closeModal}>창 닫기</button>
+            </div>
+            </Modal>
         </div>
     )
 }

@@ -41,7 +41,7 @@
 }
 
 .header-nav {
-  margin-left: 78.5rem;
+  margin-left: 75rem;
   text-align: right;
   color: #6D42F8;
 }
@@ -91,9 +91,9 @@
   line-height: 2;
 }
 
-.issue {
-  margin-left: 25rem;
-  margin-right: 15rem;
+.project-content {
+  margin-left: 400px;
+  margin-right: 200px;
   text-align: left;
 }
 

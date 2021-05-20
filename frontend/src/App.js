@@ -23,9 +23,9 @@ const App = () => {
           <Route path="/login" component={ Login } exact />
           <Route path="/signup" component={ Signup } exact />
           <Route path="/mypage/:userId" component={ Mypage } exact />
-          <Route path="/:userId/project/:projectId" component={ Project } exact />
-          <Route path="/:userId/project/:projectId/issue" component={ Issue } exact />
-          <Route path="/:userId/project/:projectId/member" component={ Member } exact />
+          <Route path="/:userId/project/:projectId/:projectName" component={ Project } exact />
+          <Route path="/:userId/project/:projectId/:projectName/issue" component={ Issue } exact />
+          <Route path="/:userId/project/:projectId/:projectName/member" component={ Member } exact />
         
       </div>
     </div>
