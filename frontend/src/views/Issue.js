@@ -1,19 +1,74 @@
 import React, { useState } from 'react';
-//import { Link, withRouter } from 'react-router-dom';
 import HeaderAuth from '../components/HeaderAuth';
 import Sidebar from '../components/Sidebar';
+import Modal from 'react-awesome-modal';
+import { addIssue } from '../api/axios';
+
+
+async function addNewIssue(project_id, issue_content) {
+    var res = await addIssue(project_id, issue_content);
+    console.log(res);
+    return res;
+}
 
 function Issue(props) {
 
     const [user_id, set_userId] = useState(props.match.params.userId);
     const [project_id, set_projectId] = useState(props.match.params.projectId);
+    const [issue, set_issue] = useState("");
+    const [issues, set_issues] = useState([]);
+    const [modal, set_modal] = useState(false);
+
+    const openModal = () => {
+        set_modal(true);
+    }
+    const closeModal = () => {
+        set_modal(false);
+    }
+    const onIssueHandler = (event) => {
+        set_issue(event.currentTarget.value);
+    }
+
+    const newIssue = () => {
+        if(issue!==""){
+            const res = addNewIssue(project_id, issue);
+            alert('이슈가 등록되었습니다.');
+            // clear
+            set_issue("");
+            set_modal(false);
+        }
+        else {
+            alert('내용을 입력해주세요.')
+        }
+    }
 
     return(
-        <div className="content">
+        <div>
             <HeaderAuth />
             <Sidebar user_id={user_id} project_id={project_id}/>
-            <h3>Issue 관리</h3>
+            <br /><br />
+
+            <div className="issue">
+                <h3>✔ Issue <button className="issue_button" onClick={openModal}>+ 이슈 등록</button></h3> 
+                
+
+                <div className="issue-content">
+
+
+                </div>
+            </div>
             
+                
+                <Modal visible={modal} width="400" height="300" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+                <div>
+                    <h4>내용을 입력하세요.</h4>
+                    <br />
+                    <input type="text" value={issue} onChange={onIssueHandler} />
+                    <br /><br />
+                    <button className="close" onClick={newIssue}>이슈 등록</button>
+                    <button className="close" onClick={closeModal}>창 닫기</button>
+                </div>
+                </Modal>
         </div>
     )
 }

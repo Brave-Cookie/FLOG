@@ -13,7 +13,10 @@ function Project(props) {
         <div className="content">
             <HeaderAuth />
             <Sidebar user_id={user_id} project_id={project_id}/>
+            
             <h3>Project{project_id}</h3>
+            <button>방 만들기</button>
+
             
         </div>
     )

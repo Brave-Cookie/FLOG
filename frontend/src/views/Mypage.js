@@ -23,9 +23,11 @@ function Mypage(props) {
     const [project_name, set_project] = useState("");
     const [meeting_code, set_code] = useState("");
     const [projects, set_projects] = useState([]);
+
+    const [input, set_input] = useState(0);
+
     useEffect(() => {
         axios.get('http://localhost:3000/api/project/list/' + user_id)
-            //.then(({ data }) => set_projects(data));
             .then(res => {
                 set_projects(res.data.list);
             })
@@ -56,6 +58,10 @@ function Mypage(props) {
         set_projectModal(false);
         set_codeModal(false);
     }
+    const onInputHandler = (event) => {
+        set_input(input+1);
+    }
+
 
     const registProject = () => {
         if(project_name!==""){
@@ -64,6 +70,7 @@ function Mypage(props) {
             // clear
             set_project("");
             set_projectModal(false);
+
         }
         else {
             alert('프로젝트명을 입력해주세요.')
@@ -93,7 +100,7 @@ function Mypage(props) {
                 <div>
                     <h4>프로젝트의 이름을 입력해주세요.</h4>
                     <br />
-                    <input type="text" value={project_name} onChange={onProjectHandler} />
+                    <input type="text" value={project_name} onChange={onInputHandler} />
                     <br /><br />
                     <button className="close" onClick={registProject}>생성하기</button>
                     <button className="close" onClick={closeModal}>창 닫기</button>
@@ -119,7 +126,7 @@ function Mypage(props) {
                 
                 <ul className="project-list">
                 {projects.map((project, id) =>(
-                    <li className="prject_item" key={id}>
+                    <li className="project_item" key={id}>
                         <Link to={`/${user_id}/project/${project.project_id}`}>{project.project_name}</Link>
                     </li>
                 ))}

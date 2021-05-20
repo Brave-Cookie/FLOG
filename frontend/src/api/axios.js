@@ -16,6 +16,17 @@ export function createProject(user_id, project_name) {
     return DefalutAxios.post('/project/create', { user_id, project_name });
 }
 
+/*
+// getProject 는 Mypage.js에서 바로 axios 호출함
 export function getProject(user_id) {
-    return DefalutAxios.get('/project/list/' + user_id)
+    return DefalutAxios.get('/project/list/' + user_id);
+}
+*/
+
+export function getProjectName(project_id) {
+    return DefalutAxios.get('');
+}
+
+export function addIssue(project_id, issue_content) {
+    return DefalutAxios.post('/project/issue', { project_id, issue_content});
 }
