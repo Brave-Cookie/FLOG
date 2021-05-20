@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HeaderAuth from '../components/HeaderAuth';
 import Sidebar from '../components/Sidebar';
 import Modal from 'react-awesome-modal';
 import { addIssue } from '../api/axios';
+import axios from 'axios';
 
 
 async function addNewIssue(project_id, issue_content) {
@@ -18,8 +19,15 @@ function Issue(props) {
     const [project_id, set_projectId] = useState(props.match.params.projectId);
     const [project_name, set_projectName] = useState(props.match.params.projectName);
     const [issue, set_issue] = useState("");
-    const [issues, set_issues] = useState([]);
     const [modal, set_modal] = useState(false);
+    const [issues, set_issues] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/api/project/issue/list/' + project_id)
+            .then((res) => {
+                set_issues(res.data.list);
+            })
+    }, [])
 
     const openModal = () => {
         set_modal(true);
@@ -55,8 +63,12 @@ function Issue(props) {
                 
 
                 <div className="issue-content">
-
-
+                {issues.map((issue, id) =>(
+                    <li className="issue_item" key={id}>
+                        {issue.issue_content}
+                    </li>
+                ))}
+                <hr color="#b9bada" noshade="noshade" size="1" />
                 </div>
             </div>
             

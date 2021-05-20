@@ -28,6 +28,6 @@ export function getProjectName(project_id) {
 }
 
 export function addIssue(project_id, issue_content) {
-    return DefalutAxios.post('/project/issue', { project_id, issue_content});
+    return DefalutAxios.post('/project/issue/create', { project_id, issue_content});
 }
 
