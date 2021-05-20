@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HeaderAuth from '../components/HeaderAuth';
-//import Modal from '../components/Modal';
 import jwt_decode from 'jwt-decode';
-//import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import { createProject } from '../api/axios.js'
-
+import axios from 'axios'
 import Modal from 'react-awesome-modal';
 
 async function register(user_id, project_name) {
     var res = await createProject(user_id, project_name);
     console.log(res.status);
-    
+
     return res;
 }
+
 function Mypage(props) {
     let name = jwt_decode(localStorage.accessToken).user_name;
     let id = jwt_decode(localStorage.accessToken).user_id;
@@ -22,25 +22,31 @@ function Mypage(props) {
     const [codeModal, set_codeModal] = useState(false);
     const [project_name, set_project] = useState("");
     const [meeting_code, set_code] = useState("");
-    const [project_list, set_projectList] = useState({
-        project_id: "",
-        project_name: ""
-      });
+    const [projects, set_projects] = useState([]);
 
-    const onUserHandler = (event) => {
+    const [input, set_input] = useState(0);
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/api/project/list/' + user_id)
+            .then(res => {
+                set_projects(res.data.list);
+            })
+            console.log(projects);
+    }, []);
+
+    /*const onUserHandler = (event) => {
         set_user(event.currentTarget.value);
     }
     const onIdHandler = (event) => {
         set_id(event.currentTarget.value);
-    }
+    }*/
     const onProjectHandler = (event) => {
+        // 프로젝트 모달
         set_project(event.currentTarget.value);
     }
     const onCodeHandler = (event) => {
+        // 코드 모달
         set_code(event.currentTarget.value);
-    }
-    const onListHandler = (event) => {
-        set_projectList(event.currentTarget.value);
     }
     const openProjectModal = () => {
         set_projectModal(true);
@@ -52,14 +58,19 @@ function Mypage(props) {
         set_projectModal(false);
         set_codeModal(false);
     }
+    const onInputHandler = (event) => {
+        set_input(input+1);
+    }
+
 
     const registProject = () => {
         if(project_name!==""){
             const res = register(user_id, project_name);
-            console.log(res.status);
+            alert('프로젝트가 생성되었습니다.');
             // clear
             set_project("");
             set_projectModal(false);
+
         }
         else {
             alert('프로젝트명을 입력해주세요.')
@@ -76,19 +87,20 @@ function Mypage(props) {
             alert('코드를 입력해주세요');
         }
     }
-
+    
+    console.log(projects);
     return(
         <div className="content">
             <HeaderAuth />
             <br />
-            <h3>'{user}'님 환영합니다 :)</h3> 
+            <h3>'<Link to={`/mypage/${user_id}`}>{user}</Link>'님 환영합니다 :)</h3> 
 
             <button onClick={openProjectModal}>프로젝트 생성</button>           
             <Modal visible={projectModal} width="300" height="200" effect="fadeInUp" onClickAway={() => this.closeModal()}>
                 <div>
                     <h4>프로젝트의 이름을 입력해주세요.</h4>
                     <br />
-                    <input type="text" value={project_name} onChange={onProjectHandler} />
+                    <input type="text" value={project_name} onChange={onInputHandler} />
                     <br /><br />
                     <button className="close" onClick={registProject}>생성하기</button>
                     <button className="close" onClick={closeModal}>창 닫기</button>
@@ -113,11 +125,12 @@ function Mypage(props) {
                 <hr color="#b9bada" noshade="noshade" size="1"></hr>
                 
                 <ul className="project-list">
-                    <li className="prject_item">
-                    
-                    
-                    
-                    </li><br />
+                {projects.map((project, id) =>(
+                    <li className="project_item" key={id}>
+                        <Link to={`/${user_id}/project/${project.project_id}/${project.project_name}`}>{project.project_name}</Link>
+                    </li>
+                ))}
+                    <br />
                 </ul>
             </div>
 

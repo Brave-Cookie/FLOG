@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 import HeaderAuth from '../components/HeaderAuth';
 import Sidebar from '../components/Sidebar';
 
+function Member(props) {
 
-function Project(props) {
-    
     const [user_id, set_userId] = useState(props.match.params.userId);
     const [project_id, set_projectId] = useState(props.match.params.projectId);
     const [project_name, set_projectName] = useState(props.match.params.projectName);
@@ -13,15 +12,15 @@ function Project(props) {
     return(
         <div className="content">
             <HeaderAuth />
-            <Sidebar user_id={user_id} project_id={project_id} project_name={project_name}/>
+            <Sidebar user_id={user_id} project_id={project_id} project_name={project_name} />
             <br /><br />
             
-            <h3>Project{project_id}</h3>
-            <button>방 만들기</button>
-
+            <div className="project-content">
+                <h3>참여자 관리</h3>
+            </div>
             
         </div>
     )
 }
 
-export default Project;
+export default Member;

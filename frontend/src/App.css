@@ -10,7 +10,13 @@
   padding: 10px;
   font-size: 20px;
   font-weight: bold;
-  
+  text-align: right;
+  line-height: 2;
+}
+
+.header a {
+  color: #6D42F8;
+  text-decoration: none;
 }
 
 
@@ -29,14 +35,80 @@
   color: #2c3750;
 }
 
+.content a {
+  color:#6D42F8;
+  text-decoration: none;
+}
+
 .header-nav {
+  margin-left: 75rem;
   text-align: right;
   color: #6D42F8;
 }
 
 .list {
   text-align: left;
-  margin-left: 14rem;
-  margin-right: 14rem;
+  margin-left: 25rem;
+  margin-right: 25rem;
 
+}
+
+.project-list a {
+  text-decoration: none;
+  color: #2c3750;
+  font-size: 18px;
+}
+
+.button {
+  color: #6D42F8;
+  font-weight: bold;
+  background-color: #EBE5FF;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid #CABBFF;
+  border-radius: 0.25rem;
+  line-height: 1;
+}
+
+.sidebar {
+  position: absolute;
+  width: 200px;
+  height: 100%;
+  border-right: 1px solid #D8D5EB;
+}
+
+.sidebar-menu {
+  text-align: left;
+}
+
+.sidebar-menu a {
+  color: #2c3750;
+}
+
+.sidebar-title {
+  background-color: #D8D5EB;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 2;
+}
+
+.project-content {
+  margin-left: 400px;
+  margin-right: 200px;
+  text-align: left;
+}
+
+.issue-content {
+  margin-left: 3rem;
+  text-align: left;
+}
+
+.issue_button {
+  margin-left: 35rem;
+  color: #6D42F8;
+  font-weight: bold;
+  background-color: #EBE5FF;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid #CABBFF;
+  border-radius: 0.25rem;
+  line-height: 1;
 }
