@@ -25,6 +25,7 @@ function Issue(props) {
     useEffect(() => {
         axios.get('http://localhost:3000/api/project/issue/list/' + project_id)
             .then((res) => {
+                console.log(res);
                 set_issues(res.data.list);
             })
     }, [])
@@ -66,9 +67,10 @@ function Issue(props) {
                 {issues.map((issue, id) =>(
                     <li className="issue_item" key={id}>
                         {issue.issue_content}
+                        <hr color="#b9bada" noshade="noshade" size="1" />
                     </li>
                 ))}
-                <hr color="#b9bada" noshade="noshade" size="1" />
+                
                 </div>
             </div>
             

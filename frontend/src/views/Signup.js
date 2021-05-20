@@ -68,15 +68,20 @@ function Signup(props) {
     return(
         <div className="content">
             <Header />
-            
-            <h3>회원가입</h3>
+            <br /><br />
+            <h2>회원가입</h2>
 
-            <form onSubmit={onSubmitHandler}>
-                <label>이름</label><input type="text" value={user_name} onChange={onNameHandler} /> <br />
-                <label>아이디</label><input type="text" value={user_id} onChange={onIdHandler} /> <br />
-                <label>이메일</label><input type="email" value={user_email} onChange={onEmailHandler} /> <br />
-                <label>비밀번호</label><input type="password" value={user_pw} onChange={onPwHandler} /> <br />
-                <label>비밀번호 확인</label><input type="password" value={pwConfirm} onChange={onPwConfirmHandler} /> <br />
+            <form className="form-content" onSubmit={onSubmitHandler}>
+                <label>이름&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+                    <input className="signup-input" type="text" value={user_name} onChange={onNameHandler} /> <br />
+                <label>아이디&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+                    <input className="signup-input" type="text" value={user_id} onChange={onIdHandler} /> <br />
+                <label>이메일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+                    <input className="signup-input" type="email" value={user_email} onChange={onEmailHandler} /> <br />
+                <label>비밀번호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+                    <input className="signup-input" type="password" value={user_pw} onChange={onPwHandler} /> <br />
+                <label>비밀번호확인 </label>
+                    <input className="signup-input" type="password" value={pwConfirm} onChange={onPwConfirmHandler} /> <br />
                 <br />
                 <button className="button" type="submit">회원가입</button>
             </form>
