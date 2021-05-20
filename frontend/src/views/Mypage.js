@@ -127,7 +127,7 @@ function Mypage(props) {
                 <ul className="project-list">
                 {projects.map((project, id) =>(
                     <li className="project_item" key={id}>
-                        <Link to={`/${user_id}/project/${project.project_id}`}>{project.project_name}</Link>
+                        <Link to={`/${user_id}/project/${project.project_id}/${project.project_name}`}>{project.project_name}</Link>
                     </li>
                 ))}
                     <br />

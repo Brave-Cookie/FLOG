@@ -24,9 +24,10 @@ export function getProject(user_id) {
 */
 
 export function getProjectName(project_id) {
-    return DefalutAxios.get('');
+    return DefalutAxios.get('/project/:projectId');
 }
 
 export function addIssue(project_id, issue_content) {
     return DefalutAxios.post('/project/issue', { project_id, issue_content});
 }
+
