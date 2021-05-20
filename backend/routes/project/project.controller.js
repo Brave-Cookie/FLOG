@@ -86,7 +86,8 @@ exports.issue = async (req, res, next) => {
     try{
         const table_pi = models.project_issue;
         const req_pi = req.body;
-        table_pi.findOne({where: {project_id : project_id} }).then(
+        
+        table_pi.findOne({where: {project_id : req_pi.project_id} }).then(
             (row) => {
                     // DB에 삽입하기
                     table_pi.create({
