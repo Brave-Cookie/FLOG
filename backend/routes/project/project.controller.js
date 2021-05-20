@@ -82,7 +82,7 @@ exports.list = async (req, res, next) => {
         }
 }
 
-exports.issue = async (req, res, next) => {
+exports.issueCreate = async (req, res, next) => {
     try{
         const table_pi = models.project_issue;
         const req_pi = req.body;
@@ -101,12 +101,36 @@ exports.issue = async (req, res, next) => {
         } catch(err){   // 에러나면 로그 찍고 실패 신호 보냄
             console.log(err);
             res.status(400).json({
-                message : '/issue 에서 에러'
+                message : '/issue/create 에서 에러'
             });
         }
 }
 
-
+exports.issueList = async (req, res, next) => {
+    try {
+        const project_id = req.params.project_id
+        var table_pi = models.project_issue;
+        // 현재 프로젝트의 마지막 id 찾기
+        table_pi.findAll({
+            raw : true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
+            attributes: ['issue_content'], // p_i 속성만 고르겠다~
+            where: {project_id : project_id},
+        }).then(
+            (result) => {
+                console.log(result)
+                 return res.status(200).json({
+                            message : '추출성공!!',
+                            list : result
+                        });
+            }
+        )
+        } catch(err){   // 에러나면 로그 찍고 실패 신호 보냄
+            console.log(err);
+            res.status(400).json({
+                message : '/issue/list 에서 에러'
+            });
+        }
+}
 
 
 
