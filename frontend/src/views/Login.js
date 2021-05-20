@@ -63,8 +63,8 @@ function Login(props) {
             <form onSubmit={onSubmitHandler}>
                 <input id="user_id" name="user_id" placeholder="ID" onChange={onIdHandler}/> <br />
                 <input id="user_pw" name="user_pw" type="password" placeholder="Password" onChange={onPwHandler} /> <br />
-                
-                <button type="submit">로그인</button>
+                <br />
+                <button className="button" type="submit">로그인</button>
             </form>
             <br />
             <Link to="/signup">회원가입</Link>

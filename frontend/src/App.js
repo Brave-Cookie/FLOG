@@ -6,6 +6,8 @@ import Login from './views/Login';
 import Signup from './views/Signup';
 import Mypage from './views/Mypage';
 import Project from './views/Project'
+import Issue from './views/Issue';
+import Member from './views/Member'
 
 const App = () => {
 
@@ -21,7 +23,9 @@ const App = () => {
           <Route path="/login" component={ Login } exact />
           <Route path="/signup" component={ Signup } exact />
           <Route path="/mypage/:userId" component={ Mypage } exact />
-          <Route path="/prject/:projectId" component={ Project } exact />
+          <Route path="/:userId/project/:projectId" component={ Project } exact />
+          <Route path="/:userId/project/:projectId/issue" component={ Issue } exact />
+          <Route path="/:userId/project/:projectId/member" component={ Member } exact />
         
       </div>
     </div>

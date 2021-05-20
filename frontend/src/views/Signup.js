@@ -78,7 +78,7 @@ function Signup(props) {
                 <label>비밀번호</label><input type="password" value={user_pw} onChange={onPwHandler} /> <br />
                 <label>비밀번호 확인</label><input type="password" value={pwConfirm} onChange={onPwConfirmHandler} /> <br />
                 <br />
-                <button type="submit">회원가입</button>
+                <button className="button" type="submit">회원가입</button>
             </form>
         </div>
         
