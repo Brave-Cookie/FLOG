@@ -23,11 +23,15 @@ export function getProject(user_id) {
 }
 */
 
-export function getProjectName(project_id) {
-    return DefalutAxios.get('/project/:projectId');
-}
-
 export function addIssue(project_id, issue_content) {
     return DefalutAxios.post('/project/issue/create', { project_id, issue_content});
+}
+
+export function searchMember(user_name){
+    return DefalutAxios.get('/project/member/search/:' + user_name);
+}
+
+export function addMember(user_id, project_id) {
+    return DefalutAxios.post('/project/member/add');
 }
 

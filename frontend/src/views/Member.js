@@ -1,13 +1,38 @@
 import React, { useState } from 'react';
-//import { Link, withRouter } from 'react-router-dom';
 import HeaderAuth from '../components/HeaderAuth';
 import Sidebar from '../components/Sidebar';
+import { searchMember } from '../api/axios';
+
+
+async function search(search_name) {
+    const res = await searchMember(search_name);
+    return res;
+}
 
 function Member(props) {
 
     const [user_id, set_userId] = useState(props.match.params.userId);
     const [project_id, set_projectId] = useState(props.match.params.projectId);
     const [project_name, set_projectName] = useState(props.match.params.projectName);
+    
+    const[search_name, set_searchId] = useState("");
+    const[search_result, set_searchResult] = useState([]);
+    const[current_members, set_currentMemebers] = useState([]);
+
+    const onSearchIdHandler = (event) => {
+        set_searchId(event.currentTarget.value);
+    }
+
+    const searchUser = () => {
+        const res = search(search_name);
+        if(res.status === 200){
+            set_searchResult(res.data.list);
+        }
+        else {
+            alert('존재하지 않는 사용자입니다.');
+        }
+        //window.location.replace('/'+user_id+'/project/'+project_id+"/"+project_name+"/member");
+    }
 
     return(
         <div className="content">
@@ -17,6 +42,19 @@ function Member(props) {
             
             <div className="project-content">
                 <h3>참여자 관리</h3>
+                <div className="search-member">
+                    <input className="search-input" type="text" name="search_id" placeholder="이름을 입력하세요." onChange={onSearchIdHandler}></input>
+                    <button onClick={searchUser}>🔎</button>
+                    <hr />
+                    {search_result.map((user, id) =>(
+                    <li key={id}>
+                        {user.user_id} <button className="button">추가</button>
+                    </li>
+                ))}
+                </div>
+                <div className="current-member">
+
+                </div>
             </div>
             
         </div>
