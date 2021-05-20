@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 import HeaderAuth from '../components/HeaderAuth';
 import Sidebar from '../components/Sidebar';
 
+function Issue(props) {
 
-function Project(props) {
-    
     const [user_id, set_userId] = useState(props.match.params.userId);
     const [project_id, set_projectId] = useState(props.match.params.projectId);
 
@@ -13,10 +12,10 @@ function Project(props) {
         <div className="content">
             <HeaderAuth />
             <Sidebar user_id={user_id} project_id={project_id}/>
-            <h3>Project{project_id}</h3>
+            <h3>Issue 관리</h3>
             
         </div>
     )
 }
 
-export default Project;
+export default Issue;

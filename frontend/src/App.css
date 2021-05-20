@@ -73,3 +73,11 @@
   height: 100%;
   border-right: 1px solid #D8D5EB;
 }
+
+.sidebar-menu {
+  text-align: left;
+}
+
+.sidebar-menu a {
+  color: #2c3750;
+}

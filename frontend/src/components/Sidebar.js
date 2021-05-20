@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Sidebar(props) {
-    const [user_id, setId] = useState(""); //useState(props.match.params.userId);
-    const [project_id, setProjectId] = useState(""); //useState(props.match.params.projectId);
+    const [user_id, setId] = useState(props.user_id);
+    const [project_id, setProjectId] = useState(props.project_id); //useState(props.match.params.projectId);
+
+    console.log(props);
 
     return (
         <div className="sidebar">
