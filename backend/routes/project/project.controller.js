@@ -10,7 +10,7 @@ exports.create = async (req, res, next) => {
         var table_pi = models.project_info;
         var table_up = models.user_project;
 
-        // 현재 프로젝트의 마지막 id 찾기
+        
         table_pi.findAll({
             raw : true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
             attributes : ['project_id'] // p_i 속성만 고르겠다~
@@ -48,7 +48,7 @@ exports.list = async (req, res, next) => {
         var table_up = models.user_project;
         var table_pi = models.project_info;
         
-        // 현재 프로젝트의 마지막 id 찾기
+        
         table_up.findAll({
             raw : true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
             attributes: ['project_id'], // p_i 속성만 고르겠다~
@@ -110,10 +110,10 @@ exports.issueList = async (req, res, next) => {
     try {
         const project_id = req.params.project_id
         var table_pi = models.project_issue;
-        // 현재 프로젝트의 마지막 id 찾기
+        
         table_pi.findAll({
             raw : true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
-            attributes: ['issue_content'], // p_i 속성만 고르겠다~
+            attributes: ['issue_content'], // issue_content 속성만 고르겠다~
             where: {project_id : project_id},
         }).then(
             (result) => {
@@ -132,7 +132,76 @@ exports.issueList = async (req, res, next) => {
         }
 }
 
+exports.searchMember = async (req, res, next) => {
+    try {
+        const user_name = req.params.user_name
+        var table_ui = models.user_info;
+        
+        table_ui.findAll({
+            raw : true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
+            attributes: ['user_id'], // user_id 속성만 고르겠다~
+            where: {user_name : user_name},
+        }).then(
+            (result) => {
+                if (result) {   //사용자 이름에 해당하는 아이디가 존재한다면
+                    console.log(result)
+                    return res.status(200).json({
+                        message: '추출성공!!',
+                        list: result
+                    });
+                }
+                else {          //해당사용자가 없음
+                    return res.status(202).json({
+                        message: '해당하는 사용자가 없습니다.',
+                        code : 'search_1'
+                    })
+                }
+            }
+        )
+        } catch(err){   // 에러나면 로그 찍고 실패 신호 보냄
+            console.log(err);
+            res.status(400).json({
+                message : '/member/search 에서 에러'
+            });
+        }
+}
 
+
+exports.addMember = async (req, res, next) => {
+    try{
+        const table_up = models.user_project;
+        const req_pi = req.body;
+
+        table_up.findAll({
+            raw: true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
+            where: {
+                project_id: req.pi.project_id,
+                user_id: req.pi.user_id
+            }
+        }).then(
+            (result) => {
+                if (result) {   //이미 추가한 사용자
+                    return res.status(202).json({
+                        message: "이미 추가한 사용자입니다",
+                        code: 'add_1'
+                    })
+                }
+                else {
+                    table_pi.create({
+                        project_id: req_pi.project_id,
+                        user_id: req_pi.user_id
+                    })
+                    // 그리고 삽입 성공 신호 200을 보낸다.
+                    return res.status(200).json({ message: '삽입성공' });
+                }
+            })
+        } catch(err){   // 에러나면 로그 찍고 실패 신호 보냄
+            console.log(err);
+            res.status(400).json({
+                message : '/member/add 에서 에러'
+            });
+        }
+}
 
 
 
