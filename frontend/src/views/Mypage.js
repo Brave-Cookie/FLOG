@@ -58,9 +58,6 @@ function Mypage(props) {
         set_projectModal(false);
         set_codeModal(false);
     }
-    const onInputHandler = (event) => {
-        set_input(input+1);
-    }
 
 
     const registProject = () => {
@@ -71,6 +68,9 @@ function Mypage(props) {
             set_project("");
             set_projectModal(false);
 
+            //set_projects(res.data.list);
+            window.location.replace('/mypage/'+user_id);
+            
         }
         else {
             alert('프로젝트명을 입력해주세요.')
@@ -100,7 +100,7 @@ function Mypage(props) {
                 <div>
                     <h4>프로젝트의 이름을 입력해주세요.</h4>
                     <br />
-                    <input type="text" value={project_name} onChange={onInputHandler} />
+                    <input type="text" value={project_name} onChange={onProjectHandler} />
                     <br /><br />
                     <button className="close" onClick={registProject}>생성하기</button>
                     <button className="close" onClick={closeModal}>창 닫기</button>

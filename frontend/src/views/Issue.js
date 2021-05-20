@@ -47,6 +47,8 @@ function Issue(props) {
             // clear
             set_issue("");
             set_modal(false);
+
+            window.location.replace('/'+user_id+'/project/'+project_id+"/"+project_name+"/issue");
         }
         else {
             alert('내용을 입력해주세요.')
