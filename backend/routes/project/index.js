@@ -6,9 +6,6 @@ router.post('/create', controller.create);
 router.get('/list/:user_id',controller.list)
 router.post('/issue/create', controller.issueCreate)
 router.get('/issue/list/:project_id', controller.issueList)
-router.get('member/search/:user_name', controller.searchMember)
-router.post('/member/add', controller.addMember)
+router.get('/member/search/:user_name', controller.searchMember)
+router.post('/member/add', controller.addsMember)
 module.exports = router;
-
-//GET 조회
-//POST 작업을 더 해
