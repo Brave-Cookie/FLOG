@@ -7,5 +7,5 @@ router.get('/list/:user_id',controller.list)
 router.post('/issue/create', controller.issueCreate)
 router.get('/issue/list/:project_id', controller.issueList)
 router.get('/member/search/:user_name', controller.searchMember)
-router.post('/member/add', controller.addsMember)
+router.post('/member/add', controller.addMember)
 module.exports = router;
