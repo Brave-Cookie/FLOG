@@ -28,7 +28,7 @@ export function addIssue(project_id, issue_content) {
 }
 
 export function searchMember(user_name){
-    return DefalutAxios.get('/project/member/search/:' + user_name);
+    return DefalutAxios.get('/project/member/search/' + user_name);
 }
 
 export function addMember(user_id, project_id) {
