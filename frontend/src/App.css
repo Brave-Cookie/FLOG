@@ -135,3 +135,16 @@
 .search-member {
   width: 250px;
 }
+.search-input {
+  height: 20px;
+  font-size: 16px;
+  border: 1.5px solid #9172F6;
+  border-radius: 0.25rem;
+}
+.search-button {
+  height: 27px;
+  margin-left: 3px;
+  background-color: #CABBFF;
+  border: 2px solid #EEEFFC;
+  border-radius: 0.3rem;
+}
