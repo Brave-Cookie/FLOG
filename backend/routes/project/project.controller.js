@@ -143,7 +143,7 @@ exports.searchMember = async (req, res, next) => {
             where: {user_name : user_name},
         }).then(
             (result) => {
-                if (result) {   //사용자 이름에 해당하는 아이디가 존재한다면
+                if (result.length!=0) {   //사용자 이름에 해당하는 아이디가 존재한다면
                     console.log(result)
                     return res.status(200).json({
                         message: '추출성공!!',
