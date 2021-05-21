@@ -205,7 +205,32 @@ exports.addMember = async (req, res, next) => {
 
 exports.logList = async (req, res, next) => {
     try {
-        
+        const project_id = req.params.project_id
+        const table_pm = models.project_meeting
+        const table_mi = modls.meeting_info
+
+        table_pm.findAll({
+            raw: true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
+            attributes: ['meeting_id'],
+            where: {
+                project_id : project_id,
+            }
+        }).then(
+            (result) => {
+                console.log(result)
+                table_mi.findAll({
+                    raw : true,
+                    where: {[Op.or] : result }
+                }).then(
+                    (result2) => {
+                        console.log(result2)
+                        return res.status(200).json({
+                            message : '추출성공!!',
+                            list : result2
+                        });
+                    }
+                )
+            })
         } catch(err){   // 에러나면 로그 찍고 실패 신호 보냄
             console.log(err);
             res.status(400).json({
