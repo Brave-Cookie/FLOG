@@ -51,7 +51,7 @@ function Member(props) {
                 <h3>참여자 관리</h3>
                 <div className="search-member">
                     <input className="search-input" type="text" name="search_id" placeholder="이름을 입력하세요." onChange={onSearchNameHandler}></input>
-                    <button onClick={searchUser}>🔎</button>
+                    <button className="search-button" onClick={searchUser}>🔎</button>
                     <hr />
                     {search_result.map((user, id) =>(
                     <li key={id}>
