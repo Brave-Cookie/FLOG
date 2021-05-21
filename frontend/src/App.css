@@ -48,7 +48,7 @@
   margin-top: 3rem;
   border: 3px solid #6D42F8;
   border-radius: 2rem;
-  padding: 1rem;
+  padding: 2rem;
   width: 300px;
   text-align: center;
   margin-left: 37.3rem;
@@ -130,4 +130,8 @@
   border: 1px solid #CABBFF;
   border-radius: 0.25rem;
   line-height: 1;
+}
+
+.search-member {
+  width: 250px;
 }
