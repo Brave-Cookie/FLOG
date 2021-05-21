@@ -203,6 +203,15 @@ exports.addMember = async (req, res, next) => {
         }
 }
 
-
+exports.logList = async (req, res, next) => {
+    try {
+        
+        } catch(err){   // 에러나면 로그 찍고 실패 신호 보냄
+            console.log(err);
+            res.status(400).json({
+                message : '/log/list 에서 에러'
+            });
+        }
+}
 
 
