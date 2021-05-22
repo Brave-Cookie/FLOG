@@ -55,30 +55,33 @@ function Member(props) {
             <Sidebar user_id={user_id} project_id={project_id} project_name={project_name} />
             <br /><br />
 
-            <div className="project-content">
+            <div className="member-wrap">
 
                 <div className="search-member">
                     <h3>참여자 관리</h3>
-                    <input className="search-input" type="text" name="search_name" placeholder="이름을 입력하세요." onChange={onSearchNameHandler}></input>
-                    <button className="search-button" onClick={searchUser}>🔎</button>
-                    <hr color="#b9bada" noshade="noshade" size="1" />
-                    <div>
-                        {search_result.map((user, id) => (
-                            <li key={id}>
-                                {user.user_id} <button className="add-button" onClick={addUser}>추가</button>
-                            </li>
-                        ))}
+                    <div className="search-box">
+                        <input className="search-input" type="text" name="search_name" placeholder="이름을 입력하세요." onChange={onSearchNameHandler}></input>
+                        <button className="search-button" onClick={searchUser}>🔎</button>
+                        <hr color="#b9bada" noshade="noshade" size="1" />
+                        <div>
+                            {search_result.map((user, id) => (
+                                <li key={id}>
+                                    {user.user_id} <button className="add-button" onClick={addUser}>추가</button>
+                                </li>
+                            ))}
+                        </div>
                     </div>
                 </div>
                 <div className="current-member">
                     <h3>현재 참여자 목록</h3>
-                    <hr color="#b9bada" noshade="noshade" size="1" />
-                    <div>
-                        {current_members.map((user, id) => (
-                            <li key={id}>
-                                {user.user_name}
-                            </li>
-                        ))}
+                    <div className="current-box">
+                        <div>
+                            {current_members.map((user, id) => (
+                                <li key={id}>
+                                    {user.user_name}
+                                </li>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>

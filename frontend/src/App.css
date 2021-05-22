@@ -122,7 +122,8 @@
 }
 
 .issue_button {
-  margin-left: 650px;
+  float: right;
+  margin-right: 20px;
   color: #6D42F8;
   font-weight: bold;
   background-color: #EBE5FF;
@@ -132,10 +133,17 @@
   line-height: 1;
 }
 
+.member-wrap {
+  display: flex;
+  margin-left: 400px;
+  text-align: left;
+}
 
 .search-member {
-  width: 250px;
+  width: 300px;
   margin-top: 20px;
+}
+.search-box {
   background-color: #FCFBFF;
   border-radius: 0.75rem;
   padding: 1.5rem;
@@ -162,6 +170,12 @@
 }
 
 .current-member {
-  width: 250px;
-  margin-left: 350px;
+  width: 300px;
+  margin-top: 20px;
+  margin-left: 200px;
+}
+.current-box {
+  background-color: #EEEFFC;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
 }
