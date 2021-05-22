@@ -171,12 +171,13 @@ exports.addMember = async (req, res, next) => {
     try{
         let table_up = models.user_project;
         const req_pi = req.body;
-
+        
         table_up.findAll({
             raw: true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
             where: {
-                project_id: req.pi.project_id,
-                user_id: req.pi.user_id
+                project_id: req_pi.project_id,
+                user_id: req_pi.user_id
+
             }
         }).then(
             (result) => {
@@ -188,8 +189,8 @@ exports.addMember = async (req, res, next) => {
                 }
                 else {
                 table_up.create({
-                        project_id: req_pi.project_id,
-                        user_id: req_pi.user_id
+                    user_id: req_pi.user_id,
+                    project_id: req_pi.project_id
                     })
                     // 그리고 삽입 성공 신호 200을 보낸다.
                     return res.status(200).json({ message: '삽입성공' });
