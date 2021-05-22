@@ -132,8 +132,13 @@
   line-height: 1;
 }
 
+
 .search-member {
   width: 250px;
+  margin-top: 20px;
+  background-color: #FCFBFF;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
 }
 .search-input {
   height: 20px;
@@ -147,4 +152,16 @@
   background-color: #CABBFF;
   border: 2px solid #EEEFFC;
   border-radius: 0.3rem;
+}
+.add-button {
+  background-color: #EEEFFC;
+  border: 1px solid #CABBFF;
+  border-radius: 0.25rem;
+  float: right;
+  margin-right: 5px;
+}
+
+.current-member {
+  width: 250px;
+  margin-left: 350px;
 }
