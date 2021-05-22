@@ -7,7 +7,8 @@ import Signup from './views/Signup';
 import Mypage from './views/Mypage';
 import Project from './views/Project'
 import Issue from './views/Issue';
-import Member from './views/Member'
+import Member from './views/Member';
+import Log from './views/Log';
 
 const App = () => {
 
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/:userId/project/:projectId/:projectName" component={ Project } exact />
           <Route path="/:userId/project/:projectId/:projectName/issue" component={ Issue } exact />
           <Route path="/:userId/project/:projectId/:projectName/member" component={ Member } exact />
+          <Route path="/:userId/project/:projectId/:projectName/log/:logId" component={ Log } exact />
         
       </div>
     </div>
