@@ -35,8 +35,9 @@ function Member(props) {
             })
     }
 
-    const addUser = () => {
-        const res = addMember(user_id, project_id)
+    const addUser = (id) => {
+        console.log(id)
+        const res = addMember(id, project_id)
             .then((res) => {
                 console.log(res);
                 if (res.status === 200) {
@@ -66,7 +67,7 @@ function Member(props) {
                         <div>
                             {search_result.map((user, id) => (
                                 <li key={id}>
-                                    {user.user_id} <button className="add-button" onClick={addUser}>추가</button>
+                                    {user.user_id} <button className="add-button" onClick={addUser(user.user_id)}>추가</button>
                                 </li>
                             ))}
                         </div>
