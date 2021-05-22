@@ -4,12 +4,6 @@ import Sidebar from '../components/Sidebar';
 import { searchMember } from '../api/axios';
 
 
-async function search(search_name) {
-    const res = await searchMember(search_name);
-    console.log(res);
-    return res;
-}
-
 function Member(props) {
 
     const [user_id, set_userId] = useState(props.match.params.userId);
@@ -28,17 +22,18 @@ function Member(props) {
         const res = searchMember(search_name)
         .then((res) => {
             console.log(res);
-        })
-        console.log(res);
-        /*if(res.status === 200){
+            if(res.status === 200){
             set_searchResult(res.data.list);
-
+            console.log(search_result);
             set_searchName("");
-        }
-        else {
-            alert('존재하지 않는 사용자입니다.');
-        }*/
-        //window.location.replace('/'+user_id+'/project/'+project_id+"/"+project_name+"/member");
+            }
+            else if(res.status === 202){
+                alert('존재하지 않는 사용자입니다.');
+            }
+            // 여기선 새로고침하면 검색 내역이 사라짐
+            //window.location.replace('/'+user_id+'/project/'+project_id+"/"+project_name+"/member");
+        })
+        
     }
 
     return(
@@ -50,9 +45,9 @@ function Member(props) {
             <div className="project-content">
                 <h3>참여자 관리</h3>
                 <div className="search-member">
-                    <input className="search-input" type="text" name="search_id" placeholder="이름을 입력하세요." onChange={onSearchNameHandler}></input>
+                    <input className="search-input" type="text" name="search_name" placeholder="이름을 입력하세요." onChange={onSearchNameHandler}></input>
                     <button className="search-button" onClick={searchUser}>🔎</button>
-                    <hr />
+                    <hr color="#b9bada" noshade="noshade" size="1" />
                     {search_result.map((user, id) =>(
                     <li key={id}>
                         {user.user_id} <button className="button">추가</button>
