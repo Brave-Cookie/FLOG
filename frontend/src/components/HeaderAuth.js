@@ -16,10 +16,11 @@ function HeaderAuth(props) {
 
     return (
         <div className="header">
-            <div style={{fontSize:'20px'}}>FLOG</div> 
+            <div className="logo" style={{fontSize:'20px'}}></div> 
             <div className="header-nav">
-                <NavLink exact activeStyle={is_active} to={`/mypage/${user_id}`}> MYPAGE</NavLink>
-                <a href="/" onClick={getLogout}> LOGOUT</a>
+                <a href="/" onClick={getLogout}>&nbsp;LOGOUT&nbsp;</a>
+                <NavLink exact activeStyle={is_active} to={`/mypage/${user_id}`}>&nbsp;MYPAGE&nbsp;</NavLink>
+                
             </div>       
         </div>
     );

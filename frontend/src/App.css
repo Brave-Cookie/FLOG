@@ -5,13 +5,20 @@
 .header {
   background-color: #9172F6;
   width: 100%;
+  height: 40px;
   display: flex;
+
+  justify-content: flex-end;
+  
   color: #FFFFB9;
   padding: 10px;
   font-size: 20px;
   font-weight: bold;
   text-align: right;
   line-height: 2;
+}
+.logo {
+  float: left;
 }
 .header a {
   float: right;
@@ -22,7 +29,8 @@
   color: #FFFFB9;
 }
 .header-nav {
-
+  float: right;
+  margin-right: 40px;
   text-align: right;
   color: #6D42F8;
 }
@@ -167,7 +175,8 @@
   border: 1px solid #CABBFF;
   border-radius: 0.25rem;
   float: right;
-  margin-right: 5px;
+
+  margin-right: 15px;
 }
 
 .current-member {
