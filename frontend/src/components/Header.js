@@ -6,10 +6,11 @@ class Header extends Component {
 
         return (
             <div className="header">
-                <div style={{fontSize:'20px'}}>FLOG</div> 
+                <div className="logo" style={{fontSize:'20px'}}></div> 
                 <div className="header-nav">
-                    <Link to="/"> HOME</Link>
-                    <Link to="/login"> LOGIN</Link>
+                    <Link to="/login">&nbsp;LOGIN</Link>&nbsp;
+                    <Link to="/">&nbsp;HOME</Link>&nbsp;
+                    
                 </div>       
             </div>
         );

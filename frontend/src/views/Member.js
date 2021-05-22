@@ -41,12 +41,12 @@ function Member(props) {
             .then((res) => {
                 console.log(res);
                 if (res.status === 200) {
-                    //set_currentMemebers(res.data.list);
+                    set_currentMemebers(res.data.list);
                 }
                 else if (res.status === 202) {
                     alert('이미 추가된 사용자 입니다.');
                 }
-                window.location.replace('/' + user_id + '/project/' + project_id + "/" + project_name + "/member");
+                //window.location.replace('/' + user_id + '/project/' + project_id + "/" + project_name + "/member");
             })
     }
 
@@ -64,13 +64,13 @@ function Member(props) {
                         <input className="search-input" type="text" name="search_name" placeholder="이름을 입력하세요." onChange={onSearchNameHandler}></input>
                         <button className="search-button" onClick={searchUser}>🔎</button>
                         <hr color="#b9bada" noshade="noshade" size="1" />
-                        <div>
+                        <ul>
                             {search_result.map((user, id) => (
                                 <li key={id}>
                                     {user.user_id} <button className="add-button" onClick={addUser(user.user_id)}>추가</button>
                                 </li>
                             ))}
-                        </div>
+                        </ul>
                     </div>
                 </div>
                 <div className="current-member">
