@@ -24,7 +24,6 @@ function Member(props) {
                 console.log(res);
                 if (res.status === 200) {
                     set_searchResult(res.data.list);
-                    console.log(search_result);
                     set_searchName("");
                 }
                 else if (res.status === 202) {
@@ -37,7 +36,7 @@ function Member(props) {
 
     const addUser = (event) => {
         let id = event.target.value;
-        console.log(id)
+        console.log(id, project_id);
         const res = addMember(id, project_id)
             .then((res) => {
                 console.log(res);
@@ -50,7 +49,7 @@ function Member(props) {
                 //window.location.replace('/' + user_id + '/project/' + project_id + "/" + project_name + "/member");
             })
     }
-
+    console.log(search_result);
     return (
         <div className="content">
             <HeaderAuth />
