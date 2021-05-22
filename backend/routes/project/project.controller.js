@@ -7,8 +7,8 @@ exports.create = async (req, res, next) => {
         const req_pi = req.body ;
         
         // 사용할 테이블들을을 객체에 저장
-        var table_pi = models.project_info;
-        var table_up = models.user_project;
+        let table_pi = models.project_info;
+        let table_up = models.user_project;
 
         
         table_pi.findAll({
@@ -45,8 +45,8 @@ exports.create = async (req, res, next) => {
 exports.list = async (req, res, next) => {
     try{
         const user_id = req.params.user_id
-        var table_up = models.user_project;
-        var table_pi = models.project_info;
+        let table_up = models.user_project;
+        let table_pi = models.project_info;
         
         
         table_up.findAll({
@@ -84,7 +84,7 @@ exports.list = async (req, res, next) => {
 
 exports.issueCreate = async (req, res, next) => {
     try{
-        const table_pi = models.project_issue;
+        let table_pi = models.project_issue;
         const req_pi = req.body;
         
         table_pi.findOne({where: {project_id : req_pi.project_id} }).then(
@@ -109,7 +109,7 @@ exports.issueCreate = async (req, res, next) => {
 exports.issueList = async (req, res, next) => {
     try {
         const project_id = req.params.project_id
-        var table_pi = models.project_issue;
+        let table_pi = models.project_issue;
         
         table_pi.findAll({
             raw : true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
@@ -135,7 +135,7 @@ exports.issueList = async (req, res, next) => {
 exports.searchMember = async (req, res, next) => {
     try {
         const user_name = req.params.user_name
-        var table_ui = models.user_info;
+        let table_ui = models.user_info;
         
         table_ui.findAll({
             raw : true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
@@ -169,7 +169,7 @@ exports.searchMember = async (req, res, next) => {
 
 exports.addMember = async (req, res, next) => {
     try{
-        const table_up = models.user_project;
+        let table_up = models.user_project;
         const req_pi = req.body;
 
         table_up.findAll({
@@ -187,7 +187,7 @@ exports.addMember = async (req, res, next) => {
                     })
                 }
                 else {
-                    table_pi.create({
+                table_up.create({
                         project_id: req_pi.project_id,
                         user_id: req_pi.user_id
                     })
