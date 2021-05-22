@@ -37,7 +37,7 @@ function Member(props) {
 
     const addUser = (id) => {
         console.log(id)
-        /*const res = addMember(user_id, project_id)
+        const res = addMember(id, project_id)
             .then((res) => {
                 console.log(res);
                 if (res.status === 200) {
@@ -47,7 +47,7 @@ function Member(props) {
                     alert('이미 추가된 사용자 입니다.');
                 }
                 window.location.replace('/' + user_id + '/project/' + project_id + "/" + project_name + "/member");
-            })*/
+            })
     }
 
     return (
