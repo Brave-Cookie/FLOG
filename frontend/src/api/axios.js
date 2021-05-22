@@ -32,6 +32,6 @@ export function searchMember(user_name){
 }
 
 export function addMember(user_id, project_id) {
-    return DefalutAxios.post('/project/member/add');
+    return DefalutAxios.post('/project/member/add', {user_id, project_id});
 }
 
