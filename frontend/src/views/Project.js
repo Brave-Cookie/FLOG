@@ -17,7 +17,10 @@ function Project(props) {
             <br /><br />
             
             <h3>Project{project_id}</h3>
-            <button>방 만들기</button>
+            <button className="meeting-start-button">
+                <h3>방 만들기</h3>
+                <p>방장이 되어 회의를 시작해보세요.</p>
+            </button>
 
             
         </div>

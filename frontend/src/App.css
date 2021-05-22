@@ -203,3 +203,10 @@
   border-radius: 0.75rem;
   padding: 1.5rem;
 }
+
+.meeting-start-button {
+  background-color: #fbfbfb;
+  border: 1px solid #D8D5EB;
+  border-radius: 0.1rem;
+  color: #2c3750;
+}
