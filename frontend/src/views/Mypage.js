@@ -68,7 +68,6 @@ function Mypage(props) {
             set_project("");
             set_projectModal(false);
 
-            //set_projects(res.data.list);
             window.location.replace('/mypage/'+user_id);
             
         }
