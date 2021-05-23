@@ -109,6 +109,10 @@ exports.issueCreate = async (req, res, next) => {
 exports.issueList = async (req, res, next) => {
     try {
         const project_id = req.params.project_id
+        //------------------------------------------------------
+        
+        //------------------------------------------------------
+        
         let table_pi = models.project_issue;
         
         table_pi.findAll({
@@ -237,7 +241,7 @@ exports.logList = async (req, res, next) => {
     try {
         const project_id = req.params.project_id
         const table_pm = models.project_meeting
-        const table_mi = modls.meeting_info
+        const table_mi = models.meeting_info
 
         table_pm.findAll({
             raw: true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
