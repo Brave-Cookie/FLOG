@@ -8,5 +8,7 @@ router.post('/issue/create', controller.issueCreate)                //이슈등�
 router.get('/issue/list/:project_id', controller.issueList)         //이슈리스트
 router.get('/member/search/:user_name', controller.searchMember)    //참여자 검색
 router.post('/member/add', controller.addMember)                    //참여자 추가
+router.get('/member/list/:project_id',controller.listMember)        //참여자 리스트
 router.get('/log/list/:project_id', controller.logList)             //미팅 리스트 
+
 module.exports = router;
