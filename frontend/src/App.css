@@ -117,6 +117,7 @@
 
 .sidebar-menu {
   text-align: left;
+  font-size: 18px;
 }
 
 .sidebar-menu a {
@@ -167,9 +168,10 @@
   margin-top: 20px;
 }
 .search-box {
-  background-color: #FCFBFF;
+  background-color: #f5f2ff;
   border-radius: 0.75rem;
   padding: 1.5rem;
+  font-size: 18px;
 }
 .search-input {
   height: 20px;
@@ -202,6 +204,7 @@
   background-color: #EEEFFC;
   border-radius: 0.75rem;
   padding: 1.5rem;
+  font-size: 18px;
 }
 
 .meeting-start-button {
