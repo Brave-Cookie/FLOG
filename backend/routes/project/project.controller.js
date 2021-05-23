@@ -110,7 +110,44 @@ exports.issueList = async (req, res, next) => {
     try {
         const project_id = req.params.project_id
         //------------------------------------------------------
-        
+        const table_pm = models.project_meeting
+        const table_mi = models.meeting_info
+        const tabel_li = models.log_info
+        table_pm.findAll({
+            raw: true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
+            attributes: ['meeting_id'],
+            where: {
+                project_id : project_id,
+            }
+        }).then(
+            (result) => {
+                console.log(result)
+                table_mi.findAll({
+                    raw : true,
+                    where: {[Op.or] : result }
+                }).then(
+                    (result2) => {
+                        console.log(result2)
+                        for (let i = 0; i <result.length; i++){
+                            console.log(result[i].meeting_id)
+                            tabel_li.findAll({
+                                raw: true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
+                                attributes: ['user_id'],
+                                distinct: true,
+                                where: {
+                                meeting_id : result[i].meeting_id
+                                }
+                            }).then((result3) => {
+                                let user = []
+                                for (let j = 0; j < result3.length; j++) {
+                                    user.push(result3[j].user_id)
+                                }
+                                console.log(new Set(user))
+                            })
+                        }
+                    }
+                )
+            })
         //------------------------------------------------------
         
         let table_pi = models.project_issue;
