@@ -135,6 +135,12 @@
   font-weight: bold;
   line-height: 2;
 }
+.sidebar-title a {
+  color: #2c3750;
+}
+.sidebar-title :hover {
+  color: #6c6b77;
+}
 
 .project-content {
   margin-left: 400px;

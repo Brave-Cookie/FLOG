@@ -13,7 +13,9 @@ function SidebarLog(props) {
     }
     return (
         <div className="sidebar">
-            <div className="sidebar-title">{project_name}</div> 
+            <div className="sidebar-title">
+                <Link to={`/${user_id}/project/${project_id}/${project_name}`}>{project_name}</Link>
+            </div>
             <ul className="sidebar-menu">
                 <li>
                     <NavLink exact activeStyle={is_active} to={`/${user_id}/project/${project_id}/${project_name}/log/${log_id}`}>회의록 열람</NavLink>
