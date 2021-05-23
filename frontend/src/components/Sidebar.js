@@ -12,7 +12,9 @@ function Sidebar(props) {
     }
     return (
         <div className="sidebar">
-            <div className="sidebar-title">{project_name}</div> 
+            <div className="sidebar-title">
+                <Link to={`/${user_id}/project/${project_id}/${project_name}`}>{project_name}</Link>
+            </div>
             <ul className="sidebar-menu">
                 <li>
                     <NavLink exact activeStyle={is_active} to={`/${user_id}/project/${project_id}/${project_name}`}>회의LOG 관리</NavLink>
@@ -23,7 +25,7 @@ function Sidebar(props) {
                 <li>
                     <NavLink exact activeStyle={is_active} to={`/${user_id}/project/${project_id}/${project_name}/member`}>참여자 관리</NavLink>
                 </li>
-            </ul>      
+            </ul>
         </div>
     );
 }
