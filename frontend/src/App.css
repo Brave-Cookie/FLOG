@@ -97,6 +97,11 @@
   color: #2c3750;
   font-size: 18px;
 }
+.log-list a {
+  text-decoration: none;
+  color: #2c3750;
+  font-size: 18px;
+}
 
 .button {
   color: #6D42F8;

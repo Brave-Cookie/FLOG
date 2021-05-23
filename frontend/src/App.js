@@ -9,6 +9,9 @@ import Project from './views/Project'
 import Issue from './views/Issue';
 import Member from './views/Member';
 import Log from './views/Log';
+import WordCloud from './views/WordCloud';
+import EmotionGraph from './views/EmotionGraph';
+import Rank from './views/Rank';
 
 const App = () => {
 
@@ -28,6 +31,9 @@ const App = () => {
           <Route path="/:userId/project/:projectId/:projectName/issue" component={ Issue } exact />
           <Route path="/:userId/project/:projectId/:projectName/member" component={ Member } exact />
           <Route path="/:userId/project/:projectId/:projectName/log/:logId" component={ Log } exact />
+          <Route path="/:userId/project/:projectId/:projectName/log/:logId/word-cloud" component={ WordCloud } exact />
+          <Route path="/:userId/project/:projectId/:projectName/log/:logId/emotion-graph" component={ EmotionGraph } exact />
+          <Route path="/:userId/project/:projectId/:projectName/log/:logId/rank" component={ Rank } exact />
         
       </div>
     </div>
