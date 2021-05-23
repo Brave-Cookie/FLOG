@@ -206,6 +206,32 @@ exports.addMember = async (req, res, next) => {
             });
         }
 }
+exports.listMember = async (req, res, next) => {
+     try {
+        const project_id = req.params.project_id
+        let table_up = models.user_project;
+        
+        table_up.findAll({
+            raw : true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
+            attributes: ['user_id'], // issue_content 속성만 고르겠다~
+            where: {project_id : project_id},
+        }).then(
+            (result) => {
+                console.log(result)
+                 return res.status(200).json({
+                            message : '추출성공!!',
+                            list : result
+                        });
+            }
+        )
+        } catch(err){   // 에러나면 로그 찍고 실패 신호 보냄
+            console.log(err);
+            res.status(400).json({
+                message : '/member/list 에서 에러'
+            });
+        }
+
+}
 
 exports.logList = async (req, res, next) => {
     try {
