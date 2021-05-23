@@ -59,7 +59,7 @@ function Issue(props) {
         <div>
             <HeaderAuth />
             <Sidebar user_id={user_id} project_id={project_id} project_name={project_name} />
-            <br /><br />
+            <br /><br /><br />
 
             <div className="project-content">
                 <h3>✔ Issue <button className="issue_button" onClick={openModal}>+ 이슈 등록</button></h3> 
