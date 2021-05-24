@@ -25,14 +25,13 @@ function Log(props) {
         axios.get('http://localhost:3000/api/conf_log/log/fetch/' + meeting_id)
             .then(res => {
                 console.log(res);
-                console.log(res.data.list);
                 set_logContent(res.data.list);
             })
     }, [])
 
 
     useEffect(() => {
-        for (let i = 0; i < log_content.length; i++) {
+        /*for (let i = 0; i < log_content.length; i++) {
             console.log(log_content[i]);
             let row = {
                 user_id: log_content[i].user_id,
@@ -56,11 +55,15 @@ function Log(props) {
             else {
                 log_fear.push(log_content[i]);
             }
-        }
-        //const anger = log_content.filter(log_feeling => log_feeling == "anger");
-        //console.log(anger);
+        }*/
 
-        // Objects.key 또는 value
+        //log_anger = log_content.filter(log_feeling => log_feeling === "anger");
+        //console.log(log_anger);
+        let res = log_content.filter(it => it.log_feeling === "anger");
+        console.log(res);
+        log_anger=res;
+        console.log(log_anger);
+        // onclick이면 어케 할지. 화면 전환? 컴포넌트 전환? 컴포넌트 전환이 맞는거 같은데
 
 
     })
