@@ -286,12 +286,14 @@
   border-radius: 1rem;
   background-color: #EEEFFC;
   margin-left: 400px;
-  width: 800px;
+  width: 810px;
   height: 460px;
+ 
 }
 .log-scroll {
   width: 700px;
   height: 450px;
+  float: inline-start;
   overflow-y: scroll;
   background-color: #EEEFFC;
   padding-left: 3rem;
@@ -315,4 +317,13 @@
   border-radius: 0.5rem;
   color: white;
   line-height: 2;
+}
+.log-with-button {
+  float: right;
+  width: 30px;
+  margin-right: 280px;
+}
+.emotion-button {
+  float: right;
+  list-style: none;
 }
