@@ -321,7 +321,7 @@
 .log-with-buttons {
   float: right;
   width: 30px;
-  margin-right: 270px;
+  margin-right: 268px;
 }
 .emotion-button {
   float: right;
@@ -329,8 +329,8 @@
 }
 .all-button {
   width: 45px;
-  background-color: #D8D5EB;
-  border: 0px solid #b3b0c7;
+  background-color: #d0c4fd;
+  border: 0px solid #b6adf3;
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   color: #2c3750;
