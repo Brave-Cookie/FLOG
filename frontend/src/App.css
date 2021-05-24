@@ -106,12 +106,12 @@
 .project-item {
   line-height: 35px;
 }
-.log-list a {
+.meeting-list a {
   text-decoration: none;
   color: #2c3750;
   font-size: 18px;
 }
-.log-item {
+.meeting-item {
   line-height: 35px;
 }
 .log-button {

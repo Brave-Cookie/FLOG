@@ -30,10 +30,10 @@ const App = () => {
           <Route path="/:userId/project/:projectId/:projectName" component={ Project } exact />
           <Route path="/:userId/project/:projectId/:projectName/issue" component={ Issue } exact />
           <Route path="/:userId/project/:projectId/:projectName/member" component={ Member } exact />
-          <Route path="/:userId/project/:projectId/:projectName/log/:logId" component={ Log } exact />
-          <Route path="/:userId/project/:projectId/:projectName/log/:logId/word-cloud" component={ WordCloud } exact />
-          <Route path="/:userId/project/:projectId/:projectName/log/:logId/emotion-graph" component={ EmotionGraph } exact />
-          <Route path="/:userId/project/:projectId/:projectName/log/:logId/rank" component={ Rank } exact />
+          <Route path="/:userId/project/:projectId/:projectName/log/:meetingId" component={ Log } exact />
+          <Route path="/:userId/project/:projectId/:projectName/log/:meetingId/word-cloud" component={ WordCloud } exact />
+          <Route path="/:userId/project/:projectId/:projectName/log/:meetingId/emotion-graph" component={ EmotionGraph } exact />
+          <Route path="/:userId/project/:projectId/:projectName/log/:meetingId/rank" component={ Rank } exact />
         
       </div>
     </div>
