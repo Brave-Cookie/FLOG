@@ -108,48 +108,7 @@ exports.issueCreate = async (req, res, next) => {
 
 exports.issueList = async (req, res, next) => {
     try {
-        const project_id = req.params.project_id
-        //------------------------------------------------------
-        const table_pm = models.project_meeting
-        const table_mi = models.meeting_info
-        const tabel_li = models.log_info
-        table_pm.findAll({
-            raw: true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
-            attributes: ['meeting_id'],
-            where: {
-                project_id : project_id,
-            }
-        }).then(
-            (result) => {
-                console.log(result)
-                table_mi.findAll({
-                    raw : true,
-                    where: {[Op.or] : result }
-                }).then(
-                    (result2) => {
-                        console.log(result2)
-                        for (let i = 0; i <result.length; i++){
-                            console.log(result[i].meeting_id)
-                            tabel_li.findAll({
-                                raw: true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
-                                attributes: ['user_id'],
-                                distinct: true,
-                                where: {
-                                meeting_id : result[i].meeting_id
-                                }
-                            }).then((result3) => {
-                                let user = []
-                                for (let j = 0; j < result3.length; j++) {
-                                    user.push(result3[j].user_id)
-                                }
-                                console.log(new Set(user))
-                            })
-                        }
-                    }
-                )
-            })
-        //------------------------------------------------------
-        
+        const project_id = req.params.project_id        
         let table_pi = models.project_issue;
         
         table_pi.findAll({
@@ -277,31 +236,66 @@ exports.listMember = async (req, res, next) => {
 exports.logList = async (req, res, next) => {
     try {
         const project_id = req.params.project_id
-        const table_pm = models.project_meeting
+        const table_pm = models.project_meeting;
         const table_mi = models.meeting_info
+        const tabel_li = models.log_info
 
-        table_pm.findAll({
-            raw: true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
+    // 프로젝트에 포함된 모든 회의(meeting_id) 추출
+        let result_m_id = await table_pm.findAll({
+            raw: true, 
             attributes: ['meeting_id'],
             where: {
                 project_id : project_id,
             }
-        }).then(
-            (result) => {
-                console.log(result)
-                table_mi.findAll({
-                    raw : true,
-                    where: {[Op.or] : result }
-                }).then(
-                    (result2) => {
-                        console.log(result2)
-                        return res.status(200).json({
-                            message : '추출성공!!',
-                            list : result2
-                        });
-                    }
-                )
+        })
+
+        // 결과를 보내주기 위한 리스트 생성
+        let context = []
+
+        // meeting_id 하나씩 추출하기 위해 for
+        for(let i = 0; i <result_m_id.length; i++){
+            // m_id에 저장~
+            let m_id = result_m_id[i].meeting_id
+            // 한 row만 찾는건 findOne으로 찾자!
+            // 하나의 meeting_id에 해당하는 정보 불러옴
+            let result_m_info = await table_mi.findOne({
+                raw: true,
+            
+                where: {
+                
+                    meeting_id : m_id
+                }
+            }) 
+            // 해당 회의(meeting_id)에 참가했던 사용자 추출
+            // group 속성을 추가하니까 중복 제거됨 (원리는 모름)
+            let result_m_user = await tabel_li.findAll({
+                raw: true,
+                attributes: ['user_id'],
+                group : ['user_id'],
+                where: {
+                    meeting_id : m_id
+                }
             })
+
+            // result_m_user의 결과를 이쁘게 파싱해줌 (리스트에 담아줌)
+            let user_list = []
+            for(let i = 0; i <result_m_user.length; i++){
+                user_list.push(result_m_user[i].user_id)
+            }
+
+            // 왜 이쁘게 파싱했냐면 한 뭉텅이로 합쳐서 보내주기 위해.
+            // result_m_info (json 형식)에 user_id(key)를 추가해서 위에서 파싱한 결과를 담는다
+            result_m_info.user_id = user_list
+            // 최종 결과물 리스트에 하나의 뭉탱이 push
+
+            context.push(result_m_info)
+        }
+        console.log(context)
+        return res.status(200).json({
+                        message : '추출성공!!',
+                        list : context
+                    });
+        
         } catch(err){   // 에러나면 로그 찍고 실패 신호 보냄
             console.log(err);
             res.status(400).json({
