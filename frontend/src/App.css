@@ -88,8 +88,14 @@
 
 .list {
   text-align: left;
+  margin-top: 140px;
   margin-left: 25rem;
   margin-right: 25rem;
+}
+.list-with-sidebar {
+  text-align: left;
+  margin-left: 25rem;
+  margin-right: 15rem;
 }
 
 .project-list a {
@@ -97,10 +103,25 @@
   color: #2c3750;
   font-size: 18px;
 }
+.project-item {
+  line-height: 35px;
+}
 .log-list a {
   text-decoration: none;
   color: #2c3750;
   font-size: 18px;
+}
+.log-item {
+  line-height: 35px;
+}
+.log-button {
+  float: right;
+  margin-right: 15px;
+  background-color: #6D42F8;
+  border: 2px solid #b39efa;
+  border-radius: 0.25rem;
+  color: white;
+  line-height: 1.5;
 }
 
 .button {
@@ -111,6 +132,36 @@
   border: 1px solid #CABBFF;
   border-radius: 0.25rem;
   line-height: 1;
+}
+.mypage-buttons {
+  display: flex;
+}
+.create-project-button {
+  float: left;
+  width: 200px;
+  margin-top: 2rem;
+  margin-left: 34rem;
+  background-color: #fbfbfb;
+  border: 1px solid #D8D5EB;
+  border-radius: 0.1rem;
+  color: #3B336B;
+}
+.create-project-title {
+  font-size: 20px;
+}
+.join-meeting-button {
+  float: left;
+  width: 200px;
+  margin-top: 2rem;
+  margin-left: 3rem;
+  background-color: #fbfbfb;
+  border: 1px solid #D8D5EB;
+  border-radius: 0.1rem;
+  color: #3B336B;
+}
+.join-meeting-title {
+  color: #9172F6;
+  font-size: 20px;
 }
 
 .sidebar {
@@ -155,8 +206,11 @@
   border-radius: 1rem;
   padding: 1rem;
 }
+.issue-item {
+  list-style: none;
+}
 
-.issue_button {
+.issue-button {
   float: right;
   margin-right: 20px;
   color: #6D42F8;
@@ -172,6 +226,9 @@
   display: flex;
   margin-left: 400px;
   text-align: left;
+}
+.member-list {
+  list-style: none;
 }
 
 .search-member {

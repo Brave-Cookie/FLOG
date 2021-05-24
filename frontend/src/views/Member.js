@@ -75,8 +75,8 @@ function Member(props) {
                         <hr color="#b9bada" noshade="noshade" size="1" />
                         <ul>
                             {search_result.map((user, id) => (
-                                <li key={id}>
-                                    {user.user_id} <button className="add-button" value={user.user_id} onClick={addUser}>추가</button>
+                                <li key={id} className="member-list">
+                                    - {user.user_id} <button className="add-button" value={user.user_id} onClick={addUser}>추가</button>
                                 </li>
                             ))}
                         </ul>
@@ -87,8 +87,8 @@ function Member(props) {
                     <div className="current-box">
                         <div>
                             {current_members.map((user, id) => (
-                                <li key={id}>
-                                    {user.user_id}
+                                <li key={id} className="member-list">
+                                    -&nbsp;&nbsp; {user.user_id}
                                 </li>
                             ))}
                         </div>

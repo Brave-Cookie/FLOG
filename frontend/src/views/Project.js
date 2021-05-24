@@ -34,15 +34,16 @@ function Project(props) {
             </button>
 
 
-            <div className="list">
+            <div className="list-with-sidebar">
                 <h3>회의 LOG</h3>
                 <hr color="#b9bada" noshade="noshade" size="1"></hr>
                 
                 <ul className="log-list">
                 {logs.map((log, id) =>(
-                    <li className="log_item" key={id}>
+                    <li className="log-item" key={id}>
                         <Link to={`/${user_id}/project/${project_id}/${project_name}/log/${log.meeting_id}`}>
                             {log.meeting_date} | [{log.meeting_name}]
+                            <button className="log-button">감정 회의록</button>
                         </Link>
                     </li>
                 ))}
