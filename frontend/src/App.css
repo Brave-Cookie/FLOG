@@ -318,12 +318,73 @@
   color: white;
   line-height: 2;
 }
-.log-with-button {
+.log-with-buttons {
   float: right;
   width: 30px;
-  margin-right: 280px;
+  margin-right: 270px;
 }
 .emotion-button {
   float: right;
   list-style: none;
+}
+.all-button {
+  width: 45px;
+  background-color: #D8D5EB;
+  border: 0px solid #b3b0c7;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  color: #2c3750;
+  font-weight: bold;
+  line-height: 2.5;
+  margin-bottom: 5px;
+}
+.happy-button {
+  background-color: #FFFF85;
+  border: 0px solid #b39efa;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  color: #2c3750;
+  font-weight: bold;
+  line-height: 2.5;
+  margin-bottom: 5px;
+}
+.anger-button {
+  background-color: #FFB7DD;
+  border: 0px solid #b39efa;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  color: #2c3750;
+  font-weight: bold;
+  line-height: 2.5;
+  margin-bottom: 5px;
+}
+.sad-button {
+  background-color: #95BEEF;
+  border: 0px solid #b39efa;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  color: #2c3750;
+  font-weight: bold;
+  line-height: 2.5;
+  margin-bottom: 5px;
+}
+.fear-button {
+  background-color: #B3EBD8;
+  border: 0px solid #b39efa;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  color: #2c3750;
+  font-weight: bold;
+  line-height: 2.5;
+  margin-bottom: 5px;
+}
+.neutral-button {
+  background-color: #E3E0EC;
+  border: 0px solid #b39efa;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  color: #2c3750;
+  font-weight: bold;
+  line-height: 2.5;
+  margin-bottom: 5px;
 }

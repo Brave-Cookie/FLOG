@@ -85,14 +85,14 @@ function Log(props) {
             <div className="entire-log-title">
                 <h3>회의록 전문<button className="listen-button">음성으로 회의 듣기</button></h3>
             </div>
-            <div className="log-with-button">
+            <div className="log-with-buttons">
             <ul className="emotion-button">
-                    <li><button>전체</button></li>
-                    <li><button>기쁨</button></li>
-                    <li><button>격양</button></li>
-                    <li><button>슬픔</button></li>
-                    <li><button>긴장</button></li>
-                    <li><button>평범</button></li>
+                    <li><button className="all-button">전체</button></li>
+                    <li><button className="happy-button">기쁨</button></li>
+                    <li><button className="anger-button">격양</button></li>
+                    <li><button className="sad-button">슬픔</button></li>
+                    <li><button className="fear-button">긴장</button></li>
+                    <li><button className="neutral-button">평범</button></li>
                 </ul>
             </div>
             <div className="log-box">
