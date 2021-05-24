@@ -11,12 +11,13 @@ function Log(props) {
     const [log_content, set_logContent] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3000/api/conf_log/log/fetch/'+meeting_id)
-        .then(res => {
-            console.log(res);
-            set_logContent(res.data.list);
-        })
-    })
+        axios.get('http://localhost:3000/api/conf_log/log/fetch/' + meeting_id)
+            .then(res => {
+                console.log(res);
+                console.log(res.data.list);
+                set_logContent(res.data.list);
+            })
+    }, [])
 
     const feeling = (event) => {
         let emotion = event.target.value;
@@ -26,15 +27,20 @@ function Log(props) {
         <div className="content">
             <HeaderAuth />
             <SidebarLog user_id={user_id} project_id={project_id} project_name={project_name} meeting_id={meeting_id} />
-
-            <div>
-                <h3>회의록</h3>
-                <div>
-                {log_content.map((log, id) =>(
-                    <li className="log-content" key={id} value={log.log_feeling} style={feeling}>
-                            [{log.log_time}] {log.user_id}: {log.log_text}
-                    </li>
-                ))}
+            <br /><br />
+            <div className="entire-log-title">
+                <h3>회의록 전문<button className="listen-button">음성으로 회의 듣기</button></h3> 
+            </div>
+            <div className="log-box">
+                <div className="log-scroll"><br />
+                    {log_content.map((log, id) => (
+                        <div>
+                            <li className="log-content" key={id} value={log.log_feeling}>
+                                [{log.log_time}] {log.user_id}: {log.log_text}
+                            </li>
+                            <br />
+                        </div>
+                    ))}
                     <br />
                 </div>
             </div>
