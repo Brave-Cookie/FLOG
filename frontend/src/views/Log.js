@@ -7,11 +7,11 @@ function Log(props) {
     const [user_id, set_userId] = useState(props.match.params.userId);
     const [project_id, set_projectId] = useState(props.match.params.projectId);
     const [project_name, set_projectName] = useState(props.match.params.projectName);
-    const [log_id, set_logId] = useState(props.match.params.logId);
+    const [meeting_id, set_logId] = useState(props.match.params.meetingId);
     const [log_content, set_logContent] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3000/api/conf_log/log/fetch/'+log_id)
+        axios.get('http://localhost:3000/api/conf_log/log/fetch/'+meeting_id)
         .then(res => {
             console.log(res);
             set_logContent(res.data.list);
@@ -25,7 +25,7 @@ function Log(props) {
     return (
         <div className="content">
             <HeaderAuth />
-            <SidebarLog user_id={user_id} project_id={project_id} project_name={project_name} log_id={log_id} />
+            <SidebarLog user_id={user_id} project_id={project_id} project_name={project_name} meeting_id={meeting_id} />
 
             <div>
                 <h3>회의록</h3>
