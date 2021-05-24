@@ -25,14 +25,13 @@ function Log(props) {
         axios.get('http://localhost:3000/api/conf_log/log/fetch/' + meeting_id)
             .then(res => {
                 console.log(res);
-                console.log(res.data.list);
                 set_logContent(res.data.list);
             })
     }, [])
 
 
     useEffect(() => {
-        for (let i = 0; i < log_content.length; i++) {
+        /*for (let i = 0; i < log_content.length; i++) {
             console.log(log_content[i]);
             let row = {
                 user_id: log_content[i].user_id,
@@ -56,11 +55,15 @@ function Log(props) {
             else {
                 log_fear.push(log_content[i]);
             }
-        }
-        //const anger = log_content.filter(log_feeling => log_feeling == "anger");
-        //console.log(anger);
+        }*/
 
-        // Objects.key 또는 value
+        //log_anger = log_content.filter(log_feeling => log_feeling === "anger");
+        //console.log(log_anger);
+        let res = log_content.filter(it => it.log_feeling === "anger");
+        console.log(res);
+        log_anger=res;
+        console.log(log_anger);
+        // onclick이면 어케 할지. 화면 전환? 컴포넌트 전환? 컴포넌트 전환이 맞는거 같은데
 
 
     })
@@ -85,14 +88,14 @@ function Log(props) {
             <div className="entire-log-title">
                 <h3>회의록 전문<button className="listen-button">음성으로 회의 듣기</button></h3>
             </div>
-            <div className="log-with-button">
+            <div className="log-with-buttons">
             <ul className="emotion-button">
-                    <li><button>전체</button></li>
-                    <li><button>기쁨</button></li>
-                    <li><button>격양</button></li>
-                    <li><button>슬픔</button></li>
-                    <li><button>긴장</button></li>
-                    <li><button>평범</button></li>
+                    <li><button className="all-button">전체</button></li>
+                    <li><button className="happy-button">기쁨</button></li>
+                    <li><button className="anger-button">격양</button></li>
+                    <li><button className="sad-button">슬픔</button></li>
+                    <li><button className="fear-button">긴장</button></li>
+                    <li><button className="neutral-button">평범</button></li>
                 </ul>
             </div>
             <div className="log-box">
