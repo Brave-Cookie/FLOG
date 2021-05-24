@@ -52,11 +52,14 @@ router.get('/console', async function(req, res, next) {
         // 하나의 meeting_id에 해당하는 정보 불러옴
         let result_m_info = await table_mi.findOne({
             raw: true,
+           
             where: {
+               
                 meeting_id : m_id
             }
         })
-
+        
+   
         // 해당 회의(meeting_id)에 참가했던 사용자 추출
         // group 속성을 추가하니까 중복 제거됨 (원리는 모름)
         let result_m_user = await tabel_li.findAll({
@@ -78,6 +81,7 @@ router.get('/console', async function(req, res, next) {
         // result_m_info (json 형식)에 user_id(key)를 추가해서 위에서 파싱한 결과를 담는다
         result_m_info.user_id = user_list
         // 최종 결과물 리스트에 하나의 뭉탱이 push
+        
         context.push(result_m_info)
     }
     console.log(context)
