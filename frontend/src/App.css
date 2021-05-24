@@ -281,3 +281,38 @@
   border-radius: 0.1rem;
   color: #2c3750;
 }
+
+.log-box {
+  border-radius: 1rem;
+  background-color: #EEEFFC;
+  margin-left: 400px;
+  width: 800px;
+  height: 460px;
+}
+.log-scroll {
+  width: 700px;
+  height: 450px;
+  overflow-y: scroll;
+  background-color: #EEEFFC;
+  padding-left: 3rem;
+  padding-right: 2rem;
+  border-radius: 1rem;
+}
+.log-content {
+  text-align: left;
+  list-style: none;
+  line-height: 30px;
+}
+.entire-log-title {
+  margin-left: 400px;
+  text-align: left;
+}
+.listen-button {
+  float: right;
+  margin-right: 20rem;
+  background-color: #6D42F8;
+  border: 2px solid #b39efa;
+  border-radius: 0.5rem;
+  color: white;
+  line-height: 2;
+}
