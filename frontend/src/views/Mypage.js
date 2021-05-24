@@ -17,7 +17,7 @@ function Mypage(props) {
     let name = jwt_decode(localStorage.accessToken).user_name;
     let id = jwt_decode(localStorage.accessToken).user_id;
     const [user, set_user] = useState(name);
-    const [user_id, set_id] =useState(id);
+    const [user_id, set_id] = useState(id);
     const [projectModal, set_projectModal] = useState(false);
     const [codeModal, set_codeModal] = useState(false);
     const [project_name, set_project] = useState("");
@@ -31,7 +31,7 @@ function Mypage(props) {
             .then(res => {
                 set_projects(res.data.list);
             })
-            console.log(projects);
+        console.log(projects);
     }, []);
 
     /*const onUserHandler = (event) => {
@@ -61,22 +61,22 @@ function Mypage(props) {
 
 
     const registProject = () => {
-        if(project_name!==""){
+        if (project_name !== "") {
             const res = register(user_id, project_name);
             alert('프로젝트가 생성되었습니다.');
             // clear
             set_project("");
             set_projectModal(false);
 
-            window.location.replace('/mypage/'+user_id);
-            
+            window.location.replace('/mypage/' + user_id);
+
         }
         else {
             alert('프로젝트명을 입력해주세요.')
         }
     }
     const enterMeeting = () => {
-        if(meeting_code!==""){
+        if (meeting_code !== "") {
             alert(meeting_code);
 
             set_code("");
@@ -86,15 +86,24 @@ function Mypage(props) {
             alert('코드를 입력해주세요');
         }
     }
-    
+
     console.log(projects);
-    return(
+    return (
         <div className="content">
             <HeaderAuth />
             <br />
-            <h3>'<Link to={`/mypage/${user_id}`}>{user}</Link>'님 환영합니다 :)</h3> 
+            <h3>'<Link to={`/mypage/${user_id}`}>{user}</Link>'님 환영합니다 :)</h3>
+            <div className="mypage-buttons">
+                <button onClick={openProjectModal} className="create-project-button">
+                    <h3 className="create-project-title">프로젝트 생성</h3>
+                    <p>프로젝트 폴더를 만들어 회의를 관리해보세요.</p>
+                </button>
 
-            <button onClick={openProjectModal}>프로젝트 생성</button>           
+                <button onClick={openCodeModal} className="join-meeting-button">
+                    <h3 className="join-meeting-title">회의 참여하기</h3>
+                    <p>코드를 입력하면 바로 회의에 참여할 수 있어요.</p>
+                </button>
+            </div>
             <Modal visible={projectModal} width="300" height="200" effect="fadeInUp" onClickAway={() => this.closeModal()}>
                 <div>
                     <h4>프로젝트의 이름을 입력해주세요.</h4>
@@ -105,8 +114,7 @@ function Mypage(props) {
                     <button className="close" onClick={closeModal}>창 닫기</button>
                 </div>
             </Modal>
-            
-            <button onClick={openCodeModal}>회의 참여하기</button>           
+
             <Modal visible={codeModal} width="300" height="200" effect="fadeInUp" onClickAway={() => this.closeModal()}>
                 <div>
                     <h4>회의 코드를 입력해주세요.</h4>
@@ -122,20 +130,20 @@ function Mypage(props) {
             <div className="list">
                 <h3>나의 프로젝트</h3>
                 <hr color="#b9bada" noshade="noshade" size="1"></hr>
-                
+
                 <ul className="project-list">
-                {projects.map((project, id) =>(
-                    <li className="project_item" key={id}>
-                        <Link to={`/${user_id}/project/${project.project_id}/${project.project_name}`}>{project.project_name}</Link>
-                    </li>
-                ))}
+                    {projects.map((project, id) => (
+                        <li className="project-item" key={id}>
+                            <Link to={`/${user_id}/project/${project.project_id}/${project.project_name}`}>{project.project_name}</Link>
+                        </li>
+                    ))}
                     <br />
                 </ul>
             </div>
 
 
         </div>
-        
+
     )
 }
 

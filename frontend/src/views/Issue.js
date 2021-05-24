@@ -62,13 +62,13 @@ function Issue(props) {
             <br /><br /><br />
 
             <div className="project-content">
-                <h3>✔ Issue <button className="issue_button" onClick={openModal}>+ 이슈 등록</button></h3> 
+                <h3>🔔 Issue <button className="issue-button" onClick={openModal}>+ 이슈 등록</button></h3> 
                 
 
                 <div className="issue-content">
                 {issues.map((issue, id) =>(
-                    <li className="issue_item" key={id}>
-                        {issue.issue_content}
+                    <li className="issue-item" key={id}>
+                        -&nbsp;&nbsp;{issue.issue_content}
                         <hr color="#b9bada" noshade="noshade" size="1" />
                     </li>
                 ))}
