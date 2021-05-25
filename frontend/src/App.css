@@ -539,6 +539,30 @@
   height: 250px;
   border: 2px solid #D8D5EB;
   border-radius: 1.5rem;
+  background-image: url('./assets/image/podium_no_trophy.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+}
+.first {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 100px;
+  margin-left: 270px;
+}
+.second {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 10px;
+  margin-left: 270px;
+  float: left;
+}
+.third {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 25px;
+  margin-left: 140px;
+  float: right;
 }
 
 .state-title {
@@ -565,3 +589,4 @@
   float: right;
   line-height: 30px;
 }
+

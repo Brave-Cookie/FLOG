@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import HeaderAuth from '../components/HeaderAuth';
 import SidebarLog from '../components/SidebarLog';
+import podium from '../assets/image/podium.jpg';
 
 function Rank(props) {
     const [user_id, set_userId] = useState(props.match.params.userId);
@@ -29,7 +30,9 @@ function Rank(props) {
             </div>
             <div className="rank-box">
                 <div className="ranking">
-                    
+                    <div className="first">🥇 김필록</div>
+                    <div className="second">🥈 김수지</div>
+                    <div className="third">🥉 박에이</div>
                 </div>
             </div>
 
