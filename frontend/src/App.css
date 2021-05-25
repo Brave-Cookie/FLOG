@@ -176,7 +176,7 @@
 .sidebar {
   position: absolute;
   width: 200px;
-  height: 900px;
+  height: 950px;
   border-right: 1px solid #D8D5EB;
 }
 
@@ -479,4 +479,89 @@
   height: 240px;
   padding: 35px;
   font-weight: bold;
+}
+
+.graph-title {
+  margin-left: 400px;
+  text-align: left;
+}
+.graph-sub-title {
+  text-align: left;
+  font-size: 14px;
+}
+.graph-box {
+  margin-top: 20px;
+  margin-left: 400px;
+  width: 850px;
+  height: 300px;
+  border: 2px solid #D8D5EB;
+  border-radius: 1.5rem;
+}
+
+.pi-chart-title {
+  margin-left: 400px;
+  margin-top: 50px;
+  text-align: left;
+  width: 850px;
+}
+.chart-sub-title {
+  text-align: left;
+  margin-left: 420px;
+  margin-top: 120px;
+}
+.chart-box {
+  margin-left: 450px;
+  margin-top: 20px;
+  width: 400px;
+  height: 300px;
+  float: left;
+}
+.chart-index {
+  list-style: none;
+  line-height: 40px;
+  margin-top: 50px;
+  margin-left: 100px;
+  text-align: left;
+}
+.index {
+  display: flex;
+  float: left;
+}
+
+.rank-title {
+  text-align: left;
+  margin-left: 400px;
+}
+.rank-box {
+  margin-top: 30px;
+  margin-left: 400px;
+  width: 850px;
+  height: 250px;
+  border: 2px solid #D8D5EB;
+  border-radius: 1.5rem;
+}
+
+.state-title {
+  float: left;
+  text-align: left;
+  margin-top: 50px;
+  margin-left: 400px;
+  margin-right: 40px;
+  width: 850px;
+}
+
+.state {
+  margin-left: 420px;
+  width: 550px;
+  text-align: left;
+  margin-top: 150px;
+  font-size: 20px;
+}
+.left-state {
+  float: left;
+  line-height: 30px;
+}
+.right-state {
+  float: right;
+  line-height: 30px;
 }
