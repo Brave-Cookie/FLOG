@@ -176,7 +176,7 @@
 .sidebar {
   position: absolute;
   width: 200px;
-  height: 900px;
+  height: 950px;
   border-right: 1px solid #D8D5EB;
 }
 
@@ -502,10 +502,30 @@
   margin-left: 400px;
   margin-top: 50px;
   text-align: left;
+  width: 850px;
 }
 .chart-sub-title {
   text-align: left;
-  margin-left: 400px;
+  margin-left: 420px;
+  margin-top: 120px;
+}
+.chart-box {
+  margin-left: 450px;
+  margin-top: 20px;
+  width: 400px;
+  height: 300px;
+  float: left;
+}
+.chart-index {
+  list-style: none;
+  line-height: 40px;
+  margin-top: 50px;
+  margin-left: 100px;
+  text-align: left;
+}
+.index {
+  display: flex;
+  float: left;
 }
 
 .rank-title {
