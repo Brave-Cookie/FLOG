@@ -10,16 +10,17 @@ function Log(props) {
     const [meeting_id, set_logId] = useState(props.match.params.meetingId);
     const [log_content, set_logContent] = useState([]);
     const [bg_color, set_color] = useState();
-    /*const [log_anger, set_anger] = useState([]);
+
+    const [log_anger, set_anger] = useState([]);
     const [log_happy, set_happy] = useState([]);
     const [log_neutral, set_neutral] = useState([]);
     const [log_sad, set_sad] = useState([]);
-    const [log_fear, set_fear] = useState([]);*/
-    let log_anger = [];
+    const [log_fear, set_fear] = useState([]);
+    /*let log_anger = [];
     let log_happy = [];
     let log_neutral = [];
     let log_sad = [];
-    let log_fear = [];
+    let log_fear = [];*/
 
     useEffect(() => {
         axios.get('http://localhost:3000/api/conf_log/log/fetch/' + meeting_id)
@@ -29,56 +30,45 @@ function Log(props) {
             })
     }, [])
 
-
     useEffect(() => {
-        /*for (let i = 0; i < log_content.length; i++) {
-            console.log(log_content[i]);
-            let row = {
-                user_id: log_content[i].user_id,
-                log_feeling: log_content[i].log_feeling,
-            };
-            //let row = log_content[i].values();
-            console.log(row);
-            if (log_content[i].log_feeling === "anger") {
-                log_anger.push(row);
-                console.log("::anger::" + log_anger);
-            }
-            else if (log_content[i].log_feeling === "happy") {
-                log_happy.push(log_content[i]);
-            }
-            else if (log_content[i].log_feeling === "neutral") {
-                log_neutral.push(log_content[i]);
-            }
-            else if (log_content[i].log_feeling === "sad") {
-                log_sad.push(log_content[i]);
-            }
-            else {
-                log_fear.push(log_content[i]);
-            }
-        }*/
-
-        //log_anger = log_content.filter(log_feeling => log_feeling === "anger");
-        //console.log(log_anger);
-        let res = log_content.filter(it => it.log_feeling === "anger");
+        /*console.log("in useEffect: " + log_content)
+        let res = log_content.filter((it, id) => it.log_feeling === "anger");
         console.log(res);
-        log_anger=res;
-        console.log(log_anger);
+        //log_anger=res;
+        set_anger(res);
+        console.log(log_anger);*/
+        let feeling = "anger";
+        axios.get('http://localhost:3000/api/conf_log/log/fetch/' + meeting_id + '/' + feeling)
+            .then(res => {
+                console.log(res);
+            })
+
+
         // onclick이면 어케 할지. 화면 전환? 컴포넌트 전환? 컴포넌트 전환이 맞는거 같은데
-
-
-    })
+    }, [])
+    useEffect(() => {
+        let res = log_content.filter(it => it.log_feeling === "happy");
+        set_happy(res);
+    }, [])
+    useEffect(() => {
+        let res = log_content.filter(it => it.log_feeling === "neutral");
+        set_neutral(res);
+    }, [])
+    useEffect(() => {
+        let res = log_content.filter(it => it.log_feeling === "sad");
+        set_sad(res);
+    }, [])
+    useEffect(() => {
+        let res = log_content.filter(it => it.log_feeling === "fear");
+        set_fear(res);
+    }, [])
 
     console.log(log_anger);
+    console.log(log_happy);
+    console.log(log_neutral);
+    console.log(log_sad);
+    console.log(log_fear);
 
-
-    const getLogContent = () => {
-        let rst = log_content.map((log, id) => {
-            if (log.log_feeling === "anger") {
-                return (<p style={{ backgroundColor: '#FFB7DD' }} > [{log.log_time}] {log.user_id}: {log.log_text} </p>)
-            }
-            else return (<p style={{ backgroundColor: 'white' }} > [{log.log_time}] {log.user_id}: {log.log_text} </p>)
-        });
-    }
 
     return (
         <div className="content">
@@ -129,12 +119,7 @@ function Log(props) {
 
             </div>
 
-            <div>
-                <p>테스트</p>
-                {log_anger.map((log, id) => (
-                    <li key={id}>{log.text}</li>
-                ))}
-            </div>
+            
 
 
         </div>
