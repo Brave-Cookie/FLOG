@@ -539,7 +539,7 @@
   height: 250px;
   border: 2px solid #D8D5EB;
   border-radius: 1.5rem;
-  background-image: url('./assets/image/podium_no_trophy.jpg');
+  background-image: url('./assets/image/podium_no_trophy_low.jpg');
   background-repeat: no-repeat;
   background-position: center;
   display: flex;
@@ -547,7 +547,7 @@
 .first {
   font-weight: bold;
   font-size: 18px;
-  margin-top: 100px;
+  margin-top: 60px;
   margin-left: 270px;
 }
 .second {
