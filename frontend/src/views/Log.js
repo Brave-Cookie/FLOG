@@ -16,11 +16,8 @@ function Log(props) {
     const [log_neutral, set_neutral] = useState([]);
     const [log_sad, set_sad] = useState([]);
     const [log_fear, set_fear] = useState([]);
-    /*let log_anger = [];
-    let log_happy = [];
-    let log_neutral = [];
-    let log_sad = [];
-    let log_fear = [];*/
+
+    const [show_log, set_showLog] = useState([]);
 
     useEffect(() => {
         axios.get('http://localhost:3000/api/conf_log/log/fetch/' + meeting_id)
@@ -28,6 +25,7 @@ function Log(props) {
                 console.log(res);
                 set_logContent(res.data.list);
             })
+        set_showLog(log_content);
     }, [])
 
     useEffect(() => {
@@ -41,34 +39,75 @@ function Log(props) {
         axios.get('http://localhost:3000/api/conf_log/log/fetch/' + meeting_id + '/' + feeling)
             .then(res => {
                 console.log(res);
+                set_anger(res.data.list);
             })
-
 
         // onclick이면 어케 할지. 화면 전환? 컴포넌트 전환? 컴포넌트 전환이 맞는거 같은데
     }, [])
     useEffect(() => {
-        let res = log_content.filter(it => it.log_feeling === "happiness");
-        set_happy(res);
+        let feeling = "happiness";
+        axios.get('http://localhost:3000/api/conf_log/log/fetch/' + meeting_id + '/' + feeling)
+            .then(res => {
+                console.log(res);
+                set_happy(res.data.list);
+            })
     }, [])
     useEffect(() => {
-        let res = log_content.filter(it => it.log_feeling === "neutral");
-        set_neutral(res);
+        let feeling = "neutral";
+        axios.get('http://localhost:3000/api/conf_log/log/fetch/' + meeting_id + '/' + feeling)
+            .then(res => {
+                console.log(res);
+                set_neutral(res.data.list);
+            })
     }, [])
     useEffect(() => {
-        let res = log_content.filter(it => it.log_feeling === "sadness");
-        set_sad(res);
+        let feeling = "sadness";
+        axios.get('http://localhost:3000/api/conf_log/log/fetch/' + meeting_id + '/' + feeling)
+            .then(res => {
+                console.log(res);
+                set_sad(res.data.list);
+            })
     }, [])
     useEffect(() => {
-        let res = log_content.filter(it => it.log_feeling === "fear");
-        set_fear(res);
+        let feeling = "fear";
+        axios.get('http://localhost:3000/api/conf_log/log/fetch/' + meeting_id + '/' + feeling)
+            .then(res => {
+                console.log(res);
+                set_fear(res.data.list);
+            })
     }, [])
 
-    console.log(log_anger);
-    console.log(log_happy);
-    console.log(log_neutral);
-    console.log(log_sad);
-    console.log(log_fear);
+    function Filter({ log_feeling }) {
+        console.log(log_feeling);
+        return (
+            <ul>
+                {log_feeling.map((row, id) => (
+                    <li className="log-content" key={id}>
+                        <p>[{row.log_time}] {row.user_id}: {row.log_text}</p>
+                    </li>
+                ))}
+            </ul>
+        )
+    }
 
+    const filter_all = () => {
+        set_showLog(log_content);
+    }
+    const filter_anger = () => {
+        set_showLog(log_anger);
+    }
+    const filter_happiness = () => {
+        set_showLog(log_happy);
+    }
+    const filter_neutral = () => {
+        set_showLog(log_neutral);
+    }
+    const filter_sadness = () => {
+        set_showLog(log_sad);
+    }
+    const filter_fear = () => {
+        set_showLog(log_fear);
+    }
 
     return (
         <div className="content">
@@ -80,17 +119,17 @@ function Log(props) {
             </div>
             <div className="log-with-buttons">
             <ul className="emotion-button">
-                    <li><button className="all-button">전체</button></li>
-                    <li><button className="happy-button">기쁨</button></li>
-                    <li><button className="anger-button">격양</button></li>
-                    <li><button className="sad-button">슬픔</button></li>
-                    <li><button className="fear-button">긴장</button></li>
-                    <li><button className="neutral-button">평범</button></li>
+                    <li><button className="all-button" onClick={filter_all}>전체</button></li>
+                    <li><button className="happy-button" onClick={filter_happiness}>기쁨</button></li>
+                    <li><button className="anger-button" onClick={filter_anger}>격양</button></li>
+                    <li><button className="sad-button" onClick={filter_sadness}>슬픔</button></li>
+                    <li><button className="fear-button" onClick={filter_fear}>긴장</button></li>
+                    <li><button className="neutral-button" onClick={filter_neutral}>평범</button></li>
                 </ul>
             </div>
             <div className="log-box">
                 <div className="log-scroll"><br />
-                    {log_content.map((log, id) => (
+                    {show_log.map((log, id) => (
                         <div>
                             <li className="log-content" key={id} id={log.log_feeling}>
                                 {(function () {
@@ -116,11 +155,8 @@ function Log(props) {
                     ))}
                     <br />
                 </div>
-
             </div>
-
             
-
 
         </div>
     )

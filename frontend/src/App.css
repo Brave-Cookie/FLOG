@@ -338,15 +338,25 @@
   line-height: 2.5;
   margin-bottom: 5px;
 }
+.all-button:hover {
+  cursor: pointer;
+  background-color: #c6b7fc;
+  color: white;
+}
 .happy-button {
   background-color: #FFFF85;
-  border: 0px solid #b39efa;
+  border: 0px solid #ffff6c;
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   color: #2c3750;
   font-weight: bold;
   line-height: 2.5;
   margin-bottom: 5px;
+}
+.happy-button:hover {
+  cursor: pointer;
+  background-color: #fdf251;
+  color: white;
 }
 .anger-button {
   background-color: #FFB7DD;
@@ -358,6 +368,11 @@
   line-height: 2.5;
   margin-bottom: 5px;
 }
+.anger-button:hover {
+  cursor: pointer;
+  background-color: #ffa4d5;
+  color: white;
+}
 .sad-button {
   background-color: #95BEEF;
   border: 0px solid #b39efa;
@@ -367,6 +382,11 @@
   font-weight: bold;
   line-height: 2.5;
   margin-bottom: 5px;
+}
+.sad-button:hover {
+  cursor: pointer;
+  background-color: #85afe4;
+  color: white;
 }
 .fear-button {
   background-color: #B3EBD8;
@@ -378,6 +398,11 @@
   line-height: 2.5;
   margin-bottom: 5px;
 }
+.fear-button:hover {
+  cursor: pointer;
+  background-color: #97e4ca;
+  color: white;
+}
 .neutral-button {
   background-color: #E3E0EC;
   border: 0px solid #b39efa;
@@ -387,4 +412,9 @@
   font-weight: bold;
   line-height: 2.5;
   margin-bottom: 5px;
+}
+.neutral-button:hover {
+  cursor: pointer;
+  background-color: #ccc8d6;
+  color: white;
 }
