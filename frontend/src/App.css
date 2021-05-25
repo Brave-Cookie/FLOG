@@ -123,6 +123,9 @@
   color: white;
   line-height: 1.5;
 }
+.log-button:hover {
+  cursor: pointer;
+}
 
 .button {
   color: #6D42F8;
@@ -146,6 +149,9 @@
   border-radius: 0.1rem;
   color: #3B336B;
 }
+.create-project-button:hover {
+  cursor: pointer;
+}
 .create-project-title {
   font-size: 20px;
 }
@@ -158,6 +164,9 @@
   border: 1px solid #D8D5EB;
   border-radius: 0.1rem;
   color: #3B336B;
+}
+.join-meeting-button:hover {
+  cursor: pointer;
 }
 .join-meeting-title {
   color: #9172F6;
@@ -221,6 +230,9 @@
   border-radius: 0.25rem;
   line-height: 1;
 }
+.issue-button:hover {
+  cursor: pointer;
+}
 
 .member-wrap {
   display: flex;
@@ -254,13 +266,19 @@
   border: 2px solid #EEEFFC;
   border-radius: 0.3rem;
 }
+.search-button:hover {
+  cursor: pointer;
+}
 .add-button {
-  background-color: #EEEFFC;
+  background-color: #9373ff;
   border: 1px solid #CABBFF;
   border-radius: 0.25rem;
+  color: white;
   float: right;
-
   margin-right: 15px;
+}
+.add-button:hover {
+  cursor: pointer;
 }
 
 .current-member {
@@ -280,6 +298,9 @@
   border: 1px solid #D8D5EB;
   border-radius: 0.1rem;
   color: #2c3750;
+}
+.meeting-start-button:hover {
+  cursor: pointer;
 }
 
 .log-box {
