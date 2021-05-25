@@ -47,7 +47,7 @@ function Log(props) {
         // onclick이면 어케 할지. 화면 전환? 컴포넌트 전환? 컴포넌트 전환이 맞는거 같은데
     }, [])
     useEffect(() => {
-        let res = log_content.filter(it => it.log_feeling === "happy");
+        let res = log_content.filter(it => it.log_feeling === "happiness");
         set_happy(res);
     }, [])
     useEffect(() => {
@@ -55,7 +55,7 @@ function Log(props) {
         set_neutral(res);
     }, [])
     useEffect(() => {
-        let res = log_content.filter(it => it.log_feeling === "sad");
+        let res = log_content.filter(it => it.log_feeling === "sadness");
         set_sad(res);
     }, [])
     useEffect(() => {
@@ -97,13 +97,13 @@ function Log(props) {
                                     if (log.log_feeling === "anger") {
                                         return (<p style={{ backgroundColor: "#FFB7DD" }}>[{log.log_time}] {log.user_id}: {log.log_text}</p>);
                                     }
-                                    else if (log.log_feeling === "happy") {
+                                    else if (log.log_feeling === "happiness") {
                                         return (<p style={{ backgroundColor: "#FFFF85" }}>[{log.log_time}] {log.user_id}: {log.log_text}</p>);
                                     }
                                     else if (log.log_feeling === "neutral") {
                                         return (<p style={{ backgroundColor: "#E3E0EC" }}>[{log.log_time}] {log.user_id}: {log.log_text}</p>);
                                     }
-                                    else if (log.log_feeling === "sad") {
+                                    else if (log.log_feeling === "sadness") {
                                         return (<p style={{ backgroundColor: "#95BEEF" }}>[{log.log_time}] {log.user_id}: {log.log_text}</p>);
                                     }
                                     else if (log.log_feeling === "fear") {
