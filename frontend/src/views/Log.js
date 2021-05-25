@@ -17,17 +17,18 @@ function Log(props) {
     const [log_sad, set_sad] = useState([]);
     const [log_fear, set_fear] = useState([]);
 
-    const [show_log, set_showLog] = useState([]);
-
     useEffect(() => {
         axios.get('http://localhost:3000/api/conf_log/log/fetch/' + meeting_id)
             .then(res => {
                 console.log(res);
                 set_logContent(res.data.list);
+                set_showLog(res.data.list);
+                //console.log(show_log);
             })
-        set_showLog(log_content);
     }, [])
 
+    const [show_log, set_showLog] = useState(log_content);
+    console.log(show_log);
     useEffect(() => {
         /*console.log("in useEffect: " + log_content)
         let res = log_content.filter((it, id) => it.log_feeling === "anger");
@@ -77,7 +78,7 @@ function Log(props) {
             })
     }, [])
 
-    function Filter({ log_feeling }) {
+    /*function Filter({ log_feeling }) {
         console.log(log_feeling);
         return (
             <ul>
@@ -88,8 +89,8 @@ function Log(props) {
                 ))}
             </ul>
         )
-    }
-
+    }*/
+    console.log(show_log);
     const filter_all = () => {
         set_showLog(log_content);
     }
@@ -129,9 +130,10 @@ function Log(props) {
             </div>
             <div className="log-box">
                 <div className="log-scroll"><br />
+
                     {show_log.map((log, id) => (
                         <div>
-                            <li className="log-content" key={id} id={log.log_feeling}>
+                            <li className="log-content" key={id}>
                                 {(function () {
                                     if (log.log_feeling === "anger") {
                                         return (<p style={{ backgroundColor: "#FFB7DD" }}>[{log.log_time}] {log.user_id}: {log.log_text}</p>);
