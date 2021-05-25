@@ -8,13 +8,14 @@ function Rank(props) {
     const [project_name, set_projectName] = useState(props.match.params.projectName);
     const [meeting_id, set_logId] = useState(props.match.params.meetingId);
 
-    const [user_rank, set_userRank] = useState([]);
+    const [user_rank, set_userRank] = useState(["김필록", "박에이", "테스트"]);
     const [user_state, set_userState] = useState([]);
+    // 이 두개는 서버에서 받아온 값 리스트로 저장하고
+    // 감정 통계의 경우는 filter로 하나씩 값 넣으면 될 듯
 
     const [user_anger, set_userAnger] = useState("김필록");
     const [user_happy, set_userHappy] = useState("강전호");
     const [user_sad, set_userSad] = useState("김수지");
-    const [user_neutral, set_userNeutral] = useState("박에이");
     const [user_fear, set_userFear] = useState("한재원");
 
 
@@ -34,13 +35,19 @@ function Rank(props) {
 
             <div className="state-title">
                 <h3>감정 대표자 소개</h3>
-                <p style={{fontSize: "14px"}}>각 감정 별로 가장 많은 발언을 한 사람이 뽑힙니다.</p>
+                <div className="state-sub-title" style={{fontSize: "14px"}}>: 각 감정 별로 가장 많은 발언을 한 사람이 뽑힙니다.</div> 
+                <hr color="#EEEFFC" noshade="noshade" size="2"></hr>
             </div>
             <div className="state-box">
                 <div className="state">
-                    <p style={{fontWeight:"bold"}}>😃 파워 긍정러 {user_happy}</p> <p style={{fontWeight:"bold"}}>😥 눈물 뚝뚝 {user_sad}</p>
-                    <p style={{fontWeight:"bold"}}>😨 프로 긴장러 {user_fear}</p> <p style={{fontWeight:"bold"}}>😡 흥분 과다 {user_anger}</p>
-                    <p style={{fontWeight:"bold"}}>🙂 평온한 {user_neutral}</p>
+                    <div className="left-state">
+                        <p>😃 파워 긍정러 {user_happy}</p>
+                        <p>😨 프로 긴장러 {user_fear}</p>
+                    </div>
+                    <div className="right-state">
+                        <p>😥 눈물 뚝뚝 {user_sad}</p>
+                        <p>😡 흥분 과다 {user_anger}</p>
+                    </div>
                 </div>
             </div>
 

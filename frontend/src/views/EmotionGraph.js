@@ -22,12 +22,12 @@ function EmotionGraph(props) {
             <br /><br />
             <div className="graph-title">
                 <h3>평균 감정 그래프</h3>
+                <p className="graph-sub-title">: 시간에 따른 회의 전체의 감정 변화를 보여줍니다.</p>
             </div>
             <div className="graph-box">
                 <div className="emotion-graph">
                     
                 </div>
-                <p className="graph-sub-title">시간에 따른 회의 전체의 감정 변화를 보여줍니다.</p>
             </div>
 
             <div className="pi-chart-title">

@@ -486,12 +486,11 @@
   text-align: left;
 }
 .graph-sub-title {
-  margin-left: 10px;
   text-align: left;
   font-size: 14px;
 }
 .graph-box {
-  margin-top: 30px;
+  margin-top: 20px;
   margin-left: 400px;
   width: 850px;
   height: 300px;
@@ -523,7 +522,26 @@
 }
 
 .state-title {
+  float: left;
   text-align: left;
   margin-top: 50px;
   margin-left: 400px;
+  margin-right: 40px;
+  width: 850px;
+}
+
+.state {
+  margin-left: 420px;
+  width: 550px;
+  text-align: left;
+  margin-top: 150px;
+  font-size: 20px;
+}
+.left-state {
+  float: left;
+  line-height: 30px;
+}
+.right-state {
+  float: right;
+  line-height: 30px;
 }
