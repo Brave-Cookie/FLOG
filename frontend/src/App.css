@@ -480,3 +480,50 @@
   padding: 35px;
   font-weight: bold;
 }
+
+.graph-title {
+  margin-left: 400px;
+  text-align: left;
+}
+.graph-sub-title {
+  margin-left: 10px;
+  text-align: left;
+  font-size: 14px;
+}
+.graph-box {
+  margin-top: 30px;
+  margin-left: 400px;
+  width: 850px;
+  height: 300px;
+  border: 2px solid #D8D5EB;
+  border-radius: 1.5rem;
+}
+
+.pi-chart-title {
+  margin-left: 400px;
+  margin-top: 50px;
+  text-align: left;
+}
+.chart-sub-title {
+  text-align: left;
+  margin-left: 400px;
+}
+
+.rank-title {
+  text-align: left;
+  margin-left: 400px;
+}
+.rank-box {
+  margin-top: 30px;
+  margin-left: 400px;
+  width: 850px;
+  height: 250px;
+  border: 2px solid #D8D5EB;
+  border-radius: 1.5rem;
+}
+
+.state-title {
+  text-align: left;
+  margin-top: 50px;
+  margin-left: 400px;
+}
