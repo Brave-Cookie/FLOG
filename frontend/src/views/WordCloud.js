@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HeaderAuth from '../components/HeaderAuth';
 import SidebarLog from '../components/SidebarLog';
-
 import { TagCloud } from 'react-tagcloud';
+import axios from 'axios';
 
 function WordCloud(props) {
     const [user_id, set_userId] = useState(props.match.params.userId);
     const [project_id, set_projectId] = useState(props.match.params.projectId);
     const [project_name, set_projectName] = useState(props.match.params.projectName);
     const [meeting_id, set_logId] = useState(props.match.params.meetingId);
-
+    useEffect(() => {
+        axios.get('http://localhost:5000/api/log/wordcloud/' + meeting_id)
+            .then(res => {
+                console.log(res);
+            })
+    }, [])
     const data = [
         { value: '부분', count: 14 },
         { value: '진행', count: 8 },
