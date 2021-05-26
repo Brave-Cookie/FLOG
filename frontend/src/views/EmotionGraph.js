@@ -58,6 +58,7 @@ function EmotionGraph(props) {
     // 일케 계산해서 쓰는 수밖에 없을듯..?
     // 기쁨:50 평범: 40 긴장: 30 슬픔: 20 격양 10
     const chartData = [50, 50, 40, 20, 30, 10, 40, 50]
+    //const chartData = ['😃', '😃', '🙂', '😥', '😨', '😡', '🙂',  '😃']
     const graph_data = {
         // x축 하단 표시되는 값
         labels: ["00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30"],
@@ -121,9 +122,18 @@ function EmotionGraph(props) {
         },
       };*/
       const options = {
-        legend: {
-            display: false, // label 숨기기
+        plugins: {
+            legend: {
+                display: false,
+                labels: {
+                    //color: 'rgb(255, 99, 132)'
+                    //usePointStyle: true,
+        
+                    //position: "bottom",
+                }
+            }
         },
+
         tooltips: {
             callbacks: {
                label: function(tooltipItem) {
@@ -133,8 +143,8 @@ function EmotionGraph(props) {
         },
         scales: {
             y: {
-                min: 0,
-                max: 60,
+                //min: 0,
+                //max: 60,
                 ticks: {
                   // forces step size to be 50 units
                   stepSize: 10
@@ -144,13 +154,6 @@ function EmotionGraph(props) {
         maintainAspectRatio: false // false로 설정 시 사용자 정의 크기에 따라 그래프 크기가 결정됨.
     }
 
-    /*const legend = {
-        display: false,
-        labels: {
-          fontColor: "black",
-        },
-        position: "bottom", //label를 넣어주지 않으면 position이 먹히지 않음
-      };*/
 
     const data = [
         { title: '기쁨', value: 30, color: '#FFFF85' },
@@ -170,8 +173,17 @@ function EmotionGraph(props) {
                 <p className="graph-sub-title">: 시간에 따른 회의 전체의 감정 변화를 보여줍니다.</p>
             </div>
             <div className="graph-box">
+                <div className="graph-index">
+                    <p className="graph-index-item">😃</p>
+                    <p>🙂</p>
+                    <p>😨</p>
+                    <p>😥</p>
+                    <p>😡</p>
+                </div>
                 <div className="emotion-graph">
-                <Line data={graph_data} options={options}/>
+                <Line data={graph_data} options={options} />
+                <br />
+                <p class>세로축의 숫자는 각각 😃(기쁨), 🙂(평범), 😨(긴장), 😥(슬픔), 😡(격양)을 나타냅니다.</p>
                 </div>
             </div>
 
