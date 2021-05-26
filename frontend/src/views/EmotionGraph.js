@@ -17,73 +17,81 @@ function EmotionGraph(props) {
     const [avg_feeling, set_avgFeeling] = useState([]);
     const [pi_feeling, set_piFeeling] = useState([]);
 
-    const [top_feeling, set_topFeeling] = useState("적극적인");
-    /*
-    파이 차트 그릴 데이터에서 가장 큰 값을 top_feeling으로 useEffect로 지정
-    */
+    const [top_feeling, set_topFeeling] = useState();
+    const [happy_count, set_happyCount] = useState();
+    const [neutral_count, set_neutralCount] = useState();
+    const [fear_count, set_fearCount] = useState();
+    const [sad_count, set_sadCount] = useState();
+    const [anger_count, set_angerCount] = useState();
+    
     useEffect(() => {
         axios.get('http://localhost:5000/api/log/feelingCount/' + meeting_id)
           .then((res) => {
-            console.log(res.data[1][0][0]);
             let dic = res.data[1];
-            let happy = dic['happiness']
-            let anger = dic['anger']
-            let neutral = dic['neutral']
-            let sad = dic['sadness']
-            const fear = dic['fear']
-            console.log(fear);
+            console.log(dic);
 
+            let happy = 0;
+            let anger = 0;
+            let neutral = 0;
+            let sad = 0;
+            let fear = 0;
+            let sum = dic[0][1]+dic[1][1]+dic[2][1]+dic[3][1]+dic[4][1];
+
+            for(let i=0;i<5;i++){
+              console.log(dic[i][0], dic[i][1])
+              if(dic[i][0] === "happiness") {
+                happy = dic[i][1];
+              }
+              else if(dic[i][0] === "neutral") {
+                neutral = dic[i][1];
+              }
+              else if(dic[i][0] === "fear") {
+                fear = dic[i][1];
+              }
+              else if(dic[i][0] === "sadness") {
+                sad = dic[i][1];
+              }
+              else if(dic[i][0] === "anger") {
+                anger = dic[i][1];
+              }
+
+            }
+            
             let data = [
-              { title: '기쁨', value: {happy}, color: '#FFFF85' },
-              { title: '격양', value: {anger}, color: '#FFB7DD' },
-              { title: '평범', value: {neutral}, color: '#E3E0EC' },
-              { title: '슬픔', value: {sad}, color: '#95BEEF' },
-              { title: '긴장', value: {fear}, color: '#B3EBD8' },
+              { title: '기쁨', value: happy, color: '#FFFF85' },
+              { title: '격양', value: anger, color: '#FFB7DD' },
+              { title: '평범', value: neutral, color: '#E3E0EC' },
+              { title: '슬픔', value: sad, color: '#95BEEF' },
+              { title: '긴장', value: fear, color: '#B3EBD8' },
             ]
 
             set_piFeeling(data);
-            console.log(data);
-            console.log(pi_feeling);
+
+            set_happyCount(Math.round((happy/sum)*100));
+            console.log(happy, sum, );
+            set_neutralCount(Math.round((neutral/sum)*100));
+            set_fearCount(Math.round((fear/sum)*100));
+            set_sadCount(Math.round((sad/sum)*100));
+            set_angerCount(Math.round((anger/sum)*100));
+
+            if(dic[0][0] === "happiness"){
+              set_topFeeling("적극적인");
+            }
+            else if(dic[0][0] === "neutral") {
+              set_topFeeling("평온한");
+            }
+            else if(dic[0][0] === "fear") {
+              set_topFeeling("긴장된");
+            }
+            else if(dic[0][0] === "sadness") {
+              set_topFeeling("우울한");
+            }
+            else {
+              set_topFeeling("격양된");
+            }
           })
     }, [])
 
-
-    /*const data = {
-        labels: [
-          '기쁨',
-          '격양',
-          '슬픔',
-          '긴장',
-          '평범'
-        ],
-        datasets: [{
-          label: 'My First Dataset',
-          data: [30, 10, 5, 17, 20],
-          backgroundColor: [
-            'rgb(255, 255, 133)',
-            'rgb(255, 183, 221)',
-            'rgb149, 190, 239)',
-            'rgb(179, 235, 216)',
-            'rgb(227, 224, 236)',
-          ],
-          hoverOffset: 4
-        }]
-      };
-      // <block:config:0>
-    const config = {
-        type: 'pie',
-        data: data,
-    };
-    // </block:config>
-  
-    module.exports = {
-        actions: [],
-        config: config,
-    };*/
-    console.log(pi_feeling);
-    const [happy_count, set_happyCount] = useState(Math.round(30/70*100));
-    // 일케 계산해서 쓰는 수밖에 없을듯..?
-    // 기쁨:50 평범: 40 긴장: 30 슬픔: 20 격양 10
     const chartData = [50, 50, 40, 20, 30, 10, 40, 50]
     //const chartData = ['😃', '😃', '🙂', '😥', '😨', '😡', '🙂',  '😃']
     const graph_data = {
@@ -103,86 +111,22 @@ function EmotionGraph(props) {
           },
         ],
       };
-      /*const options = {
-        responsive: true,
-        maintainAspectRatio: false,
-    //tooltips 사용시
-        tooltips: {
-          enabled: true,
-          mode: "nearest",
-          position: "average",
-          intersect: false,
-        },
-        scales: {
-          xAxes: [
-            {
-              //type: 'time',
-              display: true,
-              scaleLabel: {
-                display: true,
-                labelString: "시간",
-                fontFamily: "Montserrat",
-                fontColor: "black",
-              },
-              ticks: {
-                // beginAtZero: true,
-                //maxTicksLimit: 10, //x축에 표시할 최대 눈금 수
-              },
-            },
-          ],
-          yAxes: [
-            {
-              display: false,
-              //padding: 10,
-              ticks: { 
-                min: 0, // 스케일에 대한 최솟갓 설정, 0 부터 시작
-                stepSize: 10, // 스케일에 대한 사용자 고정 정의 값
-            },
-              scaleLabel: {
-                display: false,
-                labelString: "Coverage",
-                fontFamily: "Montserrat",
-                fontColor: "black",
-              },
-            },
-          ],
-        },
-      };*/
+      
       const options = {
         plugins: {
             legend: {
                 display: false,
-                labels: {
-                    //color: 'rgb(255, 99, 132)'
-                    //usePointStyle: true,
-        
-                    //position: "bottom",
-                }
-            }
-        },
-
-        tooltips: {
-            callbacks: {
-               label: function(tooltipItem) {
-                      return tooltipItem.yLabel;
-               }
             }
         },
         scales: {
             y: {
-                //min: 0,
-                //max: 60,
                 ticks: {
-                  // forces step size to be 50 units
                   stepSize: 10
                 },
               }
         },
         maintainAspectRatio: false // false로 설정 시 사용자 정의 크기에 따라 그래프 크기가 결정됨.
     }
-
-
-    
 
     return (
         <div className="content">
@@ -218,10 +162,10 @@ function EmotionGraph(props) {
             </div>
             <ul className="chart-index">
                 <li><div className="index" style={{color:"#FFFF85"}}>■&nbsp;</div> 기쁨 - {happy_count}%</li>
-                <li><div className="index" style={{color:"#FFB7DD"}}>■&nbsp;</div>격양 - {}</li>
-                <li><div className="index" style={{color:"#95BEEF"}}>■&nbsp;</div>슬픔 - {}</li>
-                <li><div className="index" style={{color:"#B3EBD8"}}>■&nbsp;</div>긴장 - {}</li>
-                <li><div className="index" style={{color:"#E3E0EC"}}>■&nbsp;</div>평범 - {}</li>
+                <li><div className="index" style={{color:"#FFB7DD"}}>■&nbsp;</div>격양 - {anger_count}%</li>
+                <li><div className="index" style={{color:"#95BEEF"}}>■&nbsp;</div>슬픔 - {sad_count}%</li>
+                <li><div className="index" style={{color:"#B3EBD8"}}>■&nbsp;</div>긴장 - {fear_count}%</li>
+                <li><div className="index" style={{color:"#E3E0EC"}}>■&nbsp;</div>평범 - {neutral_count}%</li>
             </ul>
             <p className="chart-sub-title">회의는 전반적으로 {top_feeling} 분위기였네요!</p>
             
