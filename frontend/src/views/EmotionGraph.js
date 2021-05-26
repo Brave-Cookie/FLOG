@@ -3,6 +3,7 @@ import HeaderAuth from '../components/HeaderAuth';
 import SidebarLog from '../components/SidebarLog';
 //import { Chart, registerables } from 'chart.js';
 import { PieChart } from 'react-minimal-pie-chart';
+import { Line } from "react-chartjs-2";
 
 
 
@@ -52,8 +53,104 @@ function EmotionGraph(props) {
         actions: [],
         config: config,
     };*/
+    
     const [happy_count, set_happyCount] = useState(Math.round(30/70*100));
     // 일케 계산해서 쓰는 수밖에 없을듯..?
+    // 기쁨:50 평범: 40 긴장: 30 슬픔: 20 격양 10
+    const chartData = [50, 50, 40, 20, 30, 10, 40, 50]
+    const graph_data = {
+        // x축 하단 표시되는 값
+        labels: ["00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30"],
+        // 점 찍을 데이타
+        datasets: [
+            //원소 1
+          {
+            label: "50:😃 / 40:🙂 / 30:😨 / 20:😥 / 10:😡",
+            data: chartData,
+            lineTension: 0,
+            backgroundColor: "rgba(158, 163, 234, 0.5)",
+            borderWidth: 1,
+            borderColor: "#9373ff",
+            fill: false,
+          },
+        ],
+      };
+      /*const options = {
+        responsive: true,
+        maintainAspectRatio: false,
+    //tooltips 사용시
+        tooltips: {
+          enabled: true,
+          mode: "nearest",
+          position: "average",
+          intersect: false,
+        },
+        scales: {
+          xAxes: [
+            {
+              //type: 'time',
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: "시간",
+                fontFamily: "Montserrat",
+                fontColor: "black",
+              },
+              ticks: {
+                // beginAtZero: true,
+                //maxTicksLimit: 10, //x축에 표시할 최대 눈금 수
+              },
+            },
+          ],
+          yAxes: [
+            {
+              display: false,
+              //padding: 10,
+              ticks: { 
+                min: 0, // 스케일에 대한 최솟갓 설정, 0 부터 시작
+                stepSize: 10, // 스케일에 대한 사용자 고정 정의 값
+            },
+              scaleLabel: {
+                display: false,
+                labelString: "Coverage",
+                fontFamily: "Montserrat",
+                fontColor: "black",
+              },
+            },
+          ],
+        },
+      };*/
+      const options = {
+        legend: {
+            display: false, // label 숨기기
+        },
+        tooltips: {
+            callbacks: {
+               label: function(tooltipItem) {
+                      return tooltipItem.yLabel;
+               }
+            }
+        },
+        scales: {
+            y: {
+                min: 0,
+                max: 60,
+                ticks: {
+                  // forces step size to be 50 units
+                  stepSize: 10
+                },
+              }
+        },
+        maintainAspectRatio: false // false로 설정 시 사용자 정의 크기에 따라 그래프 크기가 결정됨.
+    }
+
+    /*const legend = {
+        display: false,
+        labels: {
+          fontColor: "black",
+        },
+        position: "bottom", //label를 넣어주지 않으면 position이 먹히지 않음
+      };*/
 
     const data = [
         { title: '기쁨', value: 30, color: '#FFFF85' },
@@ -74,7 +171,7 @@ function EmotionGraph(props) {
             </div>
             <div className="graph-box">
                 <div className="emotion-graph">
-                    
+                <Line data={graph_data} options={options}/>
                 </div>
             </div>
 

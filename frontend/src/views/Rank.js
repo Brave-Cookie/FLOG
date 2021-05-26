@@ -45,11 +45,11 @@ function Rank(props) {
                 <div className="state">
                     <div className="left-state">
                         <p>😃 파워 긍정러 {user_happy}</p>
-                        <p>😨 프로 긴장러 {user_fear}</p>
+                        <p>😥 눈물 뚝뚝 {user_sad}</p>
                     </div>
                     <div className="right-state">
-                        <p>😥 눈물 뚝뚝 {user_sad}</p>
                         <p>😡 흥분 과다 {user_anger}</p>
+                        <p>😨 프로 긴장러 {user_fear}</p> 
                     </div>
                 </div>
             </div>
