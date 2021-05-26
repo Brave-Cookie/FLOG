@@ -1,17 +1,44 @@
-FROM python:3.9
+FROM ubuntu:latest
 
-# 도커 컨테이너 내부의 경로 지정
+ENV LANG=C.UTF-8
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && \
+  apt-get install -y --no-install-recommends tzdata g++ curl
+
+# install java
+RUN apt-get install -y openjdk-8-jdk
+ENV JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk"
+
+# install python
+RUN apt-get install -y python3-pip python3-dev
+RUN cd /usr/local/bin && \
+  ln -s /usr/bin/python3 python && \
+  ln -s /usr/bin/pip3 pip && \
+  pip install --upgrade pip
+
+# apt clean
+RUN apt-get clean && \
+  rm -rf /var/lib/apt/lists/*
+
+
+# 프로젝트 작업경로
 WORKDIR /myfolder
 
-# pip 명령어 실행
-RUN pip install flask sqlalchemy flask_sqlalchemy mysql mysql-connector-python
-
-# 첫번째 . >>> docker 명령어 실행한 로컬 폴더 기준 (여기부터 하위 파일 모두 복사)
-# 두번째 /myfolder/ >>> linux 폴더 기준 (이 폴더에 복사)
 COPY . /myfolder/
 
-# 도커 내부에서 열어둘 포트 지정
+# 플라스크 관련 모듈
+RUN pip install flask sqlalchemy flask_sqlalchemy mysql mysql-connector-python pymysql flask_cors flask-socketio 
+# 머신러닝 / 전처리 등의 모듈
+RUN pip install gensim==3.8.3 wordcloud librosa scikit-learn==0.24.2 pydub konlpy wheel
+
 EXPOSE 5000
 
-#
 CMD ["python", "app.py"]
+
+# docker build . -t '이미지명 설정'
+# docker run -d --name '컨테이너명 설정' -p '외부접근포트':'도커내부포트' '구동할 이미지명'
+# docker run -d --name '컨테이너명 설정' -p '외부접근포트':'도커내부포트' -v ${PWD}'로컬경로':'컨테이너경로' '구동할 이미지명'
+
+# docker build . -t ft_5000
+# docker run -d --name con_ft_5000 -p 8080:8080 ft_5000
+# docker run -d --name con_ft_5000 -p 5000:5000 -v ${PWD}:/myfolder/ ft_5000

@@ -58,6 +58,13 @@ def disconnect():
 
 # ---------------------------------------------------------- Rest API URL ----------------------------------------------------------
 
+# 설명
+@app.route("/api/test", methods=["POST"])
+def test():
+    print("요청 잘 왔어요!!!")
+    return jsonify({"message": "요청테스트"})
+
+
 import librosa
 import joblib
 import numpy as np
@@ -153,16 +160,10 @@ def record():
         return jsonify({ 'msg' : '분석완료'})
 
 
-# 설명
-@app.route("/api/test", methods=["POST"])
-def test():
-    print("요청 잘 왔어요!!!")
-    return jsonify({"message": "요청테스트"})
-
+from gensim.summarization.summarizer import summarize
 
 # 설명
 @app.route("/api/log/summary/<int:meeting_id>")
-from gensim.summarization.summarizer import summarize
 def summary(meeting_id):
     print("미팅아이디", meeting_id)
     li = LogInfo.query.all()
@@ -178,12 +179,15 @@ def summary(meeting_id):
     return jsonify({"message": "서머리테스트"}, summary_text)
 
 
+
 # 설명
 @app.route("/api/log/wordcloud/<int:meeting_id>")
-from konlpy.tag import Okt
-from collections import Counter
-from wordcloud import WordCloud
 def wordcloud(meeting_id):
+
+    from konlpy.tag import Okt
+    from collections import Counter
+    from wordcloud import WordCloud
+
     li = LogInfo.query.all()
     text = ""
 
