@@ -497,6 +497,12 @@
   border: 2px solid #D8D5EB;
   border-radius: 1.5rem;
 }
+.emotion-graph{
+  width: 750px;
+  height: 200px;
+  margin-left: 50px;
+  margin-top: 20px;
+}
 
 .pi-chart-title {
   margin-left: 400px;
