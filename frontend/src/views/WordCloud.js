@@ -9,12 +9,22 @@ function WordCloud(props) {
     const [project_id, set_projectId] = useState(props.match.params.projectId);
     const [project_name, set_projectName] = useState(props.match.params.projectName);
     const [meeting_id, set_logId] = useState(props.match.params.meetingId);
+
+    const [summury_text, set_summury] = useState();
+    const [wordcloud,set_wordcloud] = useState([]);
     useEffect(() => {
         axios.get('http://localhost:5000/api/log/wordcloud/' + meeting_id)
             .then(res => {
                 console.log(res);
             })
     }, [])
+    useEffect(() => {
+        axios.get('http://localhost:5000/api/log/summury/' + meeting_id)
+            .then(res => {
+                console.log(res);
+            })
+    }, [])
+    
     const data = [
         { value: '부분', count: 14 },
         { value: '진행', count: 8 },
