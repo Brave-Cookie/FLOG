@@ -13,6 +13,11 @@ import WordCloud from './views/WordCloud';
 import EmotionGraph from './views/EmotionGraph';
 import Rank from './views/Rank';
 
+// hanjo
+import MeetingRoom from './views/MeetingRoom'
+
+
+
 const App = () => {
 
   
@@ -34,6 +39,11 @@ const App = () => {
           <Route path="/:userId/project/:projectId/:projectName/log/:meetingId/word-cloud" component={ WordCloud } exact />
           <Route path="/:userId/project/:projectId/:projectName/log/:meetingId/emotion-graph" component={ EmotionGraph } exact />
           <Route path="/:userId/project/:projectId/:projectName/log/:meetingId/rank" component={ Rank } exact />
+
+          {/* hanjo */}
+          <Route path="/:userId/project/:projectId/:projectName/meetingRoom/:roomState/:roomCode" component={MeetingRoom} exact/>
+          <Route path="/mypage/:userId/meetingRoom/:roomState/:roomCode" component={MeetingRoom} exact/>
+
         
       </div>
     </div>
