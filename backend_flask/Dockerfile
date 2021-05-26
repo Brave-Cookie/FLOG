@@ -10,7 +10,7 @@ RUN apt-get install -y openjdk-8-jdk
 ENV JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk"
 
 # install python
-RUN apt-get install -y python3-pip python3-dev
+RUN apt-get install -y python3-pip python3-dev default-libmysqlclient-dev build-essential
 RUN cd /usr/local/bin && \
   ln -s /usr/bin/python3 python && \
   ln -s /usr/bin/pip3 pip && \
@@ -26,10 +26,8 @@ WORKDIR /myfolder
 
 COPY . /myfolder/
 
-# 플라스크 관련 모듈
-RUN pip install flask sqlalchemy flask_sqlalchemy mysql mysql-connector-python pymysql flask_cors flask-socketio 
-# 머신러닝 / 전처리 등의 모듈
-RUN pip install gensim==3.8.3 wordcloud librosa scikit-learn==0.24.2 pydub konlpy wheel
+# 파이썬 모듈 설치
+RUN pip install -r requirements.txt
 
 EXPOSE 5000
 
@@ -39,6 +37,6 @@ CMD ["python", "app.py"]
 # docker run -d --name '컨테이너명 설정' -p '외부접근포트':'도커내부포트' '구동할 이미지명'
 # docker run -d --name '컨테이너명 설정' -p '외부접근포트':'도커내부포트' -v ${PWD}'로컬경로':'컨테이너경로' '구동할 이미지명'
 
-# docker build . -t ft_5000
-# docker run -d --name con_ft_5000 -p 8080:8080 ft_5000
-# docker run -d --name con_ft_5000 -p 5000:5000 -v ${PWD}:/myfolder/ ft_5000
+# docker build . -t flask_5000
+# docker run -d --name con2_flask_5000 -p 5000:5000 flask_5000
+# docker run -d --name con_flask_5000 -p 5000:5000 -v ${PWD}:/myfolder/ flask_5000

@@ -27,8 +27,13 @@ def index():
 
 # 테스트 페이지 url 설정
 @app.route("/count")
-def tests():
-    print("ss")
+
+def feeling_count():
+    ui = UserInfo.query.all()
+
+    for row in ui:
+        print(row.user_id)
+
 
     return redirect(url_for("index"))
 
@@ -230,5 +235,5 @@ def feeling_count(meeting_id):
 
 # flask 서버를 5000번 포트로 구동
 if __name__ == "__main__":
-    app.run(host="localhost", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
     socketio.run(app, debug=True)
