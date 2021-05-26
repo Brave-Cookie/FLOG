@@ -9,6 +9,6 @@ router.use('/auth', require('./auth/index'))
 
 router.use('/project',require('./project/index'))
 
-router.use('/conf_log',require('./conf_log/index'))
+router.use('/meetingLog',require('./meetingLog/index'))
 
 module.exports = router;
