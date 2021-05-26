@@ -19,7 +19,7 @@ function WordCloud(props) {
             })
     }, [])
     useEffect(() => {
-        axios.get('http://localhost:5000/api/log/summury/' + meeting_id)
+        axios.get('http://localhost:5000/api/log/summary/' + meeting_id)
             .then(res => {
                 console.log(res);
             })
