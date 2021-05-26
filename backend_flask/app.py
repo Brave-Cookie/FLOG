@@ -27,13 +27,11 @@ def index():
 
 # 테스트 페이지 url 설정
 @app.route("/count")
-
-def feeling_count():
+def fc():
     ui = UserInfo.query.all()
 
     for row in ui:
         print(row.user_id)
-
 
     return redirect(url_for("index"))
 
@@ -212,6 +210,26 @@ def wordcloud(meeting_id):
     noun_list = dict(noun_list)
     print(noun_list)
     return jsonify({"message": "워드클라우드 단어리스트 보내기"}, noun_list)
+
+
+@app.route("/api/log/summary/<int:meeting_id>")
+def summaryLog(meeting_id):
+    print("sss")
+    print("미팅아이디", meeting_id)
+    li = LogInfo.query.all()
+    text = ""
+    # for로 모두 출력
+    for row in li:
+        if row.meeting_id == (meeting_id):
+            text = text + row.log_text + "\n"
+
+    from gensim.summarization.summarizer import summarize
+
+    summary_text = summarize(text)
+    print("요약회의록 전송 성공")
+    print(summary_text)
+    print("111_")
+    return jsonify({"message": "서머리테스트"}, summary_text)
 
 
 @app.route("/api/log/feelingCount/<int:meeting_id>")
