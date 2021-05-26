@@ -213,7 +213,7 @@ def wordcloud(meeting_id):
 
 
 @app.route("/api/log/summary/<int:meeting_id>")
-def summaryLog(meeting_id):
+def summary(meeting_id):
     print("sss")
     print("미팅아이디", meeting_id)
     li = LogInfo.query.all()
@@ -225,7 +225,8 @@ def summaryLog(meeting_id):
 
     from gensim.summarization.summarizer import summarize
 
-    summary_text = summarize(text)
+    summary_text = summarize(text, ratio=0.1)
+    print(text)
     print("요약회의록 전송 성공")
     print(summary_text)
     print("111_")
