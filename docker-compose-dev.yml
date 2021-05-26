@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+    frontend :
+        build : ./frontend
+        ports : 
+            - "8080:8080"
+        volumes:
+            - ./frontend:/myfolder/
+        environment :
+            - CHOKIDAR_USEPOLLING=true
+    
+    backend_express :
+        build : ./backend
+        ports : 
+            - "3000:3000"
+        volumes:
+            - ./backend:/myfolder/
+        environment :
+            - CHOKIDAR_USEPOLLING=true
+
+    backend_flask :
+        build : ./backend_flask
+        ports : 
+            - "5000:5000"
+        volumes:
+            - ./backend_flask:/myfolder/
+        environment :
+            - CHOKIDAR_USEPOLLING=true
+
+
+# docker-compose up -d
