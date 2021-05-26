@@ -162,6 +162,7 @@ def test():
 
 # 설명
 @app.route("/api/log/summary/<int:meeting_id>")
+from gensim.summarization.summarizer import summarize
 def summary(meeting_id):
     print("미팅아이디", meeting_id)
     li = LogInfo.query.all()
@@ -170,9 +171,6 @@ def summary(meeting_id):
     for row in li:
         if row.meeting_id == (meeting_id):
             text = text + row.log_text + "\n"
-
-    from gensim.summarization.summarizer import summarize
-
     summary_text = summarize(text)
     print("요약회의록 전송 성공")
     print(summary_text)
@@ -182,6 +180,9 @@ def summary(meeting_id):
 
 # 설명
 @app.route("/api/log/wordcloud/<int:meeting_id>")
+from konlpy.tag import Okt
+from collections import Counter
+from wordcloud import WordCloud
 def wordcloud(meeting_id):
     li = LogInfo.query.all()
     text = ""
@@ -195,16 +196,10 @@ def wordcloud(meeting_id):
         import jpype
         import jpype1
 
-        print("1")
     except:
         import jpype
-
-        print(2)
-    from konlpy.tag import Okt
-    from collections import Counter
-    from wordcloud import WordCloud
-    import matplotlib.pyplot as plt
-
+       
+    
     okt = Okt()
     noun = okt.nouns(text)
 
