@@ -59,7 +59,7 @@ def summary(meeting_id):
 
 
 @app.route("/api/log/wordcloud/<int:meeting_id>")
-def wordcloud():
+def wordcloud(meeting_id):
     li = LogInfo.query.all()
     text = ""
 
