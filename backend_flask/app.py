@@ -25,16 +25,37 @@ def index():
 
 
 # ---------------------------------------- 테스트 ----------------------------------------
+@app.route("/count")
+def feeling_count():
+    print("sss")
+
+    return redirect(url_for("index"))
 
 
 # ----------------------------------- REST API URL ----------------------------------------
-
-
-# -----------------------------
 @app.route("/api/test", methods=["POST"])
 def test():
     print("요청 잘 왔어요!!!")
     return jsonify({"message": "요청테스트"})
+
+
+@app.route("/api/log/summary/<int:meeting_id>")
+def summary(meeting_id):
+    print("미팅아이디", meeting_id)
+    li = LogInfo.query.all()
+    text = ""
+    # for로 모두 출력
+    for row in li:
+        if row.meeting_id == (meeting_id):
+            text = text + row.log_text + "\n"
+
+    from gensim.summarization.summarizer import summarize
+
+    summary_text = summarize(text)
+    print("요약회의록 전송 성공")
+    print(summary_text)
+
+    return jsonify({"message": "서머리테스트"}, summary_text)
 
 
 @app.route("/api/log/wordcloud/<int:meeting_id>")
@@ -68,12 +89,6 @@ def wordcloud():
 
     # 명사빈도 카운트 most_common(뽑아주고 싶은 단어의 갯수)
     noun_list = count.most_common(10)
-    # print('제일 많이 나온단어:',noun_list)
-    # wc = WordCloud(font_path ='C:\Jeonbar2\git_workspace\Brave_cookie\Before_Dev\jeonbar2\BMDOHYEON_ttf.ttf',background_color="white",width=1000,
-    # height=1000,
-    # max_words=100,max_font_size=300)
-    # wc.generate_from_frequencies(dict(noun_list))
-    # wc.to_file('keyword.jpg')
 
     print(noun_list)
     return jsonify({"message": "워드클라우드 단어리스트 보내기"}, noun_list)
