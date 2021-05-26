@@ -183,10 +183,10 @@ function EmotionGraph(props) {
                 <div className="emotion-graph">
                 <Line data={graph_data} options={options} />
                 <br />
-                <p class>세로축의 숫자는 각각 😃(기쁨), 🙂(평범), 😨(긴장), 😥(슬픔), 😡(격양)을 나타냅니다.</p>
+                <p>세로축의 숫자는 각각 😃(기쁨), 🙂(평범), 😨(긴장), 😥(슬픔), 😡(격양)을 나타냅니다.</p>
                 </div>
             </div>
-
+    
             <div className="pi-chart-title">
                 <h3>전체 감정 분석</h3>
                 <hr color="#EEEFFC" noshade="noshade" size="2"></hr>
