@@ -5,16 +5,22 @@ services:
         build : ./frontend
         ports : 
             - "8080:8080"
+        volumes:
+            - ./frontend:/myfolder/
     
     backend_express :
         build : ./backend
         ports : 
             - "3000:3000"
+        volumes:
+            - ./backend:/myfolder/
 
     backend_flask :
         build : ./backend_flask
         ports : 
             - "5000:5000"
+        volumes:
+            - ./backend_flask:/myfolder/
 
 
 # docker-compose up -d
