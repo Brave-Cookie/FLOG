@@ -207,7 +207,6 @@ def wordcloud(meeting_id):
     # 명사빈도 카운트 most_common(뽑아주고 싶은 단어의 갯수)
     noun_list = count.most_common(10)
 
-    noun_list = dict(noun_list)
     print(noun_list)
     return jsonify({"message": "워드클라우드 단어리스트 보내기"}, noun_list)
 
@@ -245,7 +244,7 @@ def feeling_count(meeting_id):
         if row.meeting_id == (meeting_id):
             feeling.append(row.log_feeling)
     feeling_frq = (Counter(feeling)).most_common()
-    feeling_frq = dict(feeling_frq)
+
     print(feeling_frq)
     return jsonify({"message": "감정 빈도수"}, feeling_frq)
 
