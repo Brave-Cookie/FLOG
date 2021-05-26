@@ -29,7 +29,7 @@ exports.logFetch = async (req, res, next) => {
             where: {meeting_id : meeting_id},
         }).then(
             (result) => {
-                console.log(result)
+                //console.log(result)
                 return res.status(200).json({
                     message : '추출성공!!',
                     list : result
@@ -59,7 +59,7 @@ exports.logFilter = async (req, res, next) => {
                 },
         }).then(
             (result) => {
-                console.log(result)
+                //console.log(result)
                 return res.status(200).json({
                     message : '추출성공!!',
                     list: result
@@ -94,11 +94,22 @@ exports.logRank = async (req, res, next) => {
         }
         console.log(first)
         console.log("가장많은사람:", getMode(first))
-        firstrank=getMode(first)
-        return res.status(200).json({
-            message : '랭킹성공!!',
-            firstrank
+        firstrank = getMode(first)
+        
+        let table_ui = models.user_info;
+        table_ui.findOne({
+            raw: true,
+            attributes: ['user_name'],
+            where: { user_id: firstrank }
+        }).then(
+            (row) => {
+                console.log("가장많이 나온사람", row.user_name)
+                return res.status(200).json({
+                message : '랭킹성공!!',
+                firstrank:row.user_name
         })
+            })
+        
         
         } catch(err){   // 에러나면 로그 찍고 실패 신호 보냄
             console.log(err);
