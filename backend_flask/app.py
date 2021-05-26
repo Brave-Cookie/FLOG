@@ -177,7 +177,7 @@ def record():
 # 설명
 @app.route("/api/log/wordcloud/<int:meeting_id>")
 def wordcloud(meeting_id):
-
+    print("0")
     try:
         import jpype
         import jpype1

@@ -10,7 +10,7 @@ function WordCloud(props) {
     const [project_name, set_projectName] = useState(props.match.params.projectName);
     const [meeting_id, set_logId] = useState(props.match.params.meetingId);
 
-    const [summury_text, set_summury] = useState();
+    const [summary_text, set_summary] = useState();
     const [wordcloud,set_wordcloud] = useState([]);
     useEffect(() => {
         axios.get('http://localhost:5000/api/log/wordcloud/' + meeting_id)
@@ -21,7 +21,8 @@ function WordCloud(props) {
     useEffect(() => {
         axios.get('http://localhost:5000/api/log/summary/' + meeting_id)
             .then(res => {
-                console.log(res);
+                console.log(res.data);
+                set_summary(res.data[1]);
             })
     }, [])
     
@@ -65,7 +66,7 @@ function WordCloud(props) {
             </div>
             <div className="summury-box">
                 <div className="summury">
-                    
+                    {summary_text}
                 </div>
             </div>
 
