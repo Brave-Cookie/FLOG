@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HeaderAuth from '../components/HeaderAuth';
 import SidebarLog from '../components/SidebarLog';
 //import { Chart, registerables } from 'chart.js';
 import { PieChart } from 'react-minimal-pie-chart';
 import { Line } from "react-chartjs-2";
+import axios from 'axios';
 
 
 
@@ -20,6 +21,32 @@ function EmotionGraph(props) {
     /*
     파이 차트 그릴 데이터에서 가장 큰 값을 top_feeling으로 useEffect로 지정
     */
+    useEffect(() => {
+        axios.get('http://localhost:5000/api/log/feelingCount/' + meeting_id)
+          .then((res) => {
+            console.log(res.data[1][0][0]);
+            let dic = res.data[1];
+            let happy = dic['happiness']
+            let anger = dic['anger']
+            let neutral = dic['neutral']
+            let sad = dic['sadness']
+            const fear = dic['fear']
+            console.log(fear);
+
+            let data = [
+              { title: '기쁨', value: {happy}, color: '#FFFF85' },
+              { title: '격양', value: {anger}, color: '#FFB7DD' },
+              { title: '평범', value: {neutral}, color: '#E3E0EC' },
+              { title: '슬픔', value: {sad}, color: '#95BEEF' },
+              { title: '긴장', value: {fear}, color: '#B3EBD8' },
+            ]
+
+            set_piFeeling(data);
+            console.log(data);
+            console.log(pi_feeling);
+          })
+    }, [])
+
 
     /*const data = {
         labels: [
@@ -53,7 +80,7 @@ function EmotionGraph(props) {
         actions: [],
         config: config,
     };*/
-    
+    console.log(pi_feeling);
     const [happy_count, set_happyCount] = useState(Math.round(30/70*100));
     // 일케 계산해서 쓰는 수밖에 없을듯..?
     // 기쁨:50 평범: 40 긴장: 30 슬픔: 20 격양 10
@@ -155,13 +182,7 @@ function EmotionGraph(props) {
     }
 
 
-    const data = [
-        { title: '기쁨', value: 30, color: '#FFFF85' },
-        { title: '격양', value: 10, color: '#FFB7DD' },
-        { title: '평범', value: 17, color: '#E3E0EC' },
-        { title: '슬픔', value: 5, color: '#95BEEF' },
-        { title: '긴장', value: 8, color: '#B3EBD8' },
-    ]
+    
 
     return (
         <div className="content">
@@ -193,7 +214,7 @@ function EmotionGraph(props) {
             </div>
 
             <div className="chart-box">
-                <PieChart data={data} />
+                <PieChart data={pi_feeling} />
             </div>
             <ul className="chart-index">
                 <li><div className="index" style={{color:"#FFFF85"}}>■&nbsp;</div> 기쁨 - {happy_count}%</li>
