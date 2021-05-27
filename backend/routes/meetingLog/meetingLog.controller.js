@@ -1,5 +1,6 @@
 const models = require('../../models');
 const Op = require('sequelize').Op;
+const sequelize = require("sequelize");
 
 function getMode(array) {
             // 1. 출연 빈도 구하기 
@@ -22,7 +23,7 @@ exports.logFetch = async (req, res, next) => {
     try{
         const meeting_id = req.params.meeting_id
         let table_li = models.log_info;
-
+      
         table_li.findAll({
             raw : true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
             attributes: ['user_id','log_time','log_feeling','log_text'], // p_i 속성만 고르겠다~
@@ -78,24 +79,44 @@ exports.logRank = async (req, res, next) => {
         const meeting_id = req.params.meeting_id
         const feeling = req.params.feeling
         let table_li = models.log_info;
-        //----------------------------test--------------------------------------------------------  
+        //참여도 순위 부분 -----------------------------------------------------------------
+        let rank = await table_li.findAll({
+            raw: true,
+            attributes: [
+                'user_id',
+                [sequelize.fn('SUM', sequelize.col('log_realtime')), 'log_realtime'],
+                ],
+            group: ['user_id'],
+            where: {
+                meeting_id : meeting_id
+                },
+            order: [[sequelize.fn('SUM', sequelize.col('log_realtime')),'DESC']]
+            })
+        
+        let total_ranking = []
+        for (let i = 0; i < 3; i++){
+            total_ranking.push(rank[i].user_id)
+        }
+        //-------------------------------------------------------------------------------------
+        //감정별 랭킹 부분----------------------------------------------------------------------
         let result_rank=await table_li.findAll({
             raw: true,
             attributes: ['user_id','log_feeling'], // p_i 속성만 고르겠다~
             where: {
                 meeting_id : meeting_id,
                 log_feeling: feeling
-                }
-            
+                }     
         })
         let first = []
         for (let i = 0; i < result_rank.length; i++) {
             first.push(result_rank[i].user_id)
         }
-        console.log(first)
-        console.log("가장많은사람:", getMode(first))
-        firstrank = getMode(first)
         
+        console.log('토탈랭킹:',total_ranking)
+        firstrank = getMode(first)//최빈값구하기 array집어넣어서 가장 많이나온사람이 아웃풋
+        console.log("가장많은사람:", firstrank)
+
+        //user_id 로 이름 찾아오기
         let table_ui = models.user_info;
         table_ui.findOne({
             raw: true,
@@ -106,11 +127,10 @@ exports.logRank = async (req, res, next) => {
                 console.log("가장많이 나온사람", row.user_name)
                 return res.status(200).json({
                 message : '랭킹성공!!',
-                firstrank:row.user_name
-        })
+                firstrank: row.user_name,
+                total_rank:total_ranking
+                })
             })
-        
-        
         } catch(err){   // 에러나면 로그 찍고 실패 신호 보냄
             console.log(err);
             res.status(400).json({
@@ -119,7 +139,7 @@ exports.logRank = async (req, res, next) => {
         }
 }
 
-        //----------------------------------------------------------------------------------------
+        
         
         
      
