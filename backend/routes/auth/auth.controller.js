@@ -135,3 +135,31 @@ exports.createRoom = async (req, res, next) => {
         });
     }   
 }
+
+
+exports.checkCode = async (req, res, next) => {
+    try{
+        const table_tri = models.temp_room_info;
+
+        table_tri.findOne({where: {room_code : req.params.roomCode} }).then(
+            (row) => {
+                // 방존재할때
+                if(row){
+                    console.log('방 존재해서 meeting_name 응답')
+                    return res.status(200).json({ meeting_name : row.meeting_name});
+                }
+                // 방존재 X
+                else{
+                    console.log('방 존재하지 않음')
+                    return res.status(202).json({ code : 'checkCode_1',});
+                }
+            }
+        )
+       
+    } catch(err){ 
+        console.log(err);
+        res.status(400).json({
+            message : '/check/:roomCode 에서 에러'
+        });
+    }   
+}

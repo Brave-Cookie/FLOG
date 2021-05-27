@@ -5,6 +5,6 @@ const controller = require('./auth.controller');
 router.post('/register', controller.register);
 router.post('/login', controller.login);
 router.post('/createRoom', controller.createRoom);
-router.post('/check/:roomCode', controller.createRoom);
+router.get('/check/:roomCode', controller.checkCode);
 
 module.exports = router;
