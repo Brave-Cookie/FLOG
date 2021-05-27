@@ -9,18 +9,24 @@ function Rank(props) {
     const [project_name, set_projectName] = useState(props.match.params.projectName);
     const [meeting_id, set_logId] = useState(props.match.params.meetingId);
 
-    const [user_rank, set_userRank] = useState(["김필록", "박에이", "테스트"]);
-    // 이 두개는 서버에서 받아온 값 리스트로 저장하고
+    const [first_rank, set_firstRank] = useState("");
+    const [second_rank, set_secondRank] = useState("");
+    const [third_rank, set_thirdRank] = useState("");
 
-    const [user_anger, set_userAnger] = useState();
-    const [user_happy, set_userHappy] = useState();
-    const [user_sad, set_userSad] = useState();
-    const [user_fear, set_userFear] = useState();
+    const [user_anger, set_userAnger] = useState("");
+    const [user_happy, set_userHappy] = useState("");
+    const [user_sad, set_userSad] = useState("");
+    const [user_fear, set_userFear] = useState("");
     useState(() => {
         let feeling = "anger";
         axios.get('http://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
             .then((res) => {
-                console.log(res.data.firstrank);
+                console.log(res.data);
+                // 참여도 순위 저장 및 anger 감정 대표자 저장
+                set_firstRank(res.data.total_rank[0]);
+                set_secondRank(res.data.total_rank[1]);
+                set_thirdRank(res.data.total_rank[2]);
+
                 set_userAnger(res.data.firstrank);
             })
     }, [])
@@ -56,9 +62,9 @@ function Rank(props) {
             </div>
             <div className="rank-box">
                 <div className="ranking">
-                    <div className="first">🥇 김필록</div>
-                    <div className="second">🥈 김수지</div>
-                    <div className="third">🥉 박에이</div>
+                    <div className="first">🥇 {first_rank}</div>
+                    <div className="second">🥈 {second_rank}</div>
+                    <div className="third">🥉 {third_rank}</div>
                 </div>
             </div>
 
