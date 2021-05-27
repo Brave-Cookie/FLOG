@@ -41,8 +41,8 @@ const App = () => {
           <Route path="/:userId/project/:projectId/:projectName/log/:meetingId/rank" component={ Rank } exact />
 
           {/* hanjo */}
-          <Route path="/:userId/project/:projectId/:projectName/meetingRoom/:roomState/:roomCode" component={MeetingRoom} exact/>
-          <Route path="/mypage/:userId/meetingRoom/:roomState/:roomCode" component={MeetingRoom} exact/>
+          <Route path="/:userId/project/:projectId/:projectName/meetingRoom/:roomState/:meetingName" component={MeetingRoom} exact/>
+          <Route path="/mypage/:userId/meetingRoom/:roomState/:meetingName" component={MeetingRoom} exact/>
 
         
       </div>

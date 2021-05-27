@@ -23,6 +23,7 @@ function Mypage(props) {
     const [project_name, set_project] = useState("");
     const [meeting_code, set_code] = useState("");
     const [projects, set_projects] = useState([]);
+    const [meeting_name, set_meetingName] = useState("");
 
     const [input, set_input] = useState(0);
 
@@ -77,7 +78,12 @@ function Mypage(props) {
     }
     const enterMeeting = () => {
         if (meeting_code !== "") {
-            alert(meeting_code);
+            let res = axios.get('http://localhost:3000/api/auth/check/' + meeting_code)
+                .then((res) => {
+                    set_meetingName(res.data);
+                    let room_state = 'join';
+                    window.location = `mypage/${user_id}/meetingRoom/${room_state}/${meeting_name}`
+                })
 
             set_code("");
             set_codeModal(false);
