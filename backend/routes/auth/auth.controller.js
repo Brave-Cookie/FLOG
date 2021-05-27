@@ -124,6 +124,7 @@ exports.createRoom = async (req, res, next) => {
             meeting_name : req_data.meeting_name
         })  
 
+        console.log('api/auth/createRoom 성공')
         return res.status(200).json({message : '코드 삽입 성공'});
 
        
