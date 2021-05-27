@@ -205,7 +205,7 @@ def wordcloud(meeting_id):
     count = Counter(noun)
 
     # 명사빈도 카운트 most_common(뽑아주고 싶은 단어의 갯수)
-    noun_list = count.most_common(10)
+    noun_list = count.most_common(15)
 
     print(noun_list)
     return jsonify({"message": "워드클라우드 단어리스트 보내기"}, noun_list)
@@ -220,12 +220,13 @@ def summary(meeting_id):
     # for로 모두 출력
     for row in li:
         if row.meeting_id == (meeting_id):
-            text = text + row.log_text + "\n"
+            text = text + row.log_text + "." + "\n"
 
+    print("성공전", text)
     from gensim.summarization.summarizer import summarize
 
     summary_text = summarize(text, ratio=0.1)
-    print(text)
+
     print("요약회의록 전송 성공")
     print(summary_text)
     print("111_")
