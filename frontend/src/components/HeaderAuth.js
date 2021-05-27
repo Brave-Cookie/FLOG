@@ -16,7 +16,10 @@ function HeaderAuth(props) {
     }
 
     const logo_image = {
-        height: '40px',
+        height: '45px',
+        marginLeft: '5px',
+        marginRight: '5px',
+        marginTop: '-8px'
     }
 
     return (
@@ -27,7 +30,7 @@ function HeaderAuth(props) {
             <p className="logo-copy-front">감정을 기록하다. F</p><p className="logo-copy-mid">eeling </p><p className="logo-copy-end">LOG</p>
             <div className="header-nav">
                 <a href="/" onClick={getLogout}>&nbsp;LOGOUT&nbsp;</a>
-                <NavLink exact activeStyle={is_active} to={`/mypage/${user_id}`}>&nbsp;MYPAGE&nbsp;</NavLink>
+                <NavLink exact activeStyle={is_active} to={`/mypage/${user_id}`}>&nbsp;MYPAGE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</NavLink>
                 
             </div>       
         </div>

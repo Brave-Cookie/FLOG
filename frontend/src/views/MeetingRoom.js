@@ -1,4 +1,5 @@
 import React, {Component } from 'react';
+import HeaderMeetingRoom from '../components/HeaderMeetingRoom';
 
 
 class MeetingRoom extends Component {
@@ -48,6 +49,7 @@ class MeetingRoom extends Component {
 
       return (
           <div>
+            <HeaderMeetingRoom />
             
             <p>회의방 {this.props.match.params.meetingName}</p>
 
