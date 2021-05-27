@@ -72,7 +72,7 @@ function Project(props) {
                 <p>방장이 되어 회의를 시작해보세요.</p>
             </button>
 
-            <Modal visible={modal} width="300" height="200" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+            <Modal visible={modal} width="300" height="230" effect="fadeInUp" onClickAway={() => this.closeModal()}>
                 <div>
                     <h4>회의 방 만들기</h4>
                     <p>회의의 이름을 입력해주세요.</p>
