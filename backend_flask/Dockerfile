@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:18.04
 
 ENV LANG=C.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
@@ -37,6 +37,5 @@ CMD ["python", "app.py"]
 # docker run -d --name '컨테이너명 설정' -p '외부접근포트':'도커내부포트' '구동할 이미지명'
 # docker run -d --name '컨테이너명 설정' -p '외부접근포트':'도커내부포트' -v ${PWD}'로컬경로':'컨테이너경로' '구동할 이미지명'
 
-# docker build . -t flask_5000
-# docker run -d --name con2_flask_5000 -p 5000:5000 flask_5000
-# docker run -d --name con_flask_5000 -p 5000:5000 -v ${PWD}:/myfolder/ flask_5000
+# docker build . -t backend_flask
+# docker run -d --name con_backend_flask -p 5000:5000 -v ${PWD}:/myfolder/ backend_flask
