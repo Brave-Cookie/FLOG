@@ -111,3 +111,26 @@ exports.login = async (req, res, next) => {
         });
     }   
 }
+
+
+
+exports.createRoom = async (req, res, next) => {
+    try{
+        const req_data = req.body ;
+        const table_tri = models.temp_room_info;
+        
+        table_tri.create({
+            room_code : req_data.room_code,
+            meeting_name : req_data.meeting_name
+        })  
+
+        return res.status(200).json({message : '코드 삽입 성공'});
+
+       
+    } catch(err){ 
+        console.log(err);
+        res.status(400).json({
+            message : '/createRoom 에서 에러'
+        });
+    }   
+}
