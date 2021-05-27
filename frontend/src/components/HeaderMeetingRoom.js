@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import logo from '../assets/image/logo_bg.PNG';
 
-class Header extends Component {
+class HeaderMeetingRoom extends Component {
     render() {
         const logo_image = {
             height: '45px',
@@ -11,23 +10,16 @@ class Header extends Component {
             marginTop: '-8px'
         }
 
-        // 홈으로 이동시 로컬 스토리지의 인증 토큰 삭제
-        delete localStorage.accessToken;
-
         return (
             <div className="header">
                 <div className="logo">
                     <img src={logo} style={logo_image}></img>
                 </div>
                 <p className="logo-copy-front">감정을 기록하다. F</p><p className="logo-copy-mid">eeling </p><p className="logo-copy-end">LOG</p>
-                <div className="header-nav">
-                    <Link to="/login">&nbsp;LOGIN</Link>&nbsp;
-                    <Link to="/">&nbsp;HOME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Link>&nbsp;
-
-                </div>
+                
             </div>
         );
     }
 }
 
-export default Header;
+export default HeaderMeetingRoom;
