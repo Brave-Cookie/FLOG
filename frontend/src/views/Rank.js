@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import HeaderAuth from '../components/HeaderAuth';
 import SidebarLog from '../components/SidebarLog';
-import podium from '../assets/image/podium.jpg';
+import axios from 'axios'
 
 function Rank(props) {
     const [user_id, set_userId] = useState(props.match.params.userId);
@@ -10,15 +10,41 @@ function Rank(props) {
     const [meeting_id, set_logId] = useState(props.match.params.meetingId);
 
     const [user_rank, set_userRank] = useState(["김필록", "박에이", "테스트"]);
-    const [user_state, set_userState] = useState([]);
     // 이 두개는 서버에서 받아온 값 리스트로 저장하고
-    // 감정 통계의 경우는 filter로 하나씩 값 넣으면 될 듯
 
-    const [user_anger, set_userAnger] = useState("김필록");
-    const [user_happy, set_userHappy] = useState("강전호");
-    const [user_sad, set_userSad] = useState("김수지");
-    const [user_fear, set_userFear] = useState("한재원");
-
+    const [user_anger, set_userAnger] = useState();
+    const [user_happy, set_userHappy] = useState();
+    const [user_sad, set_userSad] = useState();
+    const [user_fear, set_userFear] = useState();
+    useState(() => {
+        let feeling = "anger";
+        axios.get('http://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
+            .then((res) => {
+                console.log(res.data.firstrank);
+                set_userAnger(res.data.firstrank);
+            })
+    }, [])
+    useState(() => {
+        let feeling = "happiness";
+        axios.get('http://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
+            .then((res) => {
+                set_userHappy(res.data.firstrank);
+            })
+    }, [])
+    useState(() => {
+        let feeling = "sadness";
+        axios.get('http://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
+            .then((res) => {
+                set_userSad(res.data.firstrank);
+            })
+    }, [])
+    useState(() => {
+        let feeling = "fear";
+        axios.get('http://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
+            .then((res) => {
+                set_userFear(res.data.firstrank);
+            })
+    }, [])
 
     return (
         <div className="content">
