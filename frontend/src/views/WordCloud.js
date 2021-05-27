@@ -15,7 +15,14 @@ function WordCloud(props) {
     useEffect(() => {
         axios.get('http://localhost:5000/api/log/wordcloud/' + meeting_id)
             .then(res => {
-                console.log(res);
+                console.log(res.data[1]);
+                let list = res.data[1];
+                let data = [];
+                for(let i=0;i<15;i++){
+                    data.push({value: list[i][0], count: list[i][1]});
+                }
+                console.log(data);
+                set_wordcloud(data);
             })
     }, [])
     useEffect(() => {
@@ -25,22 +32,6 @@ function WordCloud(props) {
                 set_summary(res.data[1]);
             })
     }, [])
-    
-    const data = [
-        { value: '부분', count: 14 },
-        { value: '진행', count: 8 },
-        { value: '구현', count: 7 },
-        { value: '프론트엔드', count: 20 },
-        { value: '백엔드', count: 7 },
-        { value: '뷰', count: 10 },
-        { value: '프로젝트', count: 6 },
-        { value: '프레임워크', count: 6 },
-        { value: '저', count: 2 },
-        { value: '기능', count: 6 },
-        { value: '감정분석', count: 9 },
-        { value: '서버', count: 1 },
-        { value: '요약', count: 3 },
-    ]
 
     const options = {
         luminosity: 'light',
@@ -57,15 +48,15 @@ function WordCloud(props) {
             </div>
             <div className="word-box">
                 <div className="word-cloud">
-                    <TagCloud minSize={18} maxSize={55} tags={data} colorOptions={options} />
+                    <TagCloud minSize={18} maxSize={60} tags={wordcloud} colorOptions={options} />
                 </div>
             </div>
 
-            <div className="summury-title">
+            <div className="summary-title">
                 <h3>회의 요약문</h3>
             </div>
-            <div className="summury-box">
-                <div className="summury">
+            <div className="summary-box">
+                <div className="summary">
                     {summary_text}
                 </div>
             </div>
