@@ -11,9 +11,6 @@ class Header extends Component {
             marginTop: '-8px'
         }
 
-        // 홈으로 이동시 로컬 스토리지의 인증 토큰 삭제
-        delete localStorage.accessToken;
-
         return (
             <div className="header">
                 <div className="logo">

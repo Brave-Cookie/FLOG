@@ -567,7 +567,8 @@
   font-weight: bold;
   font-size: 18px;
   margin-top: 60px;
-  margin-left: 270px;
+  margin-left: 250px;
+  text-align: center;
 }
 .second {
   font-weight: bold;
@@ -609,3 +610,22 @@
   line-height: 30px;
 }
 
+
+
+.left-component {
+  margin-left: 100px;
+  margin-top: 50px;
+  width: 1000px;
+  height: 525px;
+  background-color: #9172F6;
+  padding: 20px
+}
+
+.video-box {
+  margin-left: 160px;
+  margin-top: 15px;
+  margin-bottom: 60px;
+  width: 820px;
+  height: 500px;
+  background-color: #85afe4;
+}
