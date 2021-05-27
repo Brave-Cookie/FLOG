@@ -26,6 +26,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
+    },
+    log_realtime: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {
     sequelize,
