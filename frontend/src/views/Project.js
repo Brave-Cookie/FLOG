@@ -21,7 +21,7 @@ function Project(props) {
 
     const [meetings, set_meetings] = useState([]);
     const [modal, set_modal] = useState(false);
-    const [meeting_name, set_meetingName] = useState();
+    const [meeting_name, set_meetingName] = useState("");
 
     const onModalHandler = (event) => {
         set_modal(event.currentTarget.value);
@@ -50,7 +50,7 @@ function Project(props) {
             const room_code = (Math.random() * new Date().getTime()).toString(32).toUpperCase().replace(/\./g, '-');
             const res = getStart(room_code, meeting_name);
             const room_state = 'open';
-            window.location = `/${user_id}/project/${project_id}/${project_name}/meetingRoom/${room_state}/${meeting_name}`
+            window.location = `/${user_id}/project/${project_id}/${project_name}/meetingRoom/${room_state}/${meeting_name}/${room_code}`
             set_meetingName("");
             set_modal(false);
         }

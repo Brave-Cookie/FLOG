@@ -80,9 +80,14 @@ function Mypage(props) {
         if (meeting_code !== "") {
             let res = axios.get('http://localhost:3000/api/auth/check/' + meeting_code)
                 .then((res) => {
-                    set_meetingName(res.data);
-                    let room_state = 'join';
-                    window.location = `mypage/${user_id}/meetingRoom/${room_state}/${meeting_name}`
+                    if(res.status === 200){
+                        let meeting_name = res.data.meeting_name;
+                        let room_state = 'join';
+                        window.location = `/mypage/${user_id}/meetingRoom/${room_state}/${meeting_name}/${meeting_code}`
+                    }
+                    else {
+                        alert('존재하지 않는 회의')
+                    }
                 })
 
             set_code("");
