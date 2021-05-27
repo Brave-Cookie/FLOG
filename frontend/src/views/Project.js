@@ -51,7 +51,7 @@ function Project(props) {
             const res = getStart(room_code, meeting_name);
             const room_state = 'open';
 
-            window.location = `/meetingRoom/${room_state}/${room_code}`
+            window.location = `/${user_id}/project/${project_id}/${project_name}/meetingRoom/${room_state}/${room_code}`
             set_meetingName("");
             set_modal(false);
         }
