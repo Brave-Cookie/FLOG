@@ -3,3 +3,4 @@ node_modules
 *.pkl
 .venv
 *.whl
+__pycache__
