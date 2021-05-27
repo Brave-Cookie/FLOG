@@ -12,11 +12,13 @@ function Project(props) {
     const [project_name, set_projectName] = useState(props.match.params.projectName);
 
     const [meetings, set_meetings] = useState([]);
+    
 
     useEffect(() => {
         axios.get('http://localhost:3000/api/project/log/list/' + project_id)
             .then(res => {
                 console.log(res);
+                let list = res.data.list;
                 set_meetings(res.data.list);
             })
     }, []);
@@ -42,7 +44,11 @@ function Project(props) {
                 {meetings.map((meeting, id) =>(
                     <li className="meeting-item" key={id}>
                         <Link to={`/${user_id}/project/${project_id}/${project_name}/log/${meeting.meeting_id}`}>
-                            {meeting.meeting_date} | [{meeting.meeting_name}]
+                            {meeting.meeting_date} | [{meeting.meeting_name}] 참여자: [{meeting.user_id.map((user, id) => (
+                                <span key={id}>
+                                    &nbsp;{user}&nbsp; 
+                                </span>
+                            ))}]
                             <button className="log-button">감정 회의록</button>
                         </Link>
                     </li>
