@@ -1,4 +1,5 @@
 var DataTypes = require("sequelize").DataTypes;
+var _avg_emotion = require("./avg_emotion");
 var _log_info = require("./log_info");
 var _meeting_info = require("./meeting_info");
 var _project_info = require("./project_info");
@@ -10,6 +11,7 @@ var _user_info = require("./user_info");
 var _user_project = require("./user_project");
 
 function initModels(sequelize) {
+  var avg_emotion = _avg_emotion(sequelize, DataTypes);
   var log_info = _log_info(sequelize, DataTypes);
   var meeting_info = _meeting_info(sequelize, DataTypes);
   var project_info = _project_info(sequelize, DataTypes);
@@ -22,6 +24,7 @@ function initModels(sequelize) {
 
 
   return {
+    avg_emotion,
     log_info,
     meeting_info,
     project_info,
