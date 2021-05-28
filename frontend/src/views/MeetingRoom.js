@@ -5,6 +5,9 @@ import { MediaRecorder, register } from 'extendable-media-recorder';
 import { connect } from 'extendable-media-recorder-wav-encoder';
 
 import HeaderMeetingRoom from '../components/HeaderMeetingRoom';
+import clipbord from '../assets/image/clipboard.png';
+import start from '../assets/image/startMeeting.png';
+import stream from '../assets/image/onStream.png';
 
 // 여기가 전역 변수인가봄
 var connection = new window.RTCMultiConnection();
@@ -13,7 +16,7 @@ connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
 class MeetingRoom extends Component {
 
   componentDidMount() {
-    // ------------------------------------------------------ 입장시 초기 선언 ------------------------------------------------------
+
 
     // url로 코드와 상태 정보를 받아옴.
     const room_state = this.props.match.params.roomState;
@@ -230,7 +233,7 @@ class MeetingRoom extends Component {
         video.setAttribute("autoplay", true);
         video.setAttribute("playsinline", true);
       }
-      
+
       video.id = event.streamid; //각 비디오 화면에 각 스트림의 고유 식별자를 붙인다.
 
       video.style.width = "50px";
@@ -246,17 +249,33 @@ class MeetingRoom extends Component {
 
       connection.videosContainer.appendChild(event.mediaElement); //비디오를 div공간에 추가
       //document.videosContainer.appendChild(event.mediaElement);
-      
+
       //document.getElementById("videos-container").appendChild(event.mediaElement);
       */
       document.body.appendChild(event.mediaElement);
     };
-
+    const icon = {
+      height: '40px',
+    }
+    const icon_play = {
+      height: '30px',
+    }
     return (
       <div>
         <HeaderMeetingRoom />
 
         <div className="left-component">
+          
+          <div className="menu-icon">
+            <img src={clipbord} style={icon}></img>
+            <img src={start} style={icon_play}></img>
+            <img src={stream} style={icon_play}></img>
+          </div>
+          <ul className="menu-wrap">
+            <li><button>코드공유</button></li>
+            <li><button>회의 시작</button></li>
+            <li><button>종료하기</button></li>
+          </ul>
           <div className="video-box">
             <div className="videos-container" id="videos-container" />
           </div>
