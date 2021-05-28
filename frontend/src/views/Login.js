@@ -7,12 +7,16 @@ import { userLogin } from '../api/axios.js'
 
 
 async function getLogin(user_id, user_pw) {
+    console.log(3);
     var res = await userLogin(user_id, user_pw);
     console.log(res);
     if (res.status === 200) {
         const token = res.data.accessToken;
         console.log(token);
         localStorage.setItem('accessToken', token);
+        if (localStorage.getItem('accessToken')) {
+            window.location = `/mypage/${user_id}`;
+        }
         return true;
     }
     else if (res.status === 202) {
@@ -42,17 +46,12 @@ function Login(props) {
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
-
+        console.log(0);
         if (user_id === "" || user_pw === "") {
             return alert('모든 정보를 입력해주세요.')
         }
-
-
-        if (getLogin(user_id, user_pw)) {
-            if (localStorage.getItem('accessToken')) {
-                props.history.push('/mypage/' + user_id);
-            }
-        }
+        getLogin(user_id, user_pw)
+        
     }
 
     return (

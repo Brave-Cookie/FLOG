@@ -4,6 +4,7 @@ import HeaderAuth from '../components/HeaderAuth';
 import Sidebar from '../components/Sidebar';
 import axios from 'axios';
 import Modal from 'react-awesome-modal';
+import meetingIcon from '../assets/image/createRoom.png';
 
 async function getStart(room_code, meeting_name) {
     var res = axios.post('https://localhost:3000/api/auth/createRoom', 
@@ -59,6 +60,10 @@ function Project(props) {
         }
     }
 
+    const icon = {
+        width: '90px',
+    }
+
     return(
         <div className="content">
             <HeaderAuth />
@@ -67,8 +72,9 @@ function Project(props) {
             
             
             <button className="meeting-start-button" onClick={openModal}>
-                <h3>🙋‍♂️ 방 만들기</h3>
-                <p>방장이 되어 회의를 시작해보세요.</p>
+                <h2>방 만들기</h2>
+                <img src={meetingIcon} style={icon}></img>
+                <p>방장이 되어<br />회의를 시작해보세요.</p>
             </button>
 
             <Modal visible={modal} width="300" height="230" effect="fadeInUp">
