@@ -102,7 +102,7 @@ function Mypage(props) {
     return (
         <div className="content">
             <HeaderAuth />
-            <br />
+            <br /><br /><br />
             <h3>'<Link to={`/mypage/${user_id}`}>{user}</Link>'님 환영합니다 :)</h3>
             <div className="mypage-buttons">
                 <button onClick={openProjectModal} className="create-project-button">
@@ -115,28 +115,27 @@ function Mypage(props) {
                     <p>코드를 입력하면 바로 회의에 참여할 수 있어요.</p>
                 </button>
             </div>
-            <Modal visible={projectModal} width="300" height="200" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+            <Modal visible={projectModal} width="300" height="170" effect="fadeInUp">
                 <div>
                     <h4>프로젝트의 이름을 입력해주세요.</h4>
                     <br />
                     <input type="text" value={project_name} onChange={onProjectHandler} />
                     <br /><br />
-                    <button className="close" onClick={registProject}>생성하기</button>
-                    <button className="close" onClick={closeModal}>창 닫기</button>
+                    <button className="close-button" onClick={registProject}>생성하기</button>
+                    <button className="close-button" onClick={closeModal}>창 닫기</button>
                 </div>
             </Modal>
 
-            <Modal visible={codeModal} width="300" height="200" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+            <Modal visible={codeModal} width="300" height="170" effect="fadeInUp">
                 <div>
                     <h4>회의 코드를 입력해주세요.</h4>
                     <br />
                     <input type="text" value={meeting_code} onChange={onCodeHandler} />
                     <br /><br />
-                    <button className="close" onClick={enterMeeting}>입장하기</button>
-                    <button className="close" onClick={closeModal}>창 닫기</button>
+                    <button className="close-button" onClick={enterMeeting}>입장하기</button>
+                    <button className="close-button" onClick={closeModal}>창 닫기</button>
                 </div>
             </Modal>
-            <br />
 
             <div className="list">
                 <h3>나의 프로젝트</h3>

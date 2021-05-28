@@ -65,7 +65,7 @@ function Project(props) {
             <Sidebar user_id={user_id} project_id={project_id} project_name={project_name}/>
             <br /><br />
             
-            <h3>Project{project_id}</h3>
+            
             <button className="meeting-start-button" onClick={openModal}>
                 <h3>🙋‍♂️ 방 만들기</h3>
                 <p>방장이 되어 회의를 시작해보세요.</p>
@@ -83,7 +83,7 @@ function Project(props) {
                 </div>
             </Modal>
 
-
+            <br /><br />
             <div className="list-with-sidebar">
                 <h3>회의 LOG</h3>
                 <hr color="#b9bada" noshade="noshade" size="1"></hr>

@@ -51,7 +51,7 @@ function WordCloud(props) {
                     <TagCloud minSize={18} maxSize={60} tags={wordcloud} colorOptions={options} />
                 </div>
             </div>
-
+            <br />
             <div className="summary-title">
                 <h3>회의 요약문</h3>
             </div>
