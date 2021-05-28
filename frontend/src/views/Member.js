@@ -76,7 +76,8 @@ function Member(props) {
                         <ul>
                             {search_result.map((user, id) => (
                                 <li key={id} className="member-list">
-                                    - {user.user_id} <button className="add-button" value={user.user_id} onClick={addUser}>추가</button>
+                                    - {user.user_id}
+                                    <button className="add-button" value={user.user_id} onClick={addUser}>추가</button><br />
                                 </li>
                             ))}
                         </ul>
