@@ -2,6 +2,61 @@
   text-align: center;
 }
 
+.home {
+  /*background-image: url('./assets/image/Home.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;*/
+  background-color: #F6F7FF;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+.home-container {
+  border: 3px solid #E5E7FF;
+  width: 90%;
+  height: 80%;
+  margin-top: 5%;
+  margin-left: 5%;
+}
+.top-deco {
+  align-content: left;
+}
+.home-link {
+  font-family: 'GmarketSansMedium';
+  color: #595959;
+  margin-top: 20px;
+  margin-left: 50px;
+  font-size: 22px;
+  float: left;
+  text-align: left;
+  line-height: 15px;
+}
+.home-title {
+  font-family: 'NanumSquareRound';
+  color: #595959;
+  font-size: 40px;
+  text-align: right;
+  font-weight: bold;
+  margin-right: 450px;
+  margin-top: 250px;
+  float: right;
+}
+.home-sub {
+  font-family: 'GmarketSansLight';
+  text-align: right;
+  font-size: 18px;
+  margin-right: 450px;
+  color: #6D42F8;
+  float: right;
+}
+.home-logo {
+  float: right;
+  margin-left: 530px;
+  margin-right: 70px;
+  margin-top: -260px;
+}
+
 .header {
   background-color: #9172F6;
   width: 100%;
