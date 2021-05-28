@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { createProject } from '../api/axios.js'
 import axios from 'axios'
 import Modal from 'react-awesome-modal';
+import projectIcon from '../assets/image/createProject.png';
+import joinIcon from '../assets/image/joinRoom.png';
 
 async function register(user_id, project_name) {
     var res = await createProject(user_id, project_name);
@@ -98,6 +100,10 @@ function Mypage(props) {
         }
     }
 
+    const icon = {
+        width: '70px',
+    }
+
     console.log(projects);
     return (
         <div className="content">
@@ -107,12 +113,14 @@ function Mypage(props) {
             <div className="mypage-buttons">
                 <button onClick={openProjectModal} className="create-project-button">
                     <h3 className="create-project-title">프로젝트 생성</h3>
-                    <p>프로젝트 폴더를 만들어 회의를 관리해보세요.</p>
+                    <img src={projectIcon} style={icon}></img>
+                    <p>프로젝트 폴더를 만들어<br />회의를 관리해보세요.</p>
                 </button>
 
                 <button onClick={openCodeModal} className="join-meeting-button">
                     <h3 className="join-meeting-title">회의 참여하기</h3>
-                    <p>코드를 입력하면 바로 회의에 참여할 수 있어요.</p>
+                    <img src={joinIcon} style={icon}></img>
+                    <p>코드를 입력하면<br />회의에 참여할 수 있어요.</p>
                 </button>
             </div>
             <Modal visible={projectModal} width="300" height="170" effect="fadeInUp">

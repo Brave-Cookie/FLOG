@@ -404,6 +404,7 @@
 
 .meeting-start-button {
   margin-top: 50px;
+  width: 200px;
   font-family: 'GmarketSansMedium';
   background-color: #fbfbfb;
   border: 1px solid #D8D5EB;
