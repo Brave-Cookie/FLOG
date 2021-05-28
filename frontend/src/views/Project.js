@@ -6,7 +6,7 @@ import axios from 'axios';
 import Modal from 'react-awesome-modal';
 
 async function getStart(room_code, meeting_name) {
-    var res = axios.post('http://localhost:3000/api/auth/createRoom', 
+    var res = axios.post('https://localhost:3000/api/auth/createRoom', 
         { room_code, meeting_name });
     console.log(res);
 
