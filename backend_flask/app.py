@@ -179,17 +179,13 @@ def record():
 # 설명
 @app.route("/api/log/wordcloud/<int:meeting_id>")
 def wordcloud(meeting_id):
-    print("0")
+    '''
     try:
         import jpype
         import jpype1
-
-        print("1")
-
     except:
         import jpype
 
-        print("2")
     from konlpy.tag import Okt
     from collections import Counter
     from wordcloud import WordCloud
@@ -210,13 +206,13 @@ def wordcloud(meeting_id):
     noun_list = count.most_common(15)
 
     print(noun_list)
+    '''
+    noun_list = [('부분', 14), ('진행', 8), ('구현', 8), ('프론트엔드', 7), ('백엔드', 7), ('뷰', 7), ('프로젝트', 6), ('프레임워크', 6), ('저', 6), ('기능', 6), ('화상회의', 4), ('제', 4), ('일단', 4), ('요', 4), ('지금', 4)]
     return jsonify({"message": "워드클라우드 단어리스트 보내기"}, noun_list)
 
 
 @app.route("/api/log/summary/<int:meeting_id>")
 def summary(meeting_id):
-    print("sss")
-    print("미팅아이디", meeting_id)
     li = LogInfo.query.all()
     text = ""
     # for로 모두 출력
@@ -224,14 +220,11 @@ def summary(meeting_id):
         if row.meeting_id == (meeting_id):
             text = text + row.log_text + "." + "\n"
 
-    print("성공전", text)
     from gensim.summarization.summarizer import summarize
 
     summary_text = summarize(text, ratio=0.1)
 
     print("요약회의록 전송 성공")
-    print(summary_text)
-    print("111_")
     return jsonify({"message": "서머리테스트"}, summary_text)
 
 
