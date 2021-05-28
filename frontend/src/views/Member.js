@@ -15,7 +15,7 @@ function Member(props) {
     const [search_result, set_searchResult] = useState([]);
     const [current_members, set_currentMemebers] = useState([]);
     useEffect(() => {
-        axios.get('http://localhost:3000/api/project/member/list/' +project_id)
+        axios.get('https://localhost:3000/api/project/member/list/' +project_id)
             .then(res => {
                 console.log(res);
                 set_currentMemebers(res.data.list);

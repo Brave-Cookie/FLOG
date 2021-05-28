@@ -19,7 +19,7 @@ function Rank(props) {
     const [user_fear, set_userFear] = useState("");
     useState(() => {
         let feeling = "anger";
-        axios.get('http://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
+        axios.get('https://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
             .then((res) => {
                 console.log(res.data);
                 // 참여도 순위 저장 및 anger 감정 대표자 저장
@@ -32,21 +32,21 @@ function Rank(props) {
     }, [])
     useState(() => {
         let feeling = "happiness";
-        axios.get('http://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
+        axios.get('https://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
             .then((res) => {
                 set_userHappy(res.data.firstrank);
             })
     }, [])
     useState(() => {
         let feeling = "sadness";
-        axios.get('http://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
+        axios.get('https://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
             .then((res) => {
                 set_userSad(res.data.firstrank);
             })
     }, [])
     useState(() => {
         let feeling = "fear";
-        axios.get('http://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
+        axios.get('https://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
             .then((res) => {
                 set_userFear(res.data.firstrank);
             })

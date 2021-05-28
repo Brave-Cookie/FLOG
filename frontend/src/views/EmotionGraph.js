@@ -25,7 +25,7 @@ function EmotionGraph(props) {
     const [anger_count, set_angerCount] = useState();
     
     useEffect(() => {
-        axios.get('http://localhost:5000/api/log/feelingCount/' + meeting_id)
+        axios.get('https://localhost:5000/api/log/feelingCount/' + meeting_id)
           .then((res) => {
             let dic = res.data[1];
             console.log(dic);

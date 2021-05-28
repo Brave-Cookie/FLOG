@@ -37,7 +37,7 @@ function Project(props) {
     }
 
     useEffect(() => {
-        axios.get('http://localhost:3000/api/project/log/list/' + project_id)
+        axios.get('https://localhost:3000/api/project/log/list/' + project_id)
             .then(res => {
                 console.log(res);
                 //let list = res.data.list;
