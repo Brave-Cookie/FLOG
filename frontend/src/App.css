@@ -69,7 +69,36 @@
   font-size: 13px;
   color: #2c3750;
   background-color: #FCFBFF;
-  align-content: right;
+  float:right;
+}
+.signup-list {
+  list-style: none;
+  line-height: 40px;
+  text-align: left;
+  display: list-item;
+}
+.signup-form {
+  border: 3px solid #6D42F8;
+  border-radius: 2.3rem;
+  width: 350px;
+  padding-top: 2rem;
+  padding-left: 1rem;
+  padding-right: 2.5rem;
+  padding-bottom: 1.5rem;
+  margin-left: 560px;
+  margin-top: 30px;
+}
+.signup-button {
+  font-family: 'GmarketSansLight';
+  color: #6D42F8;
+  font-weight: bold;
+  background-color: #EBE5FF;
+  margin-left: 20px;
+  border: 1px solid #CABBFF;
+  border-radius: 0.25rem;
+  line-height: 1;
+  padding-top: 3px;
+  height: 30px;
 }
 .form-content {
   margin-top: 3rem;
@@ -78,7 +107,7 @@
   padding: 2rem;
   width: 300px;
   text-align: center;
-  margin-left: 37.3rem;
+  margin-left: 585px;
 }
 
 .content {
@@ -133,7 +162,7 @@
   cursor: pointer;
 }
 
-.button {
+.login-button {
   font-family: 'GmarketSansLight';
   color: #6D42F8;
   font-weight: bold;

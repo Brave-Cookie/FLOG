@@ -6,12 +6,12 @@ import Header from '../components/Header';
 
 async function register(user_data) {
     var res = await registUser(user_data);
-    if(res.status === 200){
+    if (res.status === 200) {
         alert('회원가입이 완료되었습니다. 로그인으로 이동합니다.');
         return true;
     }
-    else if(res.status === 202){
-        if(res.data.code === 'register_1'){
+    else if (res.status === 202) {
+        if (res.data.code === 'register_1') {
             alert('중복된 아이디가 존재합니다.');
         }
     }
@@ -45,10 +45,10 @@ function Signup(props) {
     const onSubmitHandler = (event) => {
         event.preventDefault();
 
-        if(user_pw !== pwConfirm) {
+        if (user_pw !== pwConfirm) {
             return alert('비밀번호가 일치하지 않습니다.');
         }
-        if(user_name===""||user_id===""||user_email===""||user_pw===""||pwConfirm===""){
+        if (user_name === "" || user_id === "" || user_email === "" || user_pw === "" || pwConfirm === "") {
             return alert('모든 정보를 입력해주세요.')
         }
 
@@ -60,33 +60,39 @@ function Signup(props) {
             pwConfirm: pwConfirm,
         }
 
-        if(register(user_data)){
+        if (register(user_data)) {
             props.history.push('/login');
         }
     };
-    
-    return(
+
+    return (
         <div className="content">
             <Header />
             <br /><br />
             <h2>회원가입</h2>
 
-            <form className="form-content" onSubmit={onSubmitHandler}>
-                <label>이름&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-                    <input className="signup-input" type="text" value={user_name} onChange={onNameHandler} /> <br />
-                <label>아이디&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-                    <input className="signup-input" type="text" value={user_id} onChange={onIdHandler} /> <br />
-                <label>이메일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-                    <input className="signup-input" type="email" value={user_email} onChange={onEmailHandler} /> <br />
-                <label>비밀번호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-                    <input className="signup-input" type="password" value={user_pw} onChange={onPwHandler} /> <br />
-                <label>비밀번호확인 </label>
-                    <input className="signup-input" type="password" value={pwConfirm} onChange={onPwConfirmHandler} /> <br />
-                <br />
-                <button className="button" type="submit">회원가입</button>
+            <form className="signup-form" onSubmit={onSubmitHandler}>
+                <ul>
+                    <li className="signup-list">
+                        <label>이름 </label>
+                        <input className="signup-input" type="text" value={user_name} onChange={onNameHandler} /></li>
+                    <li className="signup-list">
+                        <label>아이디</label>
+                        <input className="signup-input" type="text" value={user_id} onChange={onIdHandler} /></li>
+                    <li className="signup-list">
+                        <label>이메일</label>
+                        <input className="signup-input" type="email" value={user_email} onChange={onEmailHandler} /></li>
+                    <li className="signup-list">
+                        <label>비밀번호</label>
+                        <input className="signup-input" type="password" value={user_pw} onChange={onPwHandler} /></li>
+                    <li className="signup-list">
+                        <label>비밀번호확인 </label>
+                        <input className="signup-input" type="password" value={pwConfirm} onChange={onPwConfirmHandler} /> </li>
+                </ul><br />
+                <button className="signup-button" type="submit">회원가입</button>
             </form>
         </div>
-        
+
     )
 }
 
