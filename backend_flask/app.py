@@ -47,14 +47,13 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 @socketio.on("connect")
 def connect():
     print("@@@@@@@@@@@@@@@@ 소켓 연결됨 @@@@@@@@@@@@@@@@")
-    socketio.emit("connect_res", {"msg": "연결완료"})
 
 
-@socketio.on("dummy")
-def dummy(req):
-    print(req)
+@socketio.on("start_log")
+def start_log(req):
+    print('start_log 요청 받음')
     # 응답 보내기
-    socketio.emit("dummy", {"msg": "더미 응답"})
+    socketio.emit("start_log", {})
 
 
 @socketio.on("disconnect")
@@ -128,7 +127,8 @@ def record():
     # 묵음감지 전 길이 측정
     if int(librosa.get_duration(signal, sr)) < 4:
         print(" XXXXXXXXXXX 4초 미만 음성 XXXXXXXXXXX ")
-        return jsonify({"message": "4초 미만 음성"})
+        socketio.emit("emotion_result", {"result": "4초 미만 음성"})
+        return jsonify({"msg": "소켓 전송완료"})
 
     # 묵음구간 추출
     myaudio = AudioSegment.from_wav(fs)
@@ -166,12 +166,14 @@ def record():
 
     if audio_len < 4:
         print(" XXXXXXXXXXX 묵음제거 후 4초 미만 XXXXXXXXXXX ")
-        return jsonify({"message": "묵음제거 후 4초 미만"})
+        socketio.emit("emotion_result", {"result": "묵음제거 후 4초 미만"})
+        return jsonify({"msg": "소켓 전송완료"})
 
     else:
         emotion_result = emotion_recognition(audio_len, reform_signal, sr)
         print(emotion_result)
-        return jsonify({"msg": "분석완료"})
+        socketio.emit("emotion_result", {"result": emotion_result})
+        return jsonify({"msg": "소켓 전송완료"})
 
 
 # 설명

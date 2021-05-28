@@ -6,6 +6,16 @@ db = SQLAlchemy()
 
 
 
+class AvgEmotion(db.Model):
+    __tablename__ = 'avg_emotion'
+
+    meeting_id = db.Column(db.Integer, nullable=False)
+    time = db.Column(db.String(45), nullable=False)
+    emotion = db.Column(db.String(45), nullable=False)
+    idx = db.Column(db.Integer, primary_key=True)
+
+
+
 class LogInfo(db.Model):
     __tablename__ = 'log_info'
 
