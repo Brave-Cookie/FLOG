@@ -91,18 +91,20 @@ function Project(props) {
 
             <br /><br />
             <div className="list-with-sidebar">
-                <h3>회의 LOG</h3>
+                <h3 style={{ fontSize: "22px" }}>회의 LOG</h3>
                 <hr color="#b9bada" noshade="noshade" size="1"></hr>
                 
                 <ul className="meeting-list">
                 {meetings.map((meeting, id) =>(
                     <li className="meeting-item" key={id}>
                         <Link to={`/${user_id}/project/${project_id}/${project_name}/log/${meeting.meeting_id}/${meeting.meeting_name}`}>
-                            {meeting.meeting_date} | [{meeting.meeting_name}] 참여자: [{meeting.user_id.map((user, id) => (
+                            <span style={{ fontWeight: 'bold' }}>{meeting.meeting_date}&nbsp;</span>
+                                | 제목: [ <span style={{ fontWeight: 'bold' }}>{meeting.meeting_name}</span> ] 
+                                참여자: [<span style={{ fontWeight: 'bold' }}>{meeting.user_id.map((user, id) => (
                                 <span key={id}>
                                     &nbsp;{user}&nbsp; 
                                 </span>
-                            ))}]
+                            ))}</span>]
                             <button className="log-button">감정 회의록</button>
                         </Link>
                     </li>

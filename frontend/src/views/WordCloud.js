@@ -45,8 +45,8 @@ function WordCloud(props) {
             <SidebarLog user_id={user_id} project_id={project_id} project_name={project_name} meeting_id={meeting_id} meeting_name={meeting_name}/>
             <br /><br />
             <div className="word-title">
-                <h3>워드 클라우드</h3>
-                <p style={{ fontSize: '14px' }}>회의 내용 중 많이 등장한 단어들을 추출해 시각화합니다.</p>
+                <h3 style={{ fontSize: '20px' }}>워드 클라우드</h3>
+                <p style={{ fontSize: '16px' }}>회의 내용 중 많이 등장한 단어들을 추출해 시각화합니다.</p>
             </div>
             <div className="word-box">
                 <div className="word-cloud">
@@ -55,8 +55,8 @@ function WordCloud(props) {
             </div>
             <br />
             <div className="summary-title">
-                <h3>회의 요약문</h3>
-                <p style={{ fontSize: '14px' }}>긴 회의 내용을 빠르고, 간략하게 파악할 수 있어요!</p>
+                <h3 style={{ fontSize: '20px' }}>회의 요약문</h3>
+                <p style={{ fontSize: '16px' }}>긴 회의 내용을 빠르고, 간략하게 파악할 수 있어요!</p>
             </div>
             <div className="summary-box">
                 <div className="summary">

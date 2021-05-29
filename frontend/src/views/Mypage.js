@@ -146,7 +146,7 @@ function Mypage(props) {
             </Modal>
 
             <div className="list">
-                <h3>나의 프로젝트</h3>
+                <h3 style={{ fontSize: "21px" }}>나의 프로젝트</h3>
                 <hr color="#b9bada" noshade="noshade" size="1"></hr>
 
                 <ul className="project-list">

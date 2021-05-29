@@ -179,7 +179,7 @@
 
 .list {
   text-align: left;
-  margin-top: 80px;
+  margin-top: 50px;
   margin-left: 25rem;
   margin-right: 25rem;
 }
@@ -192,10 +192,11 @@
 .project-list a {
   text-decoration: none;
   color: #2c3750;
-  font-size: 18px;
+  font-size: 20px;
 }
 .project-list a:hover {
   font-weight: bold;
+  color: #6D42F8;
 }
 .project-item {
   line-height: 35px;
@@ -207,6 +208,7 @@
 }
 .meeting-list a:hover {
   font-weight: bold;
+  color: #6D42F8;
 }
 .meeting-item {
   line-height: 35px;
@@ -473,6 +475,7 @@
 .listen-button {
   font-family: 'GmarketSansMedium';
   float: right;
+  margin-top: 35px;
   margin-right: 20rem;
   background-color: #6D42F8;
   border: 2px solid #b39efa;
