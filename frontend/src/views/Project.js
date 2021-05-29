@@ -84,8 +84,8 @@ function Project(props) {
                     <br />
                     <input type="text" value={meeting_name} onChange={onMeetingNameHandler} />
                     <br /><br />
-                    <button className="close" onClick={startMeeting}>회의 시작</button>
-                    <button className="close" onClick={closeModal}>창 닫기</button>
+                    <button className="close-button" onClick={startMeeting}>회의 시작</button>
+                    <button className="close-button" onClick={closeModal}>창 닫기</button>
                 </div>
             </Modal>
 

@@ -290,7 +290,10 @@
   margin-right: 5px;
   height: 25px;
 }
-
+.close-button:hover {
+  cursor: pointer;
+  background-color: #e2e1eb;
+}
 .sidebar {
   font-family: 'GmarketSansMedium';
   position: absolute;
