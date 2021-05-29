@@ -60,7 +60,7 @@ function Rank(props) {
             <br /><br />
             <div className="rank-title">
                 <h3>🏆 참여도 랭킹</h3>
-                <p style={{ fontSize: '14px' }}>: 가장 참여도가 높은 팀원은 누구일까요?</p>
+                <p style={{ fontSize: '14px' }}>가장 참여도가 높은 팀원은 누구일까요?</p>
             </div>
             <div className="rank-box">
                 <div className="ranking">
@@ -72,7 +72,7 @@ function Rank(props) {
 
             <div className="state-title">
                 <h3>감정 대표자 소개</h3>
-                <div className="state-sub-title" style={{fontSize: "14px"}}>: 각 감정 별로 가장 많은 발언을 한 사람이 뽑힙니다.</div> 
+                <div className="state-sub-title" style={{fontSize: "14px"}}>각 감정 별로 가장 많은 발언을 한 사람이 뽑힙니다.</div> 
                 <hr color="#EEEFFC" noshade="noshade" size="2"></hr>
             </div>
             <div className="state-box">
