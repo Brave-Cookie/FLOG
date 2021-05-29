@@ -14,7 +14,7 @@ function SidebarLog(props) {
     return (
         <div className="sidebar">
             <div className="sidebar-title">
-                <Link to={`/${user_id}/project/${project_id}/${project_name}`}>{project_name}-{meeting_id}</Link>
+                <Link to={`/${user_id}/project/${project_id}/${project_name}/log/${meeting_id}`>{project_name}-{meeting_id}</Link>
             </div>
             <ul className="sidebar-menu">
                 <li>
