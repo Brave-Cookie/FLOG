@@ -68,7 +68,7 @@ function Login(props) {
                 </form>
                 <br />
                 <div style={{color: "#6D42F8"}}>
-                    <Link to="/signup">회원가입</Link> | 비밀번호 찾기
+                    <Link to="/signup">회원가입</Link> | <Link to="/login">비밀번호 찾기</Link>
                 </div>
             </div>
         </div>

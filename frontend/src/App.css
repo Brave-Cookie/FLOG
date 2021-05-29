@@ -155,6 +155,9 @@
   padding-top: 3px;
   height: 30px;
 }
+.signup-button:hover {
+  cursor: pointer;
+}
 .form-content {
   margin-top: 3rem;
   border: 3px solid #6D42F8;
@@ -191,6 +194,9 @@
   color: #2c3750;
   font-size: 18px;
 }
+.project-list a:hover {
+  font-weight: bold;
+}
 .project-item {
   line-height: 35px;
 }
@@ -198,6 +204,9 @@
   text-decoration: none;
   color: #2c3750;
   font-size: 18px;
+}
+.meeting-list a:hover {
+  font-weight: bold;
 }
 .meeting-item {
   line-height: 35px;
@@ -215,6 +224,7 @@
 }
 .log-button:hover {
   cursor: pointer;
+  background-color: #7951fc;
 }
 
 .login-button {
@@ -226,6 +236,9 @@
   border: 1px solid #CABBFF;
   border-radius: 0.25rem;
   line-height: 1;
+}
+.login-button:hover {
+  cursor: pointer;
 }
 .mypage-buttons {
   display: flex;
@@ -243,6 +256,7 @@
 }
 .create-project-button:hover {
   cursor: pointer;
+  background-color: #f7f6fd;
 }
 .create-project-title {
   font-size: 20px;
@@ -260,6 +274,7 @@
 }
 .join-meeting-button:hover {
   cursor: pointer;
+  background-color: #f7f6fd;
 }
 .join-meeting-title {
   color: #9172F6;
@@ -292,6 +307,10 @@
 .sidebar-menu a {
   color: #2c3750;
 }
+.sidebar-menu a:hover {
+  color: #9172F6;
+}
+
 
 .sidebar-title {
   background-color: #D8D5EB;
@@ -338,6 +357,7 @@
 }
 .issue-button:hover {
   cursor: pointer;
+  background-color: #e2dafd;
 }
 
 .member-wrap {
@@ -375,6 +395,7 @@
 }
 .search-button:hover {
   cursor: pointer;
+  background-color: #d4caf8;
 }
 .add-button {
   font-family: 'GmarketSansLight';
@@ -387,6 +408,7 @@
 }
 .add-button:hover {
   cursor: pointer;
+  background-color: #a489ff;
 }
 
 .current-member {
@@ -413,6 +435,7 @@
 }
 .meeting-start-button:hover {
   cursor: pointer;
+  background-color: #f7f6fd;
 }
 
 .log-box {
@@ -452,6 +475,10 @@
   border-radius: 0.5rem;
   color: white;
   line-height: 2;
+}
+.listen-button:hover {
+  cursor: pointer;
+  background-color: #7951fc;
 }
 .log-with-buttons {
   float: right;
