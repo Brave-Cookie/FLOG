@@ -8,8 +8,9 @@ function Log(props) {
     const [project_id, set_projectId] = useState(props.match.params.projectId);
     const [project_name, set_projectName] = useState(props.match.params.projectName);
     const [meeting_id, set_logId] = useState(props.match.params.meetingId);
+    const [meeting_name, set_meetingName] = useState(props.match.params.meetingName);
+    console.log(meeting_name);
     const [log_content, set_logContent] = useState([]);
-    const [bg_color, set_color] = useState();
 
     const [log_anger, set_anger] = useState([]);
     const [log_happy, set_happy] = useState([]);
@@ -78,18 +79,6 @@ function Log(props) {
             })
     }, [])
 
-    /*function Filter({ log_feeling }) {
-        console.log(log_feeling);
-        return (
-            <ul>
-                {log_feeling.map((row, id) => (
-                    <li className="log-content" key={id}>
-                        <p>[{row.log_time}] {row.user_id}: {row.log_text}</p>
-                    </li>
-                ))}
-            </ul>
-        )
-    }*/
     console.log(show_log);
     const filter_all = () => {
         set_showLog(log_content);
@@ -113,7 +102,7 @@ function Log(props) {
     return (
         <div className="content">
             <HeaderAuth />
-            <SidebarLog user_id={user_id} project_id={project_id} project_name={project_name} meeting_id={meeting_id} />
+            <SidebarLog user_id={user_id} project_id={project_id} project_name={project_name} meeting_id={meeting_id} meeting_name={meeting_name}/>
             <br /><br />
             <div className="entire-log-title">
                 <h3>회의록 전문<button className="listen-button">음성으로 회의 듣기</button></h3>

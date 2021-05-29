@@ -13,6 +13,7 @@ function EmotionGraph(props) {
     const [project_id, set_projectId] = useState(props.match.params.projectId);
     const [project_name, set_projectName] = useState(props.match.params.projectName);
     const [meeting_id, set_logId] = useState(props.match.params.meetingId);
+    const [meeting_name, set_meetingName] = useState(props.match.params.meetingName);
 
     const [avg_feeling, set_avgFeeling] = useState([]);
     const [pi_feeling, set_piFeeling] = useState([]);
@@ -130,7 +131,7 @@ function EmotionGraph(props) {
     return (
         <div className="content">
             <HeaderAuth />
-            <SidebarLog user_id={user_id} project_id={project_id} project_name={project_name} meeting_id={meeting_id} />
+            <SidebarLog user_id={user_id} project_id={project_id} project_name={project_name} meeting_id={meeting_id} meeting_name={meeting_name}/>
             <br /><br />
             <div className="graph-title">
                 <h3>평균 감정 그래프</h3>

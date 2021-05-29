@@ -35,10 +35,10 @@ const App = () => {
           <Route path="/:userId/project/:projectId/:projectName" component={ Project } exact />
           <Route path="/:userId/project/:projectId/:projectName/issue" component={ Issue } exact />
           <Route path="/:userId/project/:projectId/:projectName/member" component={ Member } exact />
-          <Route path="/:userId/project/:projectId/:projectName/log/:meetingId" component={ Log } exact />
-          <Route path="/:userId/project/:projectId/:projectName/log/:meetingId/word-cloud" component={ WordCloud } exact />
-          <Route path="/:userId/project/:projectId/:projectName/log/:meetingId/emotion-graph" component={ EmotionGraph } exact />
-          <Route path="/:userId/project/:projectId/:projectName/log/:meetingId/rank" component={ Rank } exact />
+          <Route path="/:userId/project/:projectId/:projectName/log/:meetingId/:meetingName" component={ Log } exact />
+          <Route path="/:userId/project/:projectId/:projectName/log/:meetingId/:meetingName/word-cloud" component={ WordCloud } exact />
+          <Route path="/:userId/project/:projectId/:projectName/log/:meetingId/:meetingName/emotion-graph" component={ EmotionGraph } exact />
+          <Route path="/:userId/project/:projectId/:projectName/log/:meetingId/:meetingName/rank" component={ Rank } exact />
 
           {/* hanjo */}
           <Route path="/:userId/project/:projectId/:projectName/meetingRoom/:roomState/:meetingName/:roomCode" component={MeetingRoom} exact/>

@@ -8,6 +8,7 @@ function Rank(props) {
     const [project_id, set_projectId] = useState(props.match.params.projectId);
     const [project_name, set_projectName] = useState(props.match.params.projectName);
     const [meeting_id, set_logId] = useState(props.match.params.meetingId);
+    const [meeting_name, set_meetingName] = useState(props.match.params.meetingName);
 
     const [first_rank, set_firstRank] = useState("");
     const [second_rank, set_secondRank] = useState("");
@@ -55,7 +56,7 @@ function Rank(props) {
     return (
         <div className="content">
             <HeaderAuth />
-            <SidebarLog user_id={user_id} project_id={project_id} project_name={project_name} meeting_id={meeting_id} />
+            <SidebarLog user_id={user_id} project_id={project_id} project_name={project_name} meeting_id={meeting_id} meeting_name={meeting_name}/>
             <br /><br />
             <div className="rank-title">
                 <h3>🏆 참여도 랭킹</h3>

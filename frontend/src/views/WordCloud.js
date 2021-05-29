@@ -9,6 +9,7 @@ function WordCloud(props) {
     const [project_id, set_projectId] = useState(props.match.params.projectId);
     const [project_name, set_projectName] = useState(props.match.params.projectName);
     const [meeting_id, set_logId] = useState(props.match.params.meetingId);
+    const [meeting_name, set_meetingName] = useState(props.match.params.meetingName);
 
     const [summary_text, set_summary] = useState();
     const [wordcloud,set_wordcloud] = useState([]);
@@ -41,7 +42,7 @@ function WordCloud(props) {
     return (
         <div className="content">
             <HeaderAuth />
-            <SidebarLog user_id={user_id} project_id={project_id} project_name={project_name} meeting_id={meeting_id} />
+            <SidebarLog user_id={user_id} project_id={project_id} project_name={project_name} meeting_id={meeting_id} meeting_name={meeting_name}/>
             <br /><br />
             <div className="word-title">
                 <h3>워드 클라우드</h3>

@@ -97,7 +97,7 @@ function Project(props) {
                 <ul className="meeting-list">
                 {meetings.map((meeting, id) =>(
                     <li className="meeting-item" key={id}>
-                        <Link to={`/${user_id}/project/${project_id}/${project_name}/log/${meeting.meeting_id}`}>
+                        <Link to={`/${user_id}/project/${project_id}/${project_name}/log/${meeting.meeting_id}/${meeting.meeting_name}`}>
                             {meeting.meeting_date} | [{meeting.meeting_name}] 참여자: [{meeting.user_id.map((user, id) => (
                                 <span key={id}>
                                     &nbsp;{user}&nbsp; 
