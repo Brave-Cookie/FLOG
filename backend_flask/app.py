@@ -15,7 +15,7 @@ app.config[
     "SQLALCHEMY_DATABASE_URI"
 ] = "mysql+pymysql://root:11111111@flogdb.csbcfamkafav.ap-northeast-2.rds.amazonaws.com:3306/flog"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-db_session = SQLAlchemy(app)
+db = SQLAlchemy(app)
 
 # localhost:5000 으로 접속
 
@@ -215,7 +215,7 @@ from gensim.summarization.summarizer import summarize
 
 @app.route("/api/log/summary/<int:meeting_id>")
 def summary(meeting_id):
-    li = LogInfo.query.all()
+    li = db.session.query(LogInfo).all()
     text = ""
     # for로 모두 출력
     for row in li:
@@ -224,7 +224,7 @@ def summary(meeting_id):
     summary_text = summarize(text, ratio=0.1)
 
     print("요약회의록 전송 성공")
-    db_session.close()
+    db.session.close()
     return jsonify({"message": "서머리테스트"}, summary_text)
 
 
@@ -232,7 +232,7 @@ from collections import Counter
 
 @app.route("/api/log/feelingCount/<int:meeting_id>")
 def feeling_count(meeting_id):
-    li = LogInfo.query.all()
+    li = db.session.query(LogInfo).all()
     feeling = []
     # for로 모두 출력
     for row in li:
@@ -241,7 +241,7 @@ def feeling_count(meeting_id):
     feeling_frq = (Counter(feeling)).most_common()
 
     print(feeling_frq)
-    db_session.close()
+    db.session.close()
     return jsonify({"message": "감정 빈도수"}, feeling_frq)
 
 
