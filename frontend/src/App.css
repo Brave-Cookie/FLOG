@@ -348,19 +348,20 @@
 .issue-button {
   font-family: 'GmarketSansLight';
   float: right;
+  margin-top: 35px;
   margin-right: 20px;
   padding-top: 5px;
-  color: #6D42F8;
+  color: white;
   font-weight: bold;
-  background-color: #EBE5FF;
+  background-color: #6D42F8;
   padding: 0.375rem 0.75rem;
-  border: 1px solid #CABBFF;
-  border-radius: 0.25rem;
-  line-height: 1;
+  border: 2px solid #b39efa;
+  border-radius: 0.5rem;
+  line-height: 1.5;
 }
 .issue-button:hover {
   cursor: pointer;
-  background-color: #e2dafd;
+  background-color: #7951fc;
 }
 
 .member-wrap {
