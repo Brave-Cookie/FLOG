@@ -211,29 +211,28 @@ def wordcloud(meeting_id):
     return jsonify({"message": "워드클라우드 단어리스트 보내기"}, noun_list)
 
 
+from gensim.summarization.summarizer import summarize
+
 @app.route("/api/log/summary/<int:meeting_id>")
 def summary(meeting_id):
-    li = LogInfo.query.all()
+    li = db.session.query(LogInfo).all()
     text = ""
     # for로 모두 출력
     for row in li:
         if row.meeting_id == (meeting_id):
             text = text + row.log_text + "." + "\n"
-
-    from gensim.summarization.summarizer import summarize
-
     summary_text = summarize(text, ratio=0.1)
 
     print("요약회의록 전송 성공")
+    db.session.close()
     return jsonify({"message": "서머리테스트"}, summary_text)
 
 
+from collections import Counter
+
 @app.route("/api/log/feelingCount/<int:meeting_id>")
 def feeling_count(meeting_id):
-
-    from collections import Counter
-
-    li = LogInfo.query.all()
+    li = db.session.query(LogInfo).all()
     feeling = []
     # for로 모두 출력
     for row in li:
@@ -242,6 +241,7 @@ def feeling_count(meeting_id):
     feeling_frq = (Counter(feeling)).most_common()
 
     print(feeling_frq)
+    db.session.close()
     return jsonify({"message": "감정 빈도수"}, feeling_frq)
 
 
