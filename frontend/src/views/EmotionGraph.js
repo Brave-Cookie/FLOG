@@ -18,7 +18,9 @@ function EmotionGraph(props) {
     const [avg_feeling, set_avgFeeling] = useState([]);
     const [pi_feeling, set_piFeeling] = useState([]);
 
-    const [top_feeling, set_topFeeling] = useState();
+    const [top_feeling, set_topFeeling] = useState("");
+    const [feedback, set_feedback] = useState("");
+
     const [happy_count, set_happyCount] = useState();
     const [neutral_count, set_neutralCount] = useState();
     const [fear_count, set_fearCount] = useState();
@@ -76,19 +78,24 @@ function EmotionGraph(props) {
             set_angerCount(Math.round((anger/sum)*100));
 
             if(dic[0][0] === "happiness"){
-              set_topFeeling("적극적인");
+              set_topFeeling("적극적이고 에너제틱한");
+              set_feedback("앞으로도 쭉 이 분위기를 유지해보아요!");
             }
             else if(dic[0][0] === "neutral") {
               set_topFeeling("평온한");
+              set_feedback("다음 회의는 좀 더 다이나믹하게 의견을 주고받아 보는건 어때요?");
             }
             else if(dic[0][0] === "fear") {
               set_topFeeling("긴장된");
+              set_feedback("가끔은 재치있는 말장난으로 분위기를 바꿔보는 것도 좋아요.");
             }
             else if(dic[0][0] === "sadness") {
-              set_topFeeling("우울한");
+              set_topFeeling("루즈하고 우울한");
+              set_feedback("힘들고 지칠때도 있지만 우리 모두 힘내요 :)");
             }
             else {
               set_topFeeling("격양된");
+              set_feedback("잠시 휴식이 필요할 때, * 화면 조정 중입니다. *");
             }
           })
     }, [])
@@ -97,9 +104,7 @@ function EmotionGraph(props) {
     const graph_data = {
         // x축 하단 표시되는 값
         labels: ["00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30"],
-        // 점 찍을 데이타
         datasets: [
-            //원소 1
           {
             label: "50:😃 / 40:🙂 / 30:😨 / 20:😥 / 10:😡",
             data: chartData,
@@ -154,6 +159,7 @@ function EmotionGraph(props) {
     
             <div className="pi-chart-title">
                 <h3>전체 감정 분석</h3>
+                <p style={{ fontSize: '14px' }}>: 회의의 전반적인 감정 분포는 어땠나요?</p>
                 <hr color="#EEEFFC" noshade="noshade" size="2"></hr>
             </div>
 
@@ -167,7 +173,10 @@ function EmotionGraph(props) {
                 <li><div className="index" style={{color:"#B3EBD8"}}>■&nbsp;</div>긴장 - {fear_count}%</li>
                 <li><div className="index" style={{color:"#E3E0EC"}}>■&nbsp;</div>평범 - {neutral_count}%</li>
             </ul>
-            <p className="chart-sub-title">회의는 전반적으로 {top_feeling} 분위기였네요!</p>
+            <p className="chart-sub-title" style={{ fontSize: '17px' }}>
+              회의는 전반적으로 <span style={{ fontWeight: 'bold' }}>{top_feeling}</span> 분위기였네요!<br />
+              👉 {feedback}
+            </p>
             
         </div>
     )

@@ -106,6 +106,7 @@ function Log(props) {
             <br /><br />
             <div className="entire-log-title">
                 <h3>회의록 전문<button className="listen-button">음성으로 회의 듣기</button></h3>
+                <p style={{ fontSize: '14px' }}>: 실시간 회의의 내용이 자동으로 텍스트화 됩니다. 우측 버튼을 통해 감정 별로 필터링 해보세요!</p>
             </div>
             <div className="log-with-buttons">
             <ul className="emotion-button">

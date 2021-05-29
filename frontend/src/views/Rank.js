@@ -60,6 +60,7 @@ function Rank(props) {
             <br /><br />
             <div className="rank-title">
                 <h3>🏆 참여도 랭킹</h3>
+                <p style={{ fontSize: '14px' }}>: 가장 참여도가 높은 팀원은 누구일까요?</p>
             </div>
             <div className="rank-box">
                 <div className="ranking">
