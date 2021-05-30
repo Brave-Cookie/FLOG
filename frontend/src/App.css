@@ -3,10 +3,6 @@
 }
 
 .home {
-  /*background-image: url('./assets/image/Home.png');
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;*/
   background-color: #F6F7FF;
   display: flex;
   width: 100%;
@@ -24,13 +20,16 @@
 }
 .home-link {
   font-family: 'GmarketSansMedium';
-  color: #595959;
-  margin-top: 20px;
-  margin-left: 50px;
-  font-size: 22px;
+  color: #6D42F8;
+  margin-top: 30px;
+  margin-left: 60px;
+  font-size: 27px;
   float: left;
   text-align: left;
   line-height: 15px;
+}
+.home-link a:hover {
+  color: #c7c4f8;
 }
 .home-title {
   font-family: 'NanumSquareRound';

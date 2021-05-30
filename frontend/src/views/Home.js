@@ -16,8 +16,7 @@ function Home(props) {
             <div className="home-container">
                 <div className="home-link">
                     <p style={{ fontWeight: "bold", color: "#6D42F8" }}>-</p>
-                    <p>HOME</p>
-                    <Link to="/login" style={{ color: '#595959'}}>START</Link>
+                    <Link to="/login" style={{ fontWeight: "bold" }}>START</Link>
                 </div>
         
                 <div className="home-title">
