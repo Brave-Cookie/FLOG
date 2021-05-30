@@ -754,19 +754,19 @@
 
 .state {
   font-family: 'GmarketSansMedium';
-  margin-left: 420px;
-  width: 550px;
+  margin-left: 410px;
+  width: 850px;
   text-align: left;
   margin-top: 150px;
   font-size: 20px;
 }
 .left-state {
   float: left;
-  line-height: 30px;
+  line-height: 25px;
 }
 .right-state {
   float: right;
-  line-height: 30px;
+  line-height: 25px;
 }
 
 

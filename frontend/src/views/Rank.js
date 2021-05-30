@@ -35,6 +35,7 @@ function Rank(props) {
         let feeling = "happiness";
         axios.get('https://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
             .then((res) => {
+                console.log(res);
                 set_userHappy(res.data.firstrank);
             })
     }, [])
@@ -60,7 +61,9 @@ function Rank(props) {
             <br /><br />
             <div className="rank-title">
                 <h3 style={{ fontSize: '20px' }}>🏆 참여도 랭킹</h3>
-                <p style={{ fontSize: '16px' }}>가장 참여도가 높은 팀원은 누구일까요?</p>
+                <p style={{ fontSize: '16px', lineHeight: '24px' }}>가장 참여도가 높은 팀원은 누구일까요?<br />
+                    참여도는 발언 시간과 발언 횟수, 워드 클라우드와의 단어 유사도 등을 종합해 산출합니다.
+                </p>
             </div>
             <div className="rank-box">
                 <div className="ranking">
@@ -78,12 +81,22 @@ function Rank(props) {
             <div className="state-box">
                 <div className="state">
                     <div className="left-state">
-                        <p>😃 파워 긍정러 {user_happy}</p>
-                        <p>😥 눈물 뚝뚝 {user_sad}</p>
+                        <p>😃 파워 긍정러 {user_happy}</p><p style={{fontSize: "16px", fontFamily: 'NEXON Lv2 Gothic Light'}}>
+                            '기쁨' 감정으로 {}번 발언했어요! 당신은 우리의 비타민~ 
+                        </p>
+                        <br />
+                        <p>😥 눈물 뚝뚝 {user_sad}</p><p style={{fontSize: "16px", fontFamily: 'NEXON Lv2 Gothic Light'}}>
+                            '슬픔' 감정으로 {}번 발언했어요! 울지말아요, 당신.
+                        </p>
                     </div>
                     <div className="right-state">
-                        <p>😡 흥분 과다 {user_anger}</p>
-                        <p>😨 프로 긴장러 {user_fear}</p> 
+                        <p>😡 흥분 과다 {user_anger}</p><p style={{fontSize: "16px", fontFamily: 'NEXON Lv2 Gothic Light'}}>
+                            '격양' 감정으로 {}번 발언했어요! 워~ 워~ 진정하세요.
+                        </p>
+                        <br />
+                        <p>😨 프로 긴장러 {user_fear}</p><p style={{fontSize: "16px", fontFamily: 'NEXON Lv2 Gothic Light'}}>
+                            '긴장' 감정으로 {}번 발언했어요! 떨리는 마음, 심호흡 한 번!
+                        </p>
                     </div>
                 </div>
             </div>
