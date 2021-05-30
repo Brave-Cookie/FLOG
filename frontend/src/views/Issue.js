@@ -75,16 +75,24 @@ function Issue(props) {
             <div className="project-content">
                 <h3 style={{ fontSize: "23px" }}>Issue <button className="issue-button" onClick={openModal}>+ 이슈 등록</button></h3> 
                 <p style={{ fontSize: "17px" }}>팀원 모두가 공유해야 하는 간단한 공지사항이나 링크 등을 이슈에 등록해보세요.</p>
-
-                <div className="issue-content">
-                {issues.map((issue, id) =>(
-                    <li className="issue-item" key={id}>
-                        -&nbsp;&nbsp;{issue.issue_content}
-                        <hr color="#b9bada" noshade="noshade" size="1" />
-                    </li>
-                ))}
-                
-                </div>
+                {(function () {
+                    if (issues.length === 0) {
+                        return (<p className="issue-content" style={{ color: "#b9bada",  fontSize: "17px", lineHeight: "24px" }}>- 당신이 바로 개척자! 첫 이슈를 등록해보세요.</p>);
+                    }
+                    else {
+                        return (
+                            <div className="issue-content">
+                            {issues.map((issue, id) =>(
+                                <li className="issue-item" key={id}>
+                                    -&nbsp;&nbsp;{issue.issue_content}
+                                    <hr color="#b9bada" noshade="noshade" size="1" />
+                                </li>
+                            ))}
+                            
+                            </div>
+                        )
+                    }
+                })()}
             </div>
             
                 

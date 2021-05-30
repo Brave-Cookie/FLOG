@@ -97,24 +97,32 @@ function Project(props) {
             <div className="list-with-sidebar">
                 <h3 style={{ fontSize: "22px" }}>회의 LOG</h3>
                 <hr color="#b9bada" noshade="noshade" size="1"></hr>
-                
-                <ul className="meeting-list">
-                {meetings.map((meeting, id) =>(
-                    <li className="meeting-item" key={id}>
-                        <Link to={`/${user_id}/project/${project_id}/${project_name}/log/${meeting.meeting_id}/${meeting.meeting_name}`}>
-                            <span style={{ fontWeight: 'bold' }}>{meeting.meeting_date}&nbsp;</span>
-                                | 제목: [ <span style={{ fontWeight: 'bold' }}>{meeting.meeting_name}</span> ] 
-                                참여자: [<span style={{ fontWeight: 'bold' }}>{meeting.user_id.map((user, id) => (
-                                <span key={id}>
-                                    &nbsp;{user}&nbsp; 
-                                </span>
-                            ))}</span>]
-                            <button className="log-button">감정 회의록</button>
-                        </Link>
-                    </li>
-                ))}
-                    <br />
-                </ul>
+                {(function () {
+                    if (meetings.length === 0) {
+                        return (<p style={{ color: "#b9bada",  fontSize: "17px", lineHeight: "24px" }}>방 만들기를 통해 회의를 시작해보세요!</p>);
+                    }
+                    else {
+                        return (
+                            <ul className="meeting-list">
+                            {meetings.map((meeting, id) =>(
+                                <li className="meeting-item" key={id}>
+                                    <Link to={`/${user_id}/project/${project_id}/${project_name}/log/${meeting.meeting_id}/${meeting.meeting_name}`}>
+                                        <span style={{ fontWeight: 'bold' }}>{meeting.meeting_date}&nbsp;</span>
+                                            | 제목: [ <span style={{ fontWeight: 'bold' }}>{meeting.meeting_name}</span> ] 
+                                            참여자: [<span style={{ fontWeight: 'bold' }}>{meeting.user_id.map((user, id) => (
+                                            <span key={id}>
+                                                &nbsp;{user}&nbsp; 
+                                            </span>
+                                        ))}</span>]
+                                        <button className="log-button">감정 회의록</button>
+                                    </Link>
+                                </li>
+                            ))}
+                                <br />
+                            </ul>
+                        )
+                    }
+                })()}
             </div>
 
             

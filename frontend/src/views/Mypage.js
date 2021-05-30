@@ -10,7 +10,7 @@ import joinIcon from '../assets/image/joinRoom.png';
 
 async function register(user_id, project_name) {
     var res = await createProject(user_id, project_name);
-    console.log(res.status);
+    console.log(res);
 
     return res;
 }
@@ -66,13 +66,14 @@ function Mypage(props) {
     const registProject = () => {
         if (project_name !== "") {
             const res = register(user_id, project_name);
+            console.log(res);
             alert('프로젝트가 생성되었습니다.');
             // clear
             set_project("");
             set_projectModal(false);
 
-            window.location.replace('/mypage/' + user_id);
-
+            //window.location.replace('/mypage/' + user_id);
+            window.location = `/mypage/${user_id}`;
         }
         else {
             alert('프로젝트명을 입력해주세요.')
@@ -82,13 +83,13 @@ function Mypage(props) {
         if (meeting_code !== "") {
             let res = axios.get('https://localhost:3000/api/auth/check/' + meeting_code)
                 .then((res) => {
-                    if(res.status === 200){
+                    if (res.status === 200) {
                         let meeting_name = res.data.meeting_name;
                         let room_state = 'join';
-                        window.location = `/mypage/${user_id}/meetingRoom/${room_state}/${meeting_name}/${meeting_code}`
+                        window.location = `/mypage/${user_id}/meetingRoom/${room_state}/${meeting_name}/${meeting_code}`;
                     }
                     else {
-                        alert('존재하지 않는 회의')
+                        alert('존재하지 않는 회의입니다.')
                     }
                 })
 
@@ -96,7 +97,7 @@ function Mypage(props) {
             set_codeModal(false);
         }
         else {
-            alert('코드를 입력해주세요');
+            alert('코드를 입력해주세요.');
         }
     }
 
@@ -109,7 +110,7 @@ function Mypage(props) {
         padding: '5px',
     }
 
-    console.log(projects);
+    console.log(projects.length);
     return (
         <div className="content">
             <HeaderAuth />
@@ -143,7 +144,7 @@ function Mypage(props) {
                 <div>
                     <h3>회의 코드를 입력해주세요.</h3>
                     <br />
-                    <input type="text" value={meeting_code} onChange={onCodeHandler} style={modal_input}/>
+                    <input type="text" value={meeting_code} onChange={onCodeHandler} style={modal_input} />
                     <br /><br /><br />
                     <button className="close-button" onClick={enterMeeting}>입장하기</button>
                     <button className="close-button" onClick={closeModal}>창 닫기</button>
@@ -153,15 +154,23 @@ function Mypage(props) {
             <div className="list">
                 <h3 style={{ fontSize: "21px" }}>나의 프로젝트</h3>
                 <hr color="#b9bada" noshade="noshade" size="1"></hr>
+                {(function () {
+                    if (projects.length === 0) {
+                        return (<p style={{ color: "#b9bada",  fontSize: "17px", lineHeight: "24px" }}>아직 만들어진 프로젝트가 없네요! 첫 프로젝트를 만들어볼까요?</p>);
+                    }
+                    else {
+                        return (
+                        <ul className="project-list">
+                            {projects.map((project, id) => (
+                                <li className="project-item" key={id}>
+                                    <Link to={`/${user_id}/project/${project.project_id}/${project.project_name}`}>{project.project_name}</Link>
+                                </li>
+                            ))}
+                            <br />
+                        </ul>)
+                    }
+                })()}
 
-                <ul className="project-list">
-                    {projects.map((project, id) => (
-                        <li className="project-item" key={id}>
-                            <Link to={`/${user_id}/project/${project.project_id}/${project.project_name}`}>{project.project_name}</Link>
-                        </li>
-                    ))}
-                    <br />
-                </ul>
             </div>
 
 
