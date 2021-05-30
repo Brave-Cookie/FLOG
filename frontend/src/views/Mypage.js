@@ -104,6 +104,11 @@ function Mypage(props) {
         width: '70px',
     }
 
+    const modal_input = {
+        fontSize: '17px',
+        padding: '5px',
+    }
+
     console.log(projects);
     return (
         <div className="content">
@@ -123,23 +128,23 @@ function Mypage(props) {
                     <p>코드를 입력하면<br />회의에 참여할 수 있어요.</p>
                 </button>
             </div>
-            <Modal visible={projectModal} width="300" height="170" effect="fadeInUp">
+            <Modal visible={projectModal} width="350" height="220" effect="fadeInUp">
                 <div>
-                    <h4>프로젝트의 이름을 입력해주세요.</h4>
+                    <h3>프로젝트의 이름을 입력해주세요.</h3>
                     <br />
-                    <input type="text" value={project_name} onChange={onProjectHandler} />
-                    <br /><br />
+                    <input type="text" value={project_name} onChange={onProjectHandler} style={modal_input} />
+                    <br /><br /><br />
                     <button className="close-button" onClick={registProject}>생성하기</button>
                     <button className="close-button" onClick={closeModal}>창 닫기</button>
                 </div>
             </Modal>
 
-            <Modal visible={codeModal} width="300" height="170" effect="fadeInUp">
+            <Modal visible={codeModal} width="350" height="220" effect="fadeInUp">
                 <div>
-                    <h4>회의 코드를 입력해주세요.</h4>
+                    <h3>회의 코드를 입력해주세요.</h3>
                     <br />
-                    <input type="text" value={meeting_code} onChange={onCodeHandler} />
-                    <br /><br />
+                    <input type="text" value={meeting_code} onChange={onCodeHandler} style={modal_input}/>
+                    <br /><br /><br />
                     <button className="close-button" onClick={enterMeeting}>입장하기</button>
                     <button className="close-button" onClick={closeModal}>창 닫기</button>
                 </div>

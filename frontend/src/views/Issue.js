@@ -35,6 +35,7 @@ function Issue(props) {
     }
     const closeModal = () => {
         set_modal(false);
+        set_issue("");
     }
     const onIssueHandler = (event) => {
         set_issue(event.currentTarget.value);
@@ -53,6 +54,16 @@ function Issue(props) {
         else {
             alert('내용을 입력해주세요.')
         }
+    }
+
+    const issue_input ={
+        resize: 'none',
+        fontSize: '17px',
+        padding: '5px',
+        overflow: 'auto',
+        width: '270px',
+        height: '120px',
+        fontFamily: 'NEXON Lv2 Gothic Light',
     }
 
     return(
@@ -77,14 +88,14 @@ function Issue(props) {
             </div>
             
                 
-            <Modal visible={modal} width="400" height="300" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+            <Modal visible={modal} width="400" height="300" effect="fadeInUp">
             <div>
-                <h4>내용을 입력하세요.</h4>
+                <h3>내용을 입력하세요.</h3>
                 <br />
-                <input type="text" value={issue} onChange={onIssueHandler} />
+                <textarea value={issue} onChange={onIssueHandler} style={issue_input} />
                 <br /><br />
-                <button className="close" onClick={newIssue}>이슈 등록</button>
-                <button className="close" onClick={closeModal}>창 닫기</button>
+                <button className="close-button" onClick={newIssue}>이슈 등록</button>
+                <button className="close-button" onClick={closeModal}>창 닫기</button>
             </div>
             </Modal>
         </div>

@@ -63,6 +63,10 @@ function Project(props) {
     const icon = {
         width: '90px',
     }
+    const project_input = {
+        fontSize: '17px',
+        padding: '5px',
+    }
 
     return(
         <div className="content">
@@ -77,13 +81,13 @@ function Project(props) {
                 <p>방장이 되어<br />회의를 시작해보세요.</p>
             </button>
 
-            <Modal visible={modal} width="300" height="230" effect="fadeInUp">
+            <Modal visible={modal} width="350" height="260" effect="fadeInUp">
                 <div>
-                    <h4>회의 방 만들기</h4>
-                    <p>회의의 이름을 입력해주세요.</p>
+                    <h2>회의 방 만들기</h2>
+                    <p style={{ fontSize: "18px" }} >회의의 이름을 입력해주세요.</p>
                     <br />
-                    <input type="text" value={meeting_name} onChange={onMeetingNameHandler} />
-                    <br /><br />
+                    <input type="text" value={meeting_name} onChange={onMeetingNameHandler} style={project_input}/>
+                    <br /><br /><br />
                     <button className="close-button" onClick={startMeeting}>회의 시작</button>
                     <button className="close-button" onClick={closeModal}>창 닫기</button>
                 </div>
