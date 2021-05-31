@@ -141,7 +141,12 @@ class MeetingRoom extends Component {
             var fd = new FormData();
             fd.append("for_librosa", e.data);
             fd.append("for_silence", e.data);
-            fd.append('stt_result', stt_result)
+            fd.append('log_row', {
+              'meeting_id' : meeting_id,
+              'user_id' : user_id,
+              'log_time' : '',
+              'log_text' : stt_result,
+            })
 
             // 잘 생성됐는지 확인
             //for (let key of fd.keys()) {

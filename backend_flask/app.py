@@ -65,6 +65,7 @@ def start_log(req):
         )
     db.session.add(query1)
     db.session.commit()
+    print('meeting_info 삽입')
 
     # project_meeting 매핑 삽입
     query2 = ProjectMeeting(
@@ -73,6 +74,7 @@ def start_log(req):
     )
     db.session.add(query2)
     db.session.commit()
+    print('project_meeting 삽입')
 
     db.session.close()
     # meeting_id를 보내준다.
@@ -143,14 +145,11 @@ def emotion_recognition(audio_len, reform_signal, sr):
 # 음성데이터 요청 응답
 @app.route("/api/record", methods=["POST"])
 def record():
-    print(
-        "-------------------------------------- 요청완료 => 분석시작 --------------------------------------"
-    )
+    print( "-------------------------------------- 요청완료 => 분석시작 --------------------------------------")
 
     # 넘어온 wav 음성 데이터
     fs = request.files["for_silence"]
     f = request.files["for_librosa"]
-
     # librosa 변환
     signal, sr = librosa.load(f, sr=16000)
 
