@@ -114,10 +114,20 @@ exports.logRank = async (req, res, next) => {
         
         console.log('토탈랭킹:',total_ranking)
         firstrank = getMode(first)//최빈값구하기 array집어넣어서 가장 많이나온사람이 아웃풋
-        console.log("가장많은사람:", firstrank)
+       
+        //각감정별 1등이 몇번 발언했는지
+        let count = 0;
+        for(let i=0; i < first.length; i++) {
+            if(first[i] === firstrank)  {
+                count++;
+            }
+        }
+        console.log(first)
+        console.log(firstrank,"가",feeling,"감정을",count,"번 말했습니다")
 
         //user_id 로 이름 찾아오기
         let table_ui = models.user_info;
+        
         table_ui.findOne({
             raw: true,
             attributes: ['user_name'],
@@ -128,7 +138,8 @@ exports.logRank = async (req, res, next) => {
                 return res.status(200).json({
                 message : '랭킹성공!!',
                 firstrank: row.user_name,
-                total_rank:total_ranking
+                total_rank: total_ranking,
+                count: count
                 })
             })
         } catch(err){   // 에러나면 로그 찍고 실패 신호 보냄
