@@ -9,6 +9,8 @@ import clipbord from '../assets/image/clipboard.png';
 import start from '../assets/image/startMeeting.png';
 import stream from '../assets/image/onStream.png';
 
+import * as service from "./getHTMLMediaElement";
+
 // 여기가 전역 변수인가봄
 var connection = new window.RTCMultiConnection();
 connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
@@ -220,12 +222,30 @@ class MeetingRoom extends Component {
       OfferToReceiveVideo: true
     };
 
-
     // host connection
     connection.onstream = function (event) {
-      /*
-      connection.videosContainer = document.getElementById("videos-container");
+      
+      //connection1
+      // event.mediaContainer.style.width=""
+      connection.videosContainer = document.getElementById("videos-container"); //1개 이상의 비디오들을 담을 div공간을 id값으로 가져온다.
       var video = document.createElement("video"); //비디오 컴포넌트를 생성한다.
+      video.id = event.streamid; //각 비디오 화면에 각 스트림의 고유 식별자를 붙인다.
+      video.style.width = "100%";
+      video.style.height = "100%";
+
+      video.style.border = "solid 1px var(--greenish-teal)";
+
+      event.mediaElement.removeAttribute("src");
+      event.mediaElement.removeAttribute("srcObject");
+      event.mediaElement.muted = true;
+      event.mediaElement.volume = 0;
+
+      //FIXME:
+      var existing = document.getElementById(event.streamid);
+      if (existing && existing.parentNode) {
+        existing.parentNode.removeChild(existing);
+      }
+
       try {
         video.setAttributeNode(document.createAttribute("autoplay"));
         video.setAttributeNode(document.createAttribute("playsinline"));
@@ -234,26 +254,51 @@ class MeetingRoom extends Component {
         video.setAttribute("playsinline", true);
       }
 
-      video.id = event.streamid; //각 비디오 화면에 각 스트림의 고유 식별자를 붙인다.
-
-      video.style.width = "50px";
-      video.style.height = "30px";
-      //video.style.border = "solid 1px var(--greenish-teal)";
-
-      event.mediaElement.removeAttribute("src");
-      event.mediaElement.removeAttribute("srcObject");
+      if (event.type === "local") {
+        video.volume = 0;
+        try {
+          video.setAttributeNode(document.createAttribute("muted"));
+        } catch (e) {
+          video.setAttribute("muted", true);
+        }
+      }
 
       video.srcObject = event.stream; //비디오에 stream을 연결한다.
 
-      //connection.videosContainer.style.width = "100%";
+      connection.videosContainer.style.width = "100%";
+      var width = 692.78 / 2;
 
-      connection.videosContainer.appendChild(event.mediaElement); //비디오를 div공간에 추가
-      //document.videosContainer.appendChild(event.mediaElement);
+      var mediaElement = service.getHTMLMediaElement(video, {
+        title: event.userid,
+        buttons: ["mute-audio", "mute-video"],
+        width: width,
+        showOnMouseEnter: false
+      });
 
-      //document.getElementById("videos-container").appendChild(event.mediaElement);
-      */
-      document.body.appendChild(event.mediaElement);
+      connection.videosContainer.appendChild(mediaElement); //비디오를 div공간에 추가한다.
+
+      //TODO: get
+      setTimeout(function() {
+        mediaElement.media.play();
+      }, 5000);
+      mediaElement.id = event.streamid;
+
+      if (event.type === "local") {
+        connection.socket.on("disconnect", function() {
+          if (!connection.getAllParticipants().length) {
+            window.location.reload();
+          }
+        });
+      }
     };
+
+    connection.onstreamended = function(event) {
+      var mediaElement = document.getElementById(event.streamid);
+      if (mediaElement) {
+        mediaElement.parentNode.removeChild(mediaElement);
+      }
+    };
+
     const icon = {
       height: '40px',
     }
@@ -276,9 +321,10 @@ class MeetingRoom extends Component {
             <li><button>회의 시작</button></li>
             <li><button>종료하기</button></li>
           </ul>
-          <div className="video-box">
-            <div className="videos-container" id="videos-container" />
-          </div>
+
+
+          <div className="videos-container" id="videos-container"/>
+
         </div>
 
         <br /><br />
