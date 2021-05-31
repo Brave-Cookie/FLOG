@@ -73,7 +73,7 @@ function Issue(props) {
             <br /><br /><br />
 
             <div className="project-content">
-                <h3 style={{ fontSize: "23px" }}>Issue <button className="issue-button" onClick={openModal}>+ 이슈 등록</button></h3> 
+                <h3 style={{ fontSize: "23px" }}>💡 Issue <button className="issue-button" onClick={openModal}>+ 이슈 등록</button></h3> 
                 <p style={{ fontSize: "17px" }}>팀원 모두가 공유해야 하는 간단한 공지사항이나 링크 등을 이슈에 등록해보세요.</p>
                 {(function () {
                     if (issues.length === 0) {

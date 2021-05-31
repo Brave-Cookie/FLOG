@@ -105,7 +105,7 @@ function Log(props) {
             <SidebarLog user_id={user_id} project_id={project_id} project_name={project_name} meeting_id={meeting_id} meeting_name={meeting_name}/>
             <br /><br />
             <div className="entire-log-title">
-                <h3 style={{ fontSize: '20px' }}>회의록 전문<button className="listen-button">음성으로 회의 듣기</button></h3>
+                <h3 style={{ fontSize: '20px' }}>📝 회의록 전문<button className="listen-button">음성으로 회의 듣기</button></h3>
                 <p style={{ fontSize: '16px' }}>실시간 회의의 내용이 자동으로 텍스트화 됩니다. 우측 버튼을 통해 감정 별로 필터링 해보세요!</p>
             </div>
             <div className="log-with-buttons">
