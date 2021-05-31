@@ -11,30 +11,109 @@ import stream from '../assets/image/onStream.png';
 
 import * as service from "./getHTMLMediaElement";
 
-// 여기가 전역 변수인가봄
-var connection = new window.RTCMultiConnection();
-connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
 
 class MeetingRoom extends Component {
 
   componentDidMount() {
+    // ------------------------------------------------------ init ------------------------------------------------------
 
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ RAY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    // 여기에 url 파라미터 뽑아서 다 변수로 저장해놓음~
 
     // url로 코드와 상태 정보를 받아옴.
+    const user_id = this.props.match.params.userId
     const room_state = this.props.match.params.roomState;
     const room_code = this.props.match.params.roomCode;
+    const meeting_name = this.props.match.params.meetingName;
+    const project_id = this.props.match.params.projectId;
+    let meeting_id;
 
-    // 회의방 생성시
-    if (room_state == 'open') {
-      console.log('생성')
-      connection.open(room_code);
-    }
+    // ------------------------------------------------------ Web RTC 요소 핸들링 ------------------------------------------------------
 
-    // 회의방 입장시
-    else {
-      console.log('입장')
-      connection.join(room_code);
-    }
+    var connection = new window.RTCMultiConnection();
+    connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+
+    connection.session = {
+      audio: true,
+      video: true
+    };
+
+    connection.sdpConstraints.mandatory = {
+      OfferToReceiveAudio: true,
+      OfferToReceiveVideo: true
+    };
+
+    // host connection
+    connection.onstream = function (event) {
+      //connection1
+      // event.mediaContainer.style.width=""
+      connection.videosContainer = document.getElementById("videos-container"); //1개 이상의 비디오들을 담을 div공간을 id값으로 가져온다.
+      var video = document.createElement("video"); //비디오 컴포넌트를 생성한다.
+      video.id = event.streamid; //각 비디오 화면에 각 스트림의 고유 식별자를 붙인다.
+      video.style.width = "100%";
+      video.style.height = "100%";
+
+      video.style.border = "solid 1px var(--greenish-teal)";
+
+      event.mediaElement.removeAttribute("src");
+      event.mediaElement.removeAttribute("srcObject");
+      event.mediaElement.muted = true;
+      event.mediaElement.volume = 0;
+
+      //FIXME:
+      var existing = document.getElementById(event.streamid);
+      if (existing && existing.parentNode) {
+        existing.parentNode.removeChild(existing);
+      }
+
+      try {
+        video.setAttributeNode(document.createAttribute("autoplay"));
+        video.setAttributeNode(document.createAttribute("playsinline"));
+      } catch (e) {
+        video.setAttribute("autoplay", true);
+        video.setAttribute("playsinline", true);
+      }
+
+      if (event.type === "local") {
+        video.volume = 0;
+        try {
+          video.setAttributeNode(document.createAttribute("muted"));
+        } catch (e) {
+          video.setAttribute("muted", true);
+        }
+      }
+
+      video.srcObject = event.stream; //비디오에 stream을 연결한다.
+
+      connection.videosContainer.style.width = "100%";
+      var width = 692.78 / 2;
+
+      var mediaElement = service.getHTMLMediaElement(video, {
+        title: event.userid,
+        buttons: ["mute-audio", "mute-video"],
+        width: width,
+        showOnMouseEnter: false
+      });
+
+      // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ RAY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+      // 라벨 태그를 js로 생성
+      var label = document.createElement("div");
+      // js로 스타일 지정 ㄷㄷ
+      label.setAttribute('style',
+      'width:100%; height:50px; background-color:white'
+      )
+      // js로 label 안 요소를 집어 넣는다.
+      // <div>
+      //    <span id='emotion'></span>
+      //    <span id='user_id'>user_id</span>
+      // </div>
+      label.innerHTML = "<span id='emotion'>감정</span> <span id='" + user_id + "'>" + user_id + "</span>"
+      mediaElement.appendChild(label)
+      // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ RAY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+      connection.videosContainer.appendChild(mediaElement); //비디오를 div공간에 추가한다.
+    };
+
 
     // ------------------------------------------------------ Record Audio ------------------------------------------------------
     async function init() {
@@ -54,7 +133,6 @@ class MeetingRoom extends Component {
 
           recorder = new MediaRecorder(stream, { mimeType: 'audio/wav' });
           recorder.start();
-
           recorder.ondataavailable = function (e) {
             //console.log(e)          // blob event
             //console.log(e.data)     // e.data -> blob 변수. 녹음 결과임
@@ -63,6 +141,7 @@ class MeetingRoom extends Component {
             var fd = new FormData();
             fd.append("for_librosa", e.data);
             fd.append("for_silence", e.data);
+            fd.append('stt_result', stt_result)
 
             // 잘 생성됐는지 확인
             //for (let key of fd.keys()) {
@@ -115,7 +194,6 @@ class MeetingRoom extends Component {
 
     // STT 시작하면 발동됨
     recognition.onstart = function () {
-      alert('STT 시작')
       isRecognizing = true;
     };
 
@@ -140,19 +218,25 @@ class MeetingRoom extends Component {
     // STT 결과 처리하는 부분 
     // 크롬에서 자동으로 음성을 감지하여 끝을 내면 그 때 발동된다.
     recognition.onresult = function (event) {
-      end_record();
       for (let i = event.resultIndex; i < event.results.length; ++i) {
         // 인식된 문장이 끝났을 경우에만 동작
         if (event.results[i].isFinal) {
           // 방금 인식한 단어를 전체 결과에 추가함
-          finalTranscript += event.results[i][0].transcript;
+          //finalTranscript += event.results[i][0].transcript;
           console.log(' ---------------------------------- 음성감지 => 녹음시작 ---------------------------------- ');
 
           // 콘솔로 찍어보기
-          console.log('방금 인식된 문장 : ', event.results[i][0].transcript)
-          //console.log('쌓인 문장들 : ', finalTranscript)
+          stt_result = event.results[i][0].transcript
+          console.log('방금 인식된 문장 : ', stt_result)
+
+          // 채팅창 업데이트 소켓으로 전송
+          client_socket.emit('chat', {
+            'user_id' : user_id,
+            'stt_result' : stt_result,
+          })
         }
       }
+      end_record();
       start_record();
     };
 
@@ -185,119 +269,82 @@ class MeetingRoom extends Component {
     // 소켓 연결
     let client_socket = socketio.connect('https://localhost:5000')
 
-    // 회의 시작시
+    // 회의 시작시 알림
     client_socket.on('start_log',
       function (res) {
+        alert('회의가 시작되었습니다. 회의록이 생성됩니다.')
+        // meeting_id를 저장
+        meeting_id = res.meeting_id
+        console.log(meeting_id)
+        // stt 시작
         start_stt();
+      }
+    )
+    
+    // stt 결과 받아주는 소켓
+    client_socket.on('chat',
+      function (res) {
         console.log(res)
+        // 여기서 채팅창 업데이트 해준다
       }
     )
 
-    // 감정결과
+    // 감정결과 받아주는 소켓
     client_socket.on('emotion_result',
       function (res) {
         console.log(res)
+        // 여기서 감정 결과 엄데이트 해준다
       }
     )
 
     // ------------------------------------------------------ Event Handling ------------------------------------------------------
 
-    document.getElementById('start_log').onclick = function () {
-      client_socket.emit("start_log", {})
+    /*
+    if(room_state === 'join'){
+      document.getElementById('start_log').style.display = 'none'
+      document.getElementById('end_log').style.display = 'none'
     }
+    */
+
+    // 회의방 생성시
+    if (room_state == 'open') {
+      console.log('생성')
+      connection.open(room_code);
+    }
+
+    // 회의방 입장시
+    else {
+      console.log('입장')
+      connection.join(room_code);
+    }
+
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ RAY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    // 만약 join 한 사람이면 
+    // id = 'start_log' 인 태그 (버튼임)을 안보이게 만든다.
+    if(room_state === 'join'){
+      document.getElementById('start_log').style.display = 'none' ;
+    }
+    
+    //
+    document.getElementById('start_log').onclick = function () {
+      alert('버튼눌림')
+      let year = new Date().getFullYear()
+      let month = new Date().getMonth() + 1
+      let date = new Date().getDate()
+      const meeting_date = year + '-' + month + '-' + date
+      // 소켓에 시작신호 + 저장할 데이터 전송
+      client_socket.emit("start_log", {
+        'meeting_name' : meeting_name,
+        'meeting_date' : meeting_date,
+        'project_id' : project_id,
+      })
+    }
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ RAY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
   }
 
   render() {
-
-    // ------------------------------------------------------ Web RTC 요소 핸들링 ------------------------------------------------------
-
-    connection.session = {
-      audio: true,
-      video: true
-    };
-
-    connection.sdpConstraints.mandatory = {
-      OfferToReceiveAudio: true,
-      OfferToReceiveVideo: true
-    };
-
-    // host connection
-    connection.onstream = function (event) {
-      
-      //connection1
-      // event.mediaContainer.style.width=""
-      connection.videosContainer = document.getElementById("videos-container"); //1개 이상의 비디오들을 담을 div공간을 id값으로 가져온다.
-      var video = document.createElement("video"); //비디오 컴포넌트를 생성한다.
-      video.id = event.streamid; //각 비디오 화면에 각 스트림의 고유 식별자를 붙인다.
-      video.style.width = "100%";
-      video.style.height = "100%";
-
-      video.style.border = "solid 1px var(--greenish-teal)";
-
-      event.mediaElement.removeAttribute("src");
-      event.mediaElement.removeAttribute("srcObject");
-      event.mediaElement.muted = true;
-      event.mediaElement.volume = 0;
-
-      //FIXME:
-      var existing = document.getElementById(event.streamid);
-      if (existing && existing.parentNode) {
-        existing.parentNode.removeChild(existing);
-      }
-
-      try {
-        video.setAttributeNode(document.createAttribute("autoplay"));
-        video.setAttributeNode(document.createAttribute("playsinline"));
-      } catch (e) {
-        video.setAttribute("autoplay", true);
-        video.setAttribute("playsinline", true);
-      }
-
-      if (event.type === "local") {
-        video.volume = 0;
-        try {
-          video.setAttributeNode(document.createAttribute("muted"));
-        } catch (e) {
-          video.setAttribute("muted", true);
-        }
-      }
-
-      video.srcObject = event.stream; //비디오에 stream을 연결한다.
-
-      connection.videosContainer.style.width = "100%";
-      var width = 692.78 / 2;
-
-      var mediaElement = service.getHTMLMediaElement(video, {
-        title: event.userid,
-        buttons: ["mute-audio", "mute-video"],
-        width: width,
-        showOnMouseEnter: false
-      });
-
-      connection.videosContainer.appendChild(mediaElement); //비디오를 div공간에 추가한다.
-
-      //TODO: get
-      setTimeout(function() {
-        mediaElement.media.play();
-      }, 5000);
-      mediaElement.id = event.streamid;
-
-      if (event.type === "local") {
-        connection.socket.on("disconnect", function() {
-          if (!connection.getAllParticipants().length) {
-            window.location.reload();
-          }
-        });
-      }
-    };
-
-    connection.onstreamended = function(event) {
-      var mediaElement = document.getElementById(event.streamid);
-      if (mediaElement) {
-        mediaElement.parentNode.removeChild(mediaElement);
-      }
-    };
 
     const icon = {
       height: '40px',
@@ -305,6 +352,7 @@ class MeetingRoom extends Component {
     const icon_play = {
       height: '30px',
     }
+
     return (
       <div>
         <HeaderMeetingRoom />
@@ -322,15 +370,13 @@ class MeetingRoom extends Component {
             <li><button>종료하기</button></li>
           </ul>
 
-
           <div className="videos-container" id="videos-container"/>
 
         </div>
 
         <br /><br />
         <button id='start_log'>회의 시작</button>
-        <button id='end_log'>회의 종료</button>
-
+        
       </div>
     );
   }
