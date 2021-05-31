@@ -1,6 +1,7 @@
 # -*- conding: utf-8 -*-
 from flask import Flask, render_template, redirect, url_for, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
 from flask_cors import CORS
 
 from model import *
@@ -52,9 +53,38 @@ def connect():
 @socketio.on("start_log")
 def start_log(req):
     print('start_log 요청 받음')
-    # 응답 보내기
-    socketio.emit("start_log", {})
 
+    # meeting_info 마지막 인덱스 추출
+    new_m_id = db.session.query(func.max(MeetingInfo.meeting_id)).scalar() + 1
+
+    # meeting_info 삽입
+    query1 = MeetingInfo(
+        meeting_id = new_m_id,
+        meeting_name = req['meeting_name'], 
+        meeting_date = req['meeting_date']
+        )
+    db.session.add(query1)
+    db.session.commit()
+
+    # project_meeting 매핑 삽입
+    query2 = ProjectMeeting(
+        meeting_id = new_m_id,
+        project_id = req['project_id']
+    )
+    db.session.add(query2)
+    db.session.commit()
+
+    db.session.close()
+    # meeting_id를 보내준다.
+    socketio.emit("start_log", {'meeting_id' : new_m_id})
+
+@socketio.on("chat")
+def start_log(req):
+    # 각 참가자의 stt 결과를 받고 그대로 모두에게 뿌려준다 
+    socketio.emit("chat", {
+            'user_id' : req['user_id'],
+            'stt_result' : req['stt_result'],
+        })
 
 @socketio.on("disconnect")
 def disconnect():

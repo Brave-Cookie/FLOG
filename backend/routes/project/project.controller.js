@@ -24,6 +24,7 @@ exports.create = async (req, res, next) => {
                     project_id : new_p_id,
                     project_name: req_pi.project_name
                 })
+                
                 // 2. user_project에 매핑하여 삽입
                 table_up.create({
                     project_id: new_p_id,

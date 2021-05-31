@@ -794,13 +794,10 @@
 .menu-icon {
   float: left;
 }
-.video-box {
-  margin-left: 160px;
-  margin-right: 10px;
-  margin-top: 15px;
-  margin-bottom: 60px;
-  width: 860px;
+.videos-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 692.78px;
   height: 500px;
   background-color: #85afe4;
-  float: right;
 }
