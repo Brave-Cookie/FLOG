@@ -5,9 +5,6 @@ import { MediaRecorder, register } from 'extendable-media-recorder';
 import { connect } from 'extendable-media-recorder-wav-encoder';
 
 import HeaderMeetingRoom from '../components/HeaderMeetingRoom';
-import clipbord from '../assets/image/clipboard.png';
-import start from '../assets/image/startMeeting.png';
-import stream from '../assets/image/onStream.png';
 
 import * as service from "./getHTMLMediaElement";
 
@@ -53,7 +50,7 @@ class MeetingRoom extends Component {
       video.style.width = "100%";
       video.style.height = "100%";
 
-      video.style.border = "solid 1px var(--greenish-teal)";
+      video.style.border = "solid 2px #6D42F8";
 
       event.mediaElement.removeAttribute("src");
       event.mediaElement.removeAttribute("srcObject");
@@ -86,29 +83,37 @@ class MeetingRoom extends Component {
       video.srcObject = event.stream; //비디오에 stream을 연결한다.
 
       connection.videosContainer.style.width = "100%";
-      var width = 692.78 / 2;
+      //var width = 692.78 / 2;
+      var width = 650 / 2;
 
       var mediaElement = service.getHTMLMediaElement(video, {
-        title: event.userid,
+        //title: event.userid,
         buttons: ["mute-audio", "mute-video"],
         width: width,
-        showOnMouseEnter: false
+        showOnMouseEnter: false,
       });
 
       // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ RAY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+      var mediaBox = document.getElementsByClassName("media-box");
+      //mediaContainer.setAttribute('style', 'margin-right: 50px;');
+
+
+
       // 라벨 태그를 js로 생성
       var label = document.createElement("div");
       // js로 스타일 지정 ㄷㄷ
       label.setAttribute('style',
-      'width:100%; height:50px; background-color:white'
+      'width:100%; height:20px; padding-top:5px; padding-bottom:5px; background-color:#e9e6fc; color:#6D42F8; border: 2px solid #b6adf3; border-radius:0.5rem; text-align:left; font-size:19px; font-weight:bold;'
       )
       // js로 label 안 요소를 집어 넣는다.
       // <div>
       //    <span id='emotion'></span>
       //    <span id='user_id'>user_id</span>
       // </div>
-      label.innerHTML = "<span id='emotion'>감정</span> <span id='" + user_id + "'>" + user_id + "</span>"
-      mediaElement.appendChild(label)
+      label.innerHTML = "<span id='emotion'>&nbsp;/감정/</span> <span id='" + user_id + "'>" + user_id + "</span>"
+      mediaElement.appendChild(label);
       // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ RAY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
       connection.videosContainer.appendChild(mediaElement); //비디오를 div공간에 추가한다.
@@ -361,22 +366,38 @@ class MeetingRoom extends Component {
     return (
       <div>
         <HeaderMeetingRoom />
+        
 
         <div className="left-component">
-          
-          <div className="menu-icon">
-            <img src={clipbord} style={icon}></img>
-            <img src={start} style={icon_play}></img>
-            <img src={stream} style={icon_play}></img>
-          </div>
+    
           <ul className="menu-wrap">
-            <li><button>코드공유</button></li>
-            <li><button>회의 시작</button></li>
-            <li><button>종료하기</button></li>
+            <li><button className="clip-button">🔗코드공유</button></li>
+            <li><button className="start-log-button">🚀회의시작</button></li>
+            <li><button className="end-log-button">🚨종료하기</button></li>
+
+            <hr color="#b6adf3" noshade="noshade" size="1" />
+            <span style={{float:"left"}}>&nbsp;🎥&nbsp;&nbsp;00:00</span><br />
+            <hr color="#b6adf3" noshade="noshade" size="1" />
+
+            <p style={{fontWeight:"bold", fontSize:"17px", color:"#6D42F8"}}>[ 회의 분위기 ]</p>
+            <span style={{fontSize:"40px"}}>🤩</span><br />
+            <hr color="#b6adf3" noshade="noshade" size="1" />
+
+            <p style={{fontWeight:"bold", fontSize:"17px", color:"#6D42F8"}}>[ 참여도 1등 ]</p>
+            <span className="menu-rank"> 김홍시 </span><br />
           </ul>
 
           <div className="videos-container" id="videos-container"/>
 
+        </div>
+
+        <div className="right-component">
+          <div className="chatting-title">
+            {this.props.match.params.meetingName}
+          </div>
+          <div className="chatting">
+
+          </div>
         </div>
 
         <br /><br />

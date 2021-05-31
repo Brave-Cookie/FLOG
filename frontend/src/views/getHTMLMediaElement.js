@@ -318,6 +318,12 @@ export const getHTMLMediaElement = (mediaElement, config) => {
     mediaBox.className = "media-box";
     mediaElementContainer.appendChild(mediaBox);
 
+
+
+    // @@@@@ RAY @@@@@@
+    mediaBox.setAttribute("style", "margin-right: 30px;");
+    // padding은 성공했음!!!!!!!!!!!!!!!!!!
+
     if (config.title) {
         var h2 = document.createElement("h2");
         h2.innerHTML = config.title;
