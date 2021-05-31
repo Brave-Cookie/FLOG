@@ -101,7 +101,7 @@ def test():
     print("요청 잘 왔어요!!!")
     return jsonify({"message": "요청테스트"})
 
-
+import json
 import librosa
 import joblib
 import numpy as np
@@ -111,53 +111,10 @@ from pydub import AudioSegment, silence
 clf_from_joblib = joblib.load("./pkl/model.pkl")
 scaler_from_joblib = joblib.load("./pkl/scaler.pkl")
 
-# 감정분석 함수
-def emotion_recognition(audio_len, reform_signal, sr):
-    global clf_from_joblib, scaler_from_joblib
-    emotions = []
-    for i in range(0, audio_len - 3):
-        # 0~4 / 1~5 /.... 슬라이스
-        sliced_signal = reform_signal[i * 16000 : (i + 4) * 16000]
-        # 음성 전처리 실시
-        mfcc = librosa.feature.mfcc(
-            sliced_signal, sr, n_fft=400, hop_length=160, n_mfcc=36
-        )
-        mfcc = mfcc.reshape(-1)
-        mfcc = scaler_from_joblib.transform([mfcc])
-        print(mfcc)
-        # 감정분석 결과 추출
-        result = clf_from_joblib.predict(mfcc)
-        if result[0] == 0:
-            emotion = "anger"
-        elif result[0] == 1:
-            emotion = "fear"
-        elif result[0] == 2:
-            emotion = "happy"
-        elif result[0] == 3:
-            emotion = "neutral"
-        elif result[0] == 4:
-            emotion = "sad"
-        emotions.append(emotion)
-    print(emotions)
-    return max(emotions, key=emotions.count)
-
-
-# 음성데이터 요청 응답
-@app.route("/api/record", methods=["POST"])
-def record():
-    print( "-------------------------------------- 요청완료 => 분석시작 --------------------------------------")
-
-    # 넘어온 wav 음성 데이터
-    fs = request.files["for_silence"]
-    f = request.files["for_librosa"]
+# 음성 전처리 함수
+def preprocess_audio(f, fs):
     # librosa 변환
-    signal, sr = librosa.load(f, sr=16000)
-
-    # 묵음감지 전 길이 측정
-    if int(librosa.get_duration(signal, sr)) < 4:
-        print(" XXXXXXXXXXX 4초 미만 음성 XXXXXXXXXXX ")
-        socketio.emit("emotion_result", {"result": "4초 미만 음성"})
-        return jsonify({"msg": "소켓 전송완료"})
+    signal, sr = librosa.load(f, 16000)
 
     # 묵음구간 추출
     myaudio = AudioSegment.from_wav(fs)
@@ -168,7 +125,6 @@ def record():
     silence_section = [
         ((start / 1000), (stop / 1000)) for start, stop in silence_section
     ]
-    print(silence_section)
 
     # 묵음 구간을 없앤 실제 음성 구간 파싱
     section_list = []
@@ -191,18 +147,85 @@ def record():
 
     # 묵음제거 음성 길이 측정
     audio_len = int(librosa.get_duration(reform_signal, sr))
-    print(audio_len)
+    return audio_len, reform_signal
 
+
+# 감정분석 함수
+def emotion_recognition(audio_len, reform_signal, sr):
+    global clf_from_joblib, scaler_from_joblib
+    emotions = []
+    for i in range(0, audio_len - 3):
+        # 0~4 / 1~5 /.... 슬라이스
+        sliced_signal = reform_signal[i * 16000 : (i + 4) * 16000]
+        # 음성 전처리 실시
+        mfcc = librosa.feature.mfcc(
+            sliced_signal, sr, n_fft=400, hop_length=160, n_mfcc=36
+        )
+        mfcc = mfcc.reshape(-1)
+        mfcc = scaler_from_joblib.transform([mfcc])
+        print(mfcc)
+        # 감정분석 결과 추출
+        result = clf_from_joblib.predict(mfcc)
+        if result[0] == 0:
+            emotion = "anger"
+        elif result[0] == 1:
+            emotion = "fear"
+        elif result[0] == 2:
+            emotion = "happiness"
+        elif result[0] == 3:
+            emotion = "neutral"
+        elif result[0] == 4:
+            emotion = "sadness"
+        emotions.append(emotion)
+    print(emotions)
+    return max(emotions, key=emotions.count)
+
+
+# 음성데이터 요청 응답
+@app.route("/api/record", methods=["POST"])
+def record():
+    print( "-------------------------------------- 요청완료 => 분석시작 --------------------------------------")
+
+    # 넘어온 wav 음성 데이터
+    fs = request.files["for_silence"]
+    f = request.files["for_librosa"]
+    # 넘어온 회의정보 텍스트 데이터
+    log_info_row = json.loads(request.form['log_info_row'])
+    print(log_info_row['meeting_id'])
+
+    # 음성 전처리 + 묵음 제거
+    audio_len, reform_signal = preprocess_audio(f, fs)
+    print('audio_len : ', audio_len)
+
+    # 감정 분석하기
+    emotion_result = ''
     if audio_len < 4:
         print(" XXXXXXXXXXX 묵음제거 후 4초 미만 XXXXXXXXXXX ")
+        emotion_result = 'neutral'
         socketio.emit("emotion_result", {"result": "묵음제거 후 4초 미만"})
-        return jsonify({"msg": "소켓 전송완료"})
-
     else:
-        emotion_result = emotion_recognition(audio_len, reform_signal, sr)
-        print(emotion_result)
-        socketio.emit("emotion_result", {"result": emotion_result})
-        return jsonify({"msg": "소켓 전송완료"})
+        emotion_result = emotion_recognition(audio_len, reform_signal, 16000)
+        print('emotion_result : ', emotion_result)
+        # 유저의 감정 분석 결과를 뿌려줌
+        socketio.emit("emotion_result", {
+            'user_id' : log_info_row['user_id'],
+            "result": emotion_result
+            })
+
+    # 최종 결과는 log_info에 한 row로 저장
+    query = LogInfo(
+        meeting_id = log_info_row['meeting_id'],
+        user_id = log_info_row['user_id'],
+        log_time = log_info_row['log_time'],
+        log_feeling = emotion_result,
+        log_text = log_info_row['log_text'],
+        log_realtime = audio_len,
+        )
+    db.session.add(query)
+    db.session.commit()
+    db.session.close()
+    print('log_info에 row 삽입완료')
+    return jsonify({"message": "log_info에 row 삽입완료"})
 
 
 # 설명

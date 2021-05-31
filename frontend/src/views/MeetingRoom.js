@@ -28,6 +28,11 @@ class MeetingRoom extends Component {
     const project_id = this.props.match.params.projectId;
     let meeting_id;
 
+    //
+    let time_capture;
+    let now_min;
+    let now_sec;
+
     // ------------------------------------------------------ Web RTC 요소 핸들링 ------------------------------------------------------
 
     var connection = new window.RTCMultiConnection();
@@ -100,7 +105,7 @@ class MeetingRoom extends Component {
       var label = document.createElement("div");
       // js로 스타일 지정 ㄷㄷ
       label.setAttribute('style',
-      'width:100%; height:50px; background-color:white'
+        'width:100%; height:50px; background-color:white'
       )
       // js로 label 안 요소를 집어 넣는다.
       // <div>
@@ -139,34 +144,37 @@ class MeetingRoom extends Component {
 
             // 백엔드로 전송하기 위해 FormData로 생성
             var fd = new FormData();
+            // 음성 데이터 저장
             fd.append("for_librosa", e.data);
             fd.append("for_silence", e.data);
-            fd.append('log_row', {
-              'meeting_id' : meeting_id,
-              'user_id' : user_id,
-              'log_time' : '',
-              'log_text' : stt_result,
-            })
+            // 텍스트 데이터 저장
+            let context = {
+              'meeting_id': meeting_id,
+              'user_id': user_id,
+              'log_time': time_capture,
+              'log_text': stt_result,
+            }
+            fd.append("log_info_row", JSON.stringify(context))
 
-            // 잘 생성됐는지 확인
-            //for (let key of fd.keys()) {
-            //    console.log(key);
-            //}
-            //for (let value of fd.values()) {
-            //    console.log(value);
-            //}
+            //잘 생성됐는지 확인
+            // for (let key of fd.keys()) {
+            //     console.log(key);
+            // }
+            // for (let value of fd.values()) {
+            //     console.log(value);
+            // }
 
             // 파일 전송
             axios({
               method: "post",
               url: 'https://localhost:5000/api/record',
               data: fd,
-              headers: { "Content-Type": "multipart/form-data" },
-            })/*.then(
-              (res) => {
-                console.log('결과 : ', res.data.result)
-              }
-            )*/
+              headers: { 
+                'Accept': 'application/json',
+                "Content-Type": "multipart/form-data" 
+              },
+            })
+
           };
         }
       )
@@ -201,7 +209,7 @@ class MeetingRoom extends Component {
     recognition.onstart = function () {
       isRecognizing = true;
     };
-
+    // STT 시작 후 첫 발언부터 녹음 시작
     recognition.onspeechstart = function () {
       start_record();
     }
@@ -223,6 +231,7 @@ class MeetingRoom extends Component {
     // STT 결과 처리하는 부분 
     // 크롬에서 자동으로 음성을 감지하여 끝을 내면 그 때 발동된다.
     recognition.onresult = function (event) {
+      time_capture = now_min + ':' + now_sec
       for (let i = event.resultIndex; i < event.results.length; ++i) {
         // 인식된 문장이 끝났을 경우에만 동작
         if (event.results[i].isFinal) {
@@ -234,11 +243,13 @@ class MeetingRoom extends Component {
           stt_result = event.results[i][0].transcript
           console.log('방금 인식된 문장 : ', stt_result)
 
+          /*
           // 채팅창 업데이트 소켓으로 전송
           client_socket.emit('chat', {
-            'user_id' : user_id,
-            'stt_result' : stt_result,
-          })
+            'user_id': user_id,
+            'stt_result': stt_result,
+            'log_time' : time_capture,
+          })*/
         }
       }
       end_record();
@@ -269,23 +280,25 @@ class MeetingRoom extends Component {
       }
     }
 
-     // ------------------------------------------------------ socket 통신 ------------------------------------------------------
+    // ------------------------------------------------------ socket 통신 ------------------------------------------------------
 
     // 소켓 연결
     let client_socket = socketio.connect('https://localhost:5000')
 
-    // 회의 시작시 알림
+    // ** 회의 시작시 알림 **
     client_socket.on('start_log',
       function (res) {
+        // 타이머 시작
+        start_timer();
         alert('회의가 시작되었습니다. 회의록이 생성됩니다.')
-        // meeting_id를 저장
+        // 전역변수에 meeting_id를 저장
         meeting_id = res.meeting_id
         console.log(meeting_id)
         // stt 시작
         start_stt();
       }
     )
-    
+
     // stt 결과 받아주는 소켓
     client_socket.on('chat',
       function (res) {
@@ -301,9 +314,27 @@ class MeetingRoom extends Component {
         // 여기서 감정 결과 엄데이트 해준다
       }
     )
+    // ------------------------------------------------------ 기타 함수 ------------------------------------------------------
+
+    function start_timer() {
+      function addZero(num) {
+        return (num < 10 ? '0' + num : '' + num)
+      }
+
+      let start_time = Date.now()
+      let dummy_time;
+      let now_time;
+      dummy_time = setInterval(function () {
+        now_time = new Date(Date.now() - start_time)
+        // 분/초는 전역 변수로 빼서 사용
+        now_min = addZero(now_time.getMinutes())
+        now_sec = addZero(now_time.getSeconds())
+        document.getElementById('min').innerText = now_min
+        document.getElementById('sec').innerText = now_sec
+      }, 1000)
+    }
 
     // ------------------------------------------------------ Event Handling ------------------------------------------------------
-
     /*
     if(room_state === 'join'){
       document.getElementById('start_log').style.display = 'none'
@@ -313,13 +344,12 @@ class MeetingRoom extends Component {
 
     // 회의방 생성시
     if (room_state == 'open') {
-      console.log('생성')
+      console.log('호스트 입장')
       connection.open(room_code);
     }
-
     // 회의방 입장시
     else {
-      console.log('입장')
+      console.log('참가자 입장')
       connection.join(room_code);
     }
 
@@ -327,23 +357,26 @@ class MeetingRoom extends Component {
 
     // 만약 join 한 사람이면 
     // id = 'start_log' 인 태그 (버튼임)을 안보이게 만든다.
-    if(room_state === 'join'){
-      document.getElementById('start_log').style.display = 'none' ;
+    if (room_state === 'join') {
+      document.getElementById('host_btn').style.display = 'none';
     }
-    
-    //
+
+    // 회의 시작 버튼 눌렀을때
     document.getElementById('start_log').onclick = function () {
-      alert('버튼눌림')
+      // 시작 날짜 생성
       let year = new Date().getFullYear()
       let month = new Date().getMonth() + 1
       let date = new Date().getDate()
       const meeting_date = year + '-' + month + '-' + date
       // 소켓에 시작신호 + 저장할 데이터 전송
       client_socket.emit("start_log", {
-        'meeting_name' : meeting_name,
-        'meeting_date' : meeting_date,
-        'project_id' : project_id,
+        'meeting_name': meeting_name,
+        'meeting_date': meeting_date,
+        'project_id': project_id,
       })
+      // 버튼 교체
+      document.getElementById('start_log').disabled = true;
+      document.getElementById('end_log').disabled = false;
     }
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ RAY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -363,7 +396,7 @@ class MeetingRoom extends Component {
         <HeaderMeetingRoom />
 
         <div className="left-component">
-          
+
           <div className="menu-icon">
             <img src={clipbord} style={icon}></img>
             <img src={start} style={icon_play}></img>
@@ -375,13 +408,18 @@ class MeetingRoom extends Component {
             <li><button>종료하기</button></li>
           </ul>
 
-          <div className="videos-container" id="videos-container"/>
+          <div className="videos-container" id="videos-container" />
 
         </div>
 
         <br /><br />
-        <button id='start_log'>회의 시작</button>
-        
+
+        <div id='host_btn'> 
+          <button id='start_log'>회의 시작</button>
+          <button id='end_log' disabled>회의 종료</button>
+        </div>
+
+        <span id='min'>00</span> : <span id='sec'>00</span>
       </div>
     );
   }
