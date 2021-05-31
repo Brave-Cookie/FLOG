@@ -49,7 +49,21 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 def connect():
     print("@@@@@@@@@@@@@@@@ 소켓 연결됨 @@@@@@@@@@@@@@@@")
 
+@socketio.on("insert_mapping")
+def insert_mapping(req):
+    # 새로 온 참가자 id 매핑 정보를 호스트에게 줌
+    socketio.emit("insert_mapping", {
+        'stream_id' : req['stream_id'],
+        'user_id' : req['user_id'],
+        })
 
+@socketio.on("pass_mapping")
+def insert_mapping(req):
+    # 호스트에게 받은 매핑 리스트를 새 참가자에게 전달
+    socketio.emit("pass_mapping", {
+        'mapping_list' : req['mapping_list']
+        })
+    
 @socketio.on("start_log")
 def start_log(req):
     print('start_log 요청 받음')
@@ -86,7 +100,12 @@ def start_log(req):
     socketio.emit("chat", {
             'user_id' : req['user_id'],
             'stt_result' : req['stt_result'],
+            'log_time' : req['log_time'],
         })
+
+@socketio.on("calculate")
+def calculate(req):
+    return
 
 @socketio.on("disconnect")
 def disconnect():
@@ -202,15 +221,15 @@ def record():
     if audio_len < 4:
         print(" XXXXXXXXXXX 묵음제거 후 4초 미만 XXXXXXXXXXX ")
         emotion_result = 'neutral'
-        socketio.emit("emotion_result", {"result": "묵음제거 후 4초 미만"})
     else:
         emotion_result = emotion_recognition(audio_len, reform_signal, 16000)
-        print('emotion_result : ', emotion_result)
-        # 유저의 감정 분석 결과를 뿌려줌
-        socketio.emit("emotion_result", {
-            'user_id' : log_info_row['user_id'],
-            "result": emotion_result
-            })
+    print('emotion_result : ', emotion_result)
+    # 유저의 감정 분석 결과를 뿌려줌
+    socketio.emit("emotion_result", {
+        'user_id' : log_info_row['user_id'],
+        "emotion_result": emotion_result,
+        "log_realtime": audio_len
+        })
 
     # 최종 결과는 log_info에 한 row로 저장
     query = LogInfo(
