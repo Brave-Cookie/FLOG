@@ -18,6 +18,10 @@ function Rank(props) {
     const [user_happy, set_userHappy] = useState("");
     const [user_sad, set_userSad] = useState("");
     const [user_fear, set_userFear] = useState("");
+    const [count_anger, set_countAnger] = useState("");
+    const [count_happy, set_countHappy] = useState("");
+    const [count_sad, set_countSad] = useState("");
+    const [count_fear, set_countFear] = useState("");
     useState(() => {
         let feeling = "anger";
         axios.get('https://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
@@ -29,6 +33,7 @@ function Rank(props) {
                 set_thirdRank(res.data.total_rank[2]);
 
                 set_userAnger(res.data.firstrank);
+                set_countAnger(res.data.count);
             })
     }, [])
     useState(() => {
@@ -37,6 +42,7 @@ function Rank(props) {
             .then((res) => {
                 console.log(res);
                 set_userHappy(res.data.firstrank);
+                set_countHappy(res.data.count);
             })
     }, [])
     useState(() => {
@@ -44,6 +50,7 @@ function Rank(props) {
         axios.get('https://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
             .then((res) => {
                 set_userSad(res.data.firstrank);
+                set_countSad(res.data.count);
             })
     }, [])
     useState(() => {
@@ -51,6 +58,7 @@ function Rank(props) {
         axios.get('https://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
             .then((res) => {
                 set_userFear(res.data.firstrank);
+                set_countFear(res.data.count);
             })
     }, [])
 
@@ -82,20 +90,20 @@ function Rank(props) {
                 <div className="state">
                     <div className="left-state">
                         <p>😃 파워 긍정러 {user_happy}</p><p style={{fontSize: "16px", fontFamily: 'NEXON Lv2 Gothic Light'}}>
-                            '기쁨' 감정으로 {}번 발언했어요! 당신은 우리의 비타민~ 
+                            '<span style={{ color: "#6D42F8", fontWeight: "bold" }}>기쁨</span>' 감정으로 <span style={{ color: "#6D42F8", fontWeight: "bold" }}>{count_happy}번</span> 발언했어요! 당신은 우리의 비타민~ 
                         </p>
                         <br />
                         <p>😥 눈물 뚝뚝 {user_sad}</p><p style={{fontSize: "16px", fontFamily: 'NEXON Lv2 Gothic Light'}}>
-                            '슬픔' 감정으로 {}번 발언했어요! 울지말아요, 당신.
+                            '<span style={{ color: "#6D42F8", fontWeight: "bold" }}>슬픔</span>' 감정으로 <span style={{ color: "#6D42F8", fontWeight: "bold" }}>{count_sad}번</span> 발언했어요! 울지말아요, 당신.
                         </p>
                     </div>
                     <div className="right-state">
                         <p>😡 흥분 과다 {user_anger}</p><p style={{fontSize: "16px", fontFamily: 'NEXON Lv2 Gothic Light'}}>
-                            '격양' 감정으로 {}번 발언했어요! 워~ 워~ 진정하세요.
+                            '<span style={{ color: "#6D42F8", fontWeight: "bold" }}>격양</span>' 감정으로 <span style={{ color: "#6D42F8", fontWeight: "bold" }}>{count_anger}번</span> 발언했어요! 워~ 워~ 진정하세요.
                         </p>
                         <br />
                         <p>😨 프로 긴장러 {user_fear}</p><p style={{fontSize: "16px", fontFamily: 'NEXON Lv2 Gothic Light'}}>
-                            '긴장' 감정으로 {}번 발언했어요! 떨리는 마음, 심호흡 한 번!
+                            '<span style={{ color: "#6D42F8", fontWeight: "bold" }}>긴장</span>' 감정으로 <span style={{ color: "#6D42F8", fontWeight: "bold" }}>{count_fear}번</span> 발언했어요! 떨리는 마음, 심호흡 한 번!
                         </p>
                     </div>
                 </div>
