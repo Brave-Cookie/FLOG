@@ -770,7 +770,6 @@
 }
 
 
-
 .left-component {
   margin-left: 100px;
   margin-top: 10px;
@@ -861,4 +860,11 @@
   border: 3px solid #FFFFB9;
   border-radius: 0.3rem;
   padding: 7px 15px;
+}
+
+.right-component {
+  background-color: #6c6b77;
+  margin-left: 1000px;
+  width: 400px;
+  float: right;
 }

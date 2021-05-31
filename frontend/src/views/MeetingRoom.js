@@ -5,9 +5,6 @@ import { MediaRecorder, register } from 'extendable-media-recorder';
 import { connect } from 'extendable-media-recorder-wav-encoder';
 
 import HeaderMeetingRoom from '../components/HeaderMeetingRoom';
-import clipbord from '../assets/image/clipboard.png';
-import start from '../assets/image/startMeeting.png';
-import stream from '../assets/image/onStream.png';
 
 import * as service from "./getHTMLMediaElement";
 
@@ -364,13 +361,14 @@ class MeetingRoom extends Component {
     return (
       <div>
         <HeaderMeetingRoom />
+        
 
         <div className="left-component">
     
           <ul className="menu-wrap">
-            <li>{/*<img src={clipbord} style={icon}></img>*/}<button className="clip-button">🔗코드공유</button></li>
-            <li>{/*<img src={start} style={icon_play}></img>*/}<button className="start-log-button">🚀회의시작</button></li>
-            <li>{/*<img src={stream} style={icon_play}></img>*/}<button className="end-log-button">🚨종료하기</button></li>
+            <li><button className="clip-button">🔗코드공유</button></li>
+            <li><button className="start-log-button">🚀회의시작</button></li>
+            <li><button className="end-log-button">🚨종료하기</button></li>
 
             <hr color="#b6adf3" noshade="noshade" size="1" />
             <span style={{float:"left"}}>&nbsp;🎥&nbsp;&nbsp;00:00</span><br />
@@ -386,6 +384,15 @@ class MeetingRoom extends Component {
 
           <div className="videos-container" id="videos-container"/>
 
+        </div>
+
+        <div className="right-component">
+          <div className="chatting-title">
+            {this.props.match.params.meetingName}
+          </div>
+          <div className="chatting">
+
+          </div>
         </div>
 
         <br /><br />
