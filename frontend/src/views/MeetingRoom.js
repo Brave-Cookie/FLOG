@@ -54,7 +54,7 @@ class MeetingRoom extends Component {
       video.style.width = "100%";
       video.style.height = "100%";
 
-      video.style.border = "solid 2px #6D42F8";
+      video.style.border = "solid 2px #9172F6";
 
       event.mediaElement.removeAttribute("src");
       event.mediaElement.removeAttribute("srcObject");
@@ -100,7 +100,7 @@ class MeetingRoom extends Component {
 
       connection.videosContainer.style.width = "100%";
       //var width = 692.78 / 2;
-      var width = 650 / 2;
+      var width = 840 / 2;
 
       var mediaElement = service.getHTMLMediaElement(video, {
         //title: event.userid,
@@ -109,10 +109,20 @@ class MeetingRoom extends Component {
         showOnMouseEnter: false,
       });
 
-      // 라벨 태그 생성
+      // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ RAY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+      var mediaBox = document.getElementsByClassName("media-box");
+      //mediaContainer.setAttribute('style', 'margin-right: 50px;');
+
+
+
+      // 라벨 태그를 js로 생성
+      var labelBox = document.createElement("div");
+      labelBox.setAttribute("style", "width:355px; height:30px; padding-left: 8px; padding-right: 20px;");
+
       var label = document.createElement("div");
       label.setAttribute('style',
-        'width:100%; height:50px; background-color:white'
+        'width:348px; height:20px; float:right; padding-top:5px; padding-bottom:5px; background-color:#e9e6fc; color:#6D42F8; border: 2px solid #b6adf3; border-radius:0.5rem; text-align:left; font-size:19px; font-weight:bold;'
       )
       // 매핑 리스트에서 label_id를 찾아낸다
       for (let row of mapping_list) {
@@ -122,8 +132,11 @@ class MeetingRoom extends Component {
       }
       // 라벨에 내용 추가
       label.innerHTML = "<span id='" + label_id + "'>" + label_id + "</span>"
-      mediaElement.appendChild(label)
+      labelBox.appendChild(label);
+      mediaElement.appendChild(labelBox);
+
       connection.videosContainer.appendChild(mediaElement); //비디오를 div공간에 추가한다.
+
     };
 
 
@@ -432,52 +445,73 @@ class MeetingRoom extends Component {
     return (
       <div>
         <HeaderMeetingRoom />
-        
 
-        <div className="left-component">
-          <div className="menu-icon">
-            <img src={clipbord} style={icon}></img>
-            <img src={start} style={icon_play}></img>
-            <img src={stream} style={icon_play}></img>
+        <div className="rtcRoom-content">
+          <div className="left-component">
+            <ul className="menu-wrap">
+              <li><button className="clip-button">🔗 코드공유</button></li>
+              <li><button className="start-log-button">🚀 회의시작</button></li>
+              <li><button className="end-log-button">🚨 종료하기</button></li>
+
+              <hr color="#b6adf3" noshade="noshade" size="1" />
+              <span style={{ float: "left", fontSize: "19px" }}>&nbsp;&nbsp;🎥&nbsp;&nbsp;00:00</span><br />
+              <hr color="#b6adf3" noshade="noshade" size="1" />
+
+              <p style={{ fontFamily: 'GmarketSansMedium', fontWeight: "bold", fontSize: "18px", color: "#6D42F8" }}> 회의<br />평균 분위기 </p>
+              <span style={{ fontSize: "40px" }}>🤩</span><br />
+              <hr color="#b6adf3" noshade="noshade" size="1" />
+
+              <p style={{ fontFamily: 'GmarketSansMedium', fontWeight: "bold", fontSize: "18px", color: "#6D42F8" }}>현재<br />참여도 1등</p>
+              <span className="menu-rank"> 김홍시 </span><br />
+            </ul>
+
+            <div className="videos-container" id="videos-container" />
+
           </div>
 
-          <ul className="menu-wrap">
-            <li><button className="clip-button">🔗코드공유</button></li>
-            <li><button className="start-log-button">🚀회의시작</button></li>
-            <li><button className="end-log-button">🚨종료하기</button></li>
+          <div className="right-component">
+            <div className="chatting-title">
+              {this.props.match.params.meetingName}
+            </div>
+            <div className="chatting" id="chatting">
+              <div className="stt-remote">: 안녕하세요1</div>
+              <div className="stt-local">안녕하세요2</div>
+              <div className="stt-remote">안녕하세요배고파요 집에 가고싶어요 맛있는거 먹게 해주세요 슨성님 실러용3</div>
+              <div className="stt-remote">안녕하세요4</div>
+              <div className="stt-remote">안녕하세요5</div>
+              <div className="stt-local">안녕하세요6</div>
+              <div className="stt-remote">안녕하세요7</div>
+              <div className="stt-remote">안녕하세요8</div>
+              <div className="stt-remote">안녕하세요</div>
+              <div className="stt-remote">안녕하세요</div>
+              <div className="stt-local">안녕하세요</div>
+              <div className="stt-remote">안녕하세요</div>
+              <div className="stt-local">안녕하세요</div>
+              <div className="stt-remote">안녕하세요</div>
+              <div className="stt-local">안녕하세요</div>
+              <div className="stt-local">안녕하세요</div>
+            </div>
 
-            <hr color="#b6adf3" noshade="noshade" size="1" />
-            <span style={{float:"left"}}>&nbsp;🎥&nbsp;&nbsp;00:00</span><br />
-            <hr color="#b6adf3" noshade="noshade" size="1" />
+            <div className="emotion-guide-title">
+              <span style={{ fontFamily: 'GmarketSansMedium', fontWeight: "bold", fontSize: "20px", color: "#6D42F8" }}>[ 감정 가이드 ]</span>
+              <hr color="#D8D5EB" noshade="noshade" size="1.5" />
+              <div className="emotion-guide">
+                <span style={{ fontSize: "18px" }}>😃</span> <span style={{ fontFamily: 'GmarketSansMedium', fontSize: "18px", backgroundColor: "#FFFF85" }}>기쁨</span>
+                <span style={{ fontSize: "18px" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🙂</span> <span style={{ fontFamily: 'GmarketSansMedium', fontSize: "18px", backgroundColor: "#E3E0EC" }}>평범</span>
+                <span style={{ fontSize: "18px" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;😨</span> <span style={{ fontFamily: 'GmarketSansMedium', fontSize: "18px", backgroundColor: "#B3EBD8" }}>긴장</span><br />
 
-            <p style={{fontWeight:"bold", fontSize:"17px", color:"#6D42F8"}}>[ 회의 분위기 ]</p>
-            <span style={{fontSize:"40px"}}>🤩</span><br />
-            <hr color="#b6adf3" noshade="noshade" size="1" />
-
-            <p style={{fontWeight:"bold", fontSize:"17px", color:"#6D42F8"}}>[ 참여도 1등 ]</p>
-            <span className="menu-rank"> 김홍시 </span><br />
-          </ul>
-
-          <div className="videos-container" id="videos-container" />
-
+                <span style={{ fontSize: "18px" }}>😥</span> <span style={{ fontFamily: 'GmarketSansMedium', fontSize: "18px", backgroundColor: "#95BEEF" }}>슬픔</span>
+                <span style={{ fontSize: "18px" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;😡</span> <span style={{ fontFamily: 'GmarketSansMedium', fontSize: "18px", backgroundColor: "#FFB7DD" }}>화남</span>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div className="right-component">
-          <div className="chatting-title">
-            {this.props.match.params.meetingName}
-          </div>
-          <div className="chatting">
-
-          </div>
-        </div>
-
         <br /><br />
 
         <div id='host_btn' style={{ display : 'none'}}>
           <button id='start_log'>회의 시작</button>
           <button id='end_log' disabled>회의 종료</button>
         </div>
-
         <button class='Rec'></button>
         <span id='timer'>00 : 00</span>
       </div>
