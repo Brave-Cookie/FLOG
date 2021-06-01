@@ -105,7 +105,39 @@ def start_log(req):
 
 @socketio.on("calculate")
 def calculate(req):
-    return
+    # {meeting_id time emotion_list sum_log_realtime sum_log_len}
+    emotion_list = req['emotion_list']
+    sum_log_realtime = req['sum_log_realtime']
+    sum_log_len = req['sum_log_realtime']
+    # 평균 감정
+    avg_emotion = max(emotion_list, key=emotion_list.count)
+    # 참여도 산정
+    sum_dict = {}
+    # 음성길이 + stt 길이를 더한걸 sum_dict에 저장
+    for user_id in sum_log_realtime.keys():
+        sum_dict[user_id] = sum_log_realtime[user_id] + sum_log_len[user_id]
+    # sum_dict에서 수치가 가장 높은 user_id 추출
+    sum_list = sorted(sum_dict.items(), key=lambda x: x[1], reverse=True)
+    ranking = {}
+    for i, row in enumerate(sum_list):
+        ranking[row[0]] = i+1
+    # avg_emotion 테이블에 저장
+    query = AvgEmotion(
+        meeting_id = req['meeting_id'],
+        time = req['time'],
+        emotion = avg_emotion,
+        )
+    db.session.add(query)
+    db.session.commit()
+    db.session.close()
+    #
+    print(" **************** 30초 경과 **************** ")
+    print('평균 감정 : ', avg_emotion, ' / 참여도 랭킹 : ', ranking)
+    print(" ******************************************* ")
+    socketio.emit("calculate", {
+        'avg_emotion' : avg_emotion,
+        'ranking' : ranking,
+    })
 
 @socketio.on("disconnect")
 def disconnect():
@@ -227,6 +259,7 @@ def record():
     # 유저의 감정 분석 결과를 뿌려줌
     socketio.emit("emotion_result", {
         'user_id' : log_info_row['user_id'],
+        'log_text' : log_info_row['log_text'],
         "emotion_result": emotion_result,
         "log_realtime": audio_len
         })

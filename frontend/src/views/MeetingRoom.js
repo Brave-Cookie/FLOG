@@ -17,9 +17,6 @@ class MeetingRoom extends Component {
   componentDidMount() {
     // ------------------------------------------------------ init ------------------------------------------------------
 
-    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ RAY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    // 여기에 url 파라미터 뽑아서 다 변수로 저장해놓음~
-
     // url로 코드와 상태 정보를 받아옴.
     const user_id = this.props.match.params.userId
     const room_state = this.props.match.params.roomState;
@@ -30,11 +27,11 @@ class MeetingRoom extends Component {
 
     //
     let mapping_list = []
-    let emotion_list = {}
+    let emotion_list = []
     let sum_log_realtime = {}
+    let sum_log_len = {}
     let time_capture;
-    let now_min;
-    let now_sec;
+    let now_time;
 
     // ------------------------------------------------------ Web RTC 요소 핸들링 ------------------------------------------------------
 
@@ -114,28 +111,20 @@ class MeetingRoom extends Component {
         showOnMouseEnter: false
       });
 
-      // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ RAY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-      // 라벨 태그를 js로 생성
+      // 라벨 태그 생성
       var label = document.createElement("div");
-      // js로 스타일 지정 ㄷㄷ
       label.setAttribute('style',
         'width:100%; height:50px; background-color:white'
       )
-      // js로 label 안 요소를 집어 넣는다.
-      // <div>
-      //    <span id='emotion'></span>
-      //    <span id='user_id'>user_id</span>
-      // </div>
-
       // 매핑 리스트에서 label_id를 찾아낸다
       for (let row of mapping_list) {
         if (row[0] === event.userid) {
           label_id = row[1]
         }
       }
+      // 라벨에 내용 추가
       label.innerHTML = "<span id='" + label_id + "'>" + label_id + "</span>"
       mediaElement.appendChild(label)
-      // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ RAY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
       connection.videosContainer.appendChild(mediaElement); //비디오를 div공간에 추가한다.
     };
@@ -156,13 +145,9 @@ class MeetingRoom extends Component {
         function (stream) {
           // 스트림 시작시 스트림 저장
           user_stream = stream;
-
           recorder = new MediaRecorder(stream, { mimeType: 'audio/wav' });
           recorder.start();
           recorder.ondataavailable = function (e) {
-            //console.log(e)          // blob event
-            //console.log(e.data)     // e.data -> blob 변수. 녹음 결과임
-
             // 백엔드로 전송하기 위해 FormData로 생성
             var fd = new FormData();
             // 음성 데이터 저장
@@ -195,7 +180,6 @@ class MeetingRoom extends Component {
                 "Content-Type": "multipart/form-data"
               },
             })
-
           };
         }
       )
@@ -238,9 +222,7 @@ class MeetingRoom extends Component {
     // STT 종료시 발동됨
     recognition.onend = function () {
       alert('STT 종료')
-
       isRecognizing = false;
-
       if (ignoreEndProcess) {
         return false;
       }
@@ -252,18 +234,16 @@ class MeetingRoom extends Component {
     // STT 결과 처리하는 부분 
     // 크롬에서 자동으로 음성을 감지하여 끝을 내면 그 때 발동된다.
     recognition.onresult = function (event) {
-      time_capture = now_min + ':' + now_sec
+      time_capture = now_time
       for (let i = event.resultIndex; i < event.results.length; ++i) {
         // 인식된 문장이 끝났을 경우에만 동작
         if (event.results[i].isFinal) {
-          // 방금 인식한 단어를 전체 결과에 추가함
-          //finalTranscript += event.results[i][0].transcript;
           console.log(' ---------------------------------- 음성감지 => 녹음시작 ---------------------------------- ');
-
           // 콘솔로 찍어보기
           stt_result = event.results[i][0].transcript
           console.log('방금 인식된 문장 : ', stt_result)
-
+          // 방금 인식한 단어를 전체 결과에 추가함
+          finalTranscript += stt_result;
           // 채팅창 업데이트 소켓으로 전송
           client_socket.emit('chat', {
             'user_id': user_id,
@@ -279,7 +259,6 @@ class MeetingRoom extends Component {
     // 에러 처리
     recognition.onerror = function (event) {
       console.log("onerror", event);
-
       if (event.error.match(/no-speech|audio-capture|not-allowed/)) {
         ignoreEndProcess = true;
       }
@@ -313,7 +292,7 @@ class MeetingRoom extends Component {
           // 매핑 리스트에 추가 후 소켓서버를 통해 새 참가자에게 전달
           mapping_list.push([res.stream_id, res.user_id])
           client_socket.emit('pass_mapping', { 'mapping_list': mapping_list })
-          console.log('호스트가 받음')
+          console.log('mapping_list 전달')
         }
       }
     )
@@ -326,7 +305,7 @@ class MeetingRoom extends Component {
       }
     )
 
-    // ** 회의 시작시 알림 **
+    // ***** 회의 시작시 알림 *****
     client_socket.on('start_log',
       function (res) {
         // 타이머 시작
@@ -339,25 +318,40 @@ class MeetingRoom extends Component {
       }
     )
 
-    // stt 결과 받아주는 소켓
+    // ***** stt 결과 받아주는 소켓 *****
     client_socket.on('chat',
       function (res) {
-        console.log(res)
+        console.log('STT 결과 : ' ,res)
         // 여기서 채팅창 업데이트 해준다
         // {user_id, stt_result, log_time}
+        // FIXME
       }
     )
 
-    // 감정결과 받아주는 소켓
+    // ***** 감정결과 받아주는 소켓 *****
     client_socket.on('emotion_result',
       function (res) {
+        console.log('emotion 결과 : ' ,res)
         // 호스트가 모든 결과를 저장해둔다.
-        if(room_state === 'open'){
-          
+        if (room_state === 'open') {
+          // 감정 리스트에 추가
+          emotion_list.push(res.emotion_result);
+          sum_log_realtime[res.user_id] += res.log_realtime;
+          sum_log_len[res.user_id] += res.log_text.length;
         }
-        
         // 여기서 감정 결과 업데이트 해준다
-        // {user_id, emotion_result, audio_len}
+        // {user_id, emotion_result, log_realtime}
+        // FIXME
+      }
+    )
+
+    // ***** 30초마다 평균감정/참여도순위 받아주는 소켓 *****
+    client_socket.on('calculate',
+      function (res) {
+        console.log('30초결과 : ', res)
+        // 여기서 평균감정/참여도순위  업데이트 해준다
+        // {avg_emotion, ranking}
+        // FIXME
       }
     )
 
@@ -368,56 +362,43 @@ class MeetingRoom extends Component {
 
     function start_timer() {
       let start_time = Date.now()
-      let dummy_time;
-      let now_time;
+      let dummy_time, now_date, now_min, now_sec;
       dummy_time = setInterval(function () {
-        now_time = new Date(Date.now() - start_time)
+        now_date = new Date(Date.now() - start_time)
         // 분/초는 전역 변수로 빼서 사용
-        now_min = addZero(now_time.getMinutes())
-        now_sec = addZero(now_time.getSeconds())
-        document.getElementById('min').innerText = now_min
-        document.getElementById('sec').innerText = now_sec
+        now_min = addZero(now_date.getMinutes())
+        now_sec = addZero(now_date.getSeconds())
+        now_time = now_min + ' : ' + now_sec
+        document.getElementById('timer').innerText = now_time
         // 30초마다 평균 감정 + 참여도 계산 (호스트가 대표로 보낸다.)
-        if(room_state === 'open' && Number(now_sec) % 30 === 0){
+        if (room_state === 'open' && Number(now_sec) % 30 === 0) {
           client_socket.emit("calculate", {
+            'meeting_id' : meeting_id,
+            'time' : now_time,
             'emotion_list': emotion_list,
             'sum_log_realtime': sum_log_realtime,
+            'sum_log_len' : sum_log_len,
           })
+          console.log(' @@@@@@@@@@@@@ 30초 경과 : 결과 전송 @@@@@@@@@@@@@')
         }
       }, 1000)
     }
 
-    
-
     // ------------------------------------------------------ Event Handling ------------------------------------------------------
-    /*
-    if(room_state === 'join'){
-      document.getElementById('start_log').style.display = 'none'
-      document.getElementById('end_log').style.display = 'none'
-    }
-    */
 
     // 회의방 생성시
     if (room_state == 'open') {
       console.log('호스트 입장')
       connection.open(room_code);
+      document.getElementById('host_btn').style.display = 'block'
     }
+
     // 회의방 입장시
     else {
       console.log('참가자 입장')
       connection.join(room_code);
     }
-
-    // 30초마다 
-
-    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ RAY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-    // 만약 join 한 사람이면 
-    // id = 'start_log' 인 태그 (버튼임)을 안보이게 만든다.
-    if (room_state === 'join') {
-      document.getElementById('host_btn').style.display = 'none';
-    }
-
+    
     // 회의 시작 버튼 눌렀을때 (호스트에게만 작동)
     document.getElementById('start_log').onclick = function () {
       // 시작 날짜 생성
@@ -426,7 +407,10 @@ class MeetingRoom extends Component {
       let date = new Date().getDate()
       const meeting_date = year + '-' + month + '-' + date
       // 호스트가 현재 참가한 사람별로 emotion_list / sum_log_realtime init
-      
+      for(let row of mapping_list){
+        sum_log_realtime[row[1]] = 0
+        sum_log_len[row[1]] = 0
+      }
       // 소켓에 시작신호 + 저장할 데이터 전송
       client_socket.emit("start_log", {
         'meeting_name': meeting_name,
@@ -437,8 +421,6 @@ class MeetingRoom extends Component {
       document.getElementById('start_log').disabled = true;
       document.getElementById('end_log').disabled = false;
     }
-    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ RAY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
   }
 
   render() {
@@ -473,12 +455,13 @@ class MeetingRoom extends Component {
 
         <br /><br />
 
-        <div id='host_btn'>
+        <div id='host_btn' style={{ display : 'none'}}>
           <button id='start_log'>회의 시작</button>
           <button id='end_log' disabled>회의 종료</button>
         </div>
 
-        <span id='min'>00</span> : <span id='sec'>00</span>
+        <button class='Rec'></button>
+        <span id='timer'>00 : 00</span>
       </div>
     );
   }
