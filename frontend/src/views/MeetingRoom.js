@@ -84,7 +84,7 @@ class MeetingRoom extends Component {
 
       connection.videosContainer.style.width = "100%";
       //var width = 692.78 / 2;
-      var width = 650 / 2;
+      var width = 840 / 2;
 
       var mediaElement = service.getHTMLMediaElement(video, {
         //title: event.userid,
@@ -100,12 +100,14 @@ class MeetingRoom extends Component {
       //mediaContainer.setAttribute('style', 'margin-right: 50px;');
 
 
-
+      
       // 라벨 태그를 js로 생성
+      var labelBox = document.createElement("div");
+      labelBox.setAttribute("style", "width:355px; height:30px; padding-left: 8px; padding-right: 20px;");
       var label = document.createElement("div");
       // js로 스타일 지정 ㄷㄷ
       label.setAttribute('style',
-      'width:100%; height:20px; padding-top:5px; padding-bottom:5px; background-color:#e9e6fc; color:#6D42F8; border: 2px solid #b6adf3; border-radius:0.5rem; text-align:left; font-size:19px; font-weight:bold;'
+        'width:348px; height:20px; float:right; padding-top:5px; padding-bottom:5px; background-color:#e9e6fc; color:#6D42F8; border: 2px solid #b6adf3; border-radius:0.5rem; text-align:left; font-size:19px; font-weight:bold;'
       )
       // js로 label 안 요소를 집어 넣는다.
       // <div>
@@ -113,10 +115,12 @@ class MeetingRoom extends Component {
       //    <span id='user_id'>user_id</span>
       // </div>
       label.innerHTML = "<span id='emotion'>&nbsp;/감정/</span> <span id='" + user_id + "'>" + user_id + "</span>"
-      mediaElement.appendChild(label);
+      labelBox.appendChild(label);
+      mediaElement.appendChild(labelBox);
       // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ RAY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
       connection.videosContainer.appendChild(mediaElement); //비디오를 div공간에 추가한다.
+      
     };
 
 
@@ -236,8 +240,8 @@ class MeetingRoom extends Component {
 
           // 채팅창 업데이트 소켓으로 전송
           client_socket.emit('chat', {
-            'user_id' : user_id,
-            'stt_result' : stt_result,
+            'user_id': user_id,
+            'stt_result': stt_result,
           })
         }
       }
@@ -269,7 +273,7 @@ class MeetingRoom extends Component {
       }
     }
 
-     // ------------------------------------------------------ socket 통신 ------------------------------------------------------
+    // ------------------------------------------------------ socket 통신 ------------------------------------------------------
 
     // 소켓 연결
     let client_socket = socketio.connect('https://localhost:5000')
@@ -285,7 +289,7 @@ class MeetingRoom extends Component {
         start_stt();
       }
     )
-    
+
     // stt 결과 받아주는 소켓
     client_socket.on('chat',
       function (res) {
@@ -327,10 +331,10 @@ class MeetingRoom extends Component {
 
     // 만약 join 한 사람이면 
     // id = 'start_log' 인 태그 (버튼임)을 안보이게 만든다.
-    if(room_state === 'join'){
-      document.getElementById('start_log').style.display = 'none' ;
+    if (room_state === 'join') {
+      document.getElementById('start_log').style.display = 'none';
     }
-    
+
     //
     document.getElementById('start_log').onclick = function () {
       alert('버튼눌림')
@@ -340,9 +344,9 @@ class MeetingRoom extends Component {
       const meeting_date = year + '-' + month + '-' + date
       // 소켓에 시작신호 + 저장할 데이터 전송
       client_socket.emit("start_log", {
-        'meeting_name' : meeting_name,
-        'meeting_date' : meeting_date,
-        'project_id' : project_id,
+        'meeting_name': meeting_name,
+        'meeting_date': meeting_date,
+        'project_id': project_id,
       })
     }
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ RAY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -361,43 +365,43 @@ class MeetingRoom extends Component {
     return (
       <div>
         <HeaderMeetingRoom />
-        
 
-        <div className="left-component">
-    
-          <ul className="menu-wrap">
-            <li><button className="clip-button">🔗코드공유</button></li>
-            <li><button className="start-log-button">🚀회의시작</button></li>
-            <li><button className="end-log-button">🚨종료하기</button></li>
+        <div className="rtcRoom-content">
+          <div className="left-component">
 
-            <hr color="#b6adf3" noshade="noshade" size="1" />
-            <span style={{float:"left"}}>&nbsp;🎥&nbsp;&nbsp;00:00</span><br />
-            <hr color="#b6adf3" noshade="noshade" size="1" />
+            <ul className="menu-wrap">
+              <li><button className="clip-button">🔗 코드공유</button></li>
+              <li><button className="start-log-button">🚀 회의시작</button></li>
+              <li><button className="end-log-button">🚨 종료하기</button></li>
 
-            <p style={{fontWeight:"bold", fontSize:"17px", color:"#6D42F8"}}>[ 회의 분위기 ]</p>
-            <span style={{fontSize:"40px"}}>🤩</span><br />
-            <hr color="#b6adf3" noshade="noshade" size="1" />
+              <hr color="#b6adf3" noshade="noshade" size="1" />
+              <span style={{ float: "left", fontSize: "19px" }}>&nbsp;&nbsp;🎥&nbsp;&nbsp;00:00</span><br />
+              <hr color="#b6adf3" noshade="noshade" size="1" />
 
-            <p style={{fontWeight:"bold", fontSize:"17px", color:"#6D42F8"}}>[ 참여도 1등 ]</p>
-            <span className="menu-rank"> 김홍시 </span><br />
-          </ul>
+              <p style={{ fontWeight: "bold", fontSize: "19px", color: "#6D42F8" }}>[ 회의 분위기 ]</p>
+              <span style={{ fontSize: "40px" }}>🤩</span><br />
+              <hr color="#b6adf3" noshade="noshade" size="1" />
 
-          <div className="videos-container" id="videos-container"/>
+              <p style={{ fontWeight: "bold", fontSize: "19px", color: "#6D42F8" }}>[ 참여도 1등 ]</p>
+              <span className="menu-rank"> 김홍시 </span><br />
+            </ul>
 
-        </div>
-
-        <div className="right-component">
-          <div className="chatting-title">
-            {this.props.match.params.meetingName}
-          </div>
-          <div className="chatting">
+            <div className="videos-container" id="videos-container" />
 
           </div>
-        </div>
 
+          <div className="right-component">
+            <div className="chatting-title">
+              {this.props.match.params.meetingName}
+            </div>
+            <div className="chatting">
+
+            </div>
+          </div>
+        </div>
         <br /><br />
         <button id='start_log'>회의 시작</button>
-        
+
       </div>
     );
   }
