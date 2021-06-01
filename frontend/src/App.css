@@ -884,6 +884,7 @@
   padding-left: 15px;
   text-align: left;
 }
+
 .chatting {
   border: 1px solid #D8D5EB;
   height: 500px;
@@ -893,34 +894,58 @@
   padding-right: 20px;
   display: block;
 }
-.stt-local {
-  font-size: 15px;
-  border: 2px solid #E4E2F4;
-  border-radius: 0.75rem;
-  width: 200px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-bottom: 15px;
-  margin-left: 60px;
-  line-height: 25px;
-  text-align: right;
+
+.remote_box{
+  float:left;
+  width:290px;
+  margin-bottom: 10px;
+  text-align: left;
+  position:relative;
+  font-size:15px;
 }
-.stt-remote {
-  font-size: 15px;
+
+.remote_chat{
+  width: 200px;
+  padding : 15px 20px 15px 20px;
   background-color: #e7e5f5;
   border: 2px solid #d8d5ec;
   border-radius: 0.75rem;
-  width: 200px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 15px;
-  margin-bottom: 10px;
-  line-height: 25px;
-  text-align: left;
+  display:inline-block;
 }
+
+.remote_time{
+  position:absolute;
+  bottom:5px;
+  right:0;
+  font-size : 13px;
+}
+
+
+.local_box{
+  float:right;
+  width:290px;
+  margin-bottom: 10px;
+  text-align: right;
+  position:relative;
+  font-size:15px;
+}
+
+.local_chat{
+  width: 200px;
+  padding : 15px 20px 15px 20px;
+  background-color: white;
+  border: 2px solid #d8d5ec;
+  border-radius: 0.75rem;
+  display:inline-block;
+}
+
+.local_time{
+  position:absolute;
+  bottom:5px;
+  left:0;
+  font-size : 13px;
+}
+
 .emotion-guide-title {
   margin-top: 10px;
   text-align: left;
@@ -962,3 +987,4 @@
 		box-shadow: 0px 0px 2px 7px rgba(173,0,0,0);
 	}
 }
+
