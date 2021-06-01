@@ -108,11 +108,7 @@ exports.list = async (req, res, next) => {
                 message : '추출성공!!',
                 list : p_id_name
         }); 
-
-
-
-
-        } catch(err){   // 에러나면 로그 찍고 실패 신호 보냄
+    } catch(err){   // 에러나면 로그 찍고 실패 신호 보냄
             console.log(err);
             res.status(400).json({
                 message : '/list 에서 에러'
