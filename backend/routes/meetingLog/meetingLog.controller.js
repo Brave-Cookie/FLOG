@@ -23,7 +23,7 @@ exports.logFetch = async (req, res, next) => {
     try{
         const meeting_id = req.params.meeting_id
         let table_li = models.log_info;
-      
+   
         table_li.findAll({
             raw : true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
             attributes: ['user_id','log_time','log_feeling','log_text'], // p_i 속성만 고르겠다~
@@ -149,6 +149,32 @@ exports.logRank = async (req, res, next) => {
             });
         }
 }
+
+//30초마다 평균감정 보내주기
+exports.avgFeeling = async (req, res, next) => {
+    try {
+        let table_avgfeeling = models.avg_emotion;
+        const meeting_id = req.params.meeting_id;
+        table_avgfeeling.findAll({
+            raw: true,
+            attributes:['time','emotion'],
+            where: { meeting_id: meeting_id }
+        }).then(
+            (row) => {
+                console.log(row)
+                return res.status(200).json({
+                message : '평균감정 성공!!',
+                avg: row
+                })
+            })
+  } catch(err){   // 에러나면 로그 찍고 실패 신호 보냄
+        console.log(err);
+        res.status(400).json({
+        message : '/log/avgFeeling 에서 에러'
+        });
+        }
+}
+
 
         
         
