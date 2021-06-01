@@ -44,33 +44,70 @@ exports.create = async (req, res, next) => {
 }
 
 exports.list = async (req, res, next) => {
-    try{
+    try {
         const user_id = req.params.user_id
         let table_up = models.user_project;
         let table_pi = models.project_info;
+        let table_pm = models.project_meeting;
+        let table_mi = models.meeting_info;
         
-        
-        table_up.findAll({
-            raw : true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
+        let p_id = await table_up.findAll({
+            raw: true,     // *중요* : 테이블에서 select 할때 raw:true 해놓으면 value만 추출
             attributes: ['project_id'], // p_i 속성만 고르겠다~
-            where: {user_id : user_id},
-        }).then(
-            (result) => {
-                console.log(result)
-                table_pi.findAll({
-                    raw : true,
-                    where: {[Op.or] : result }
-                }).then(
-                    (result2) => {
-                        console.log(result2)
-                        return res.status(200).json({
-                            message : '추출성공!!',
-                            list : result2
-                        });
+            where: { user_id: user_id },
+        })
+        console.log(p_id)
+        let p_id_name = await table_pi.findAll({
+            raw: true,
+            where: { [Op.or]: p_id }
+        })
+        
+        for (let i = 0; i < p_id.length; i++) {
+            let p_count = await table_up.findAndCountAll({
+                where: {
+                    project_id: p_id[i].project_id
+                }
+            })
+            
+            p_id_name[i].count = p_count.count
+        }
+        console.log(p_id_name)
+        for (let i = 0; i < p_id.length; i++) {
+            let meeting_id = await table_pm.findAll({
+                raw: true,
+                attributes:['meeting_id'],
+                limit: 1,
+                where: {
+                    project_id: p_id[i].project_id
+                    //your where conditions, or without them if you need ANY entry
+                },
+                order: [['meeting_id', 'DESC']]
+            })
+            console.log(meeting_id[i])
+            if (meeting_id[i]) {
+                let date = await table_mi.findOne({
+                    raw: true,
+                    attributes: ['meeting_date'],
+                    where: {
+                        meeting_id: meeting_id[i].meeting_id
+                        //your where conditions, or without them if you need ANY entry
                     }
-                )
+                })
+                console.log(date)
+                p_id_name[i].date = date.meeting_date
             }
-        )
+            else {
+                 p_id_name[i].date = "null"
+            }
+        }
+        console.log(p_id_name)
+
+
+
+        return res.status(200).json({
+                message : '추출성공!!',
+                list : p_id_name
+        }); 
 
 
 
