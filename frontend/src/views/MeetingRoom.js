@@ -100,7 +100,7 @@ class MeetingRoom extends Component {
       //mediaContainer.setAttribute('style', 'margin-right: 50px;');
 
 
-      
+
       // 라벨 태그를 js로 생성
       var labelBox = document.createElement("div");
       labelBox.setAttribute("style", "width:355px; height:30px; padding-left: 8px; padding-right: 20px;");
@@ -120,7 +120,7 @@ class MeetingRoom extends Component {
       // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ RAY @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
       connection.videosContainer.appendChild(mediaElement); //비디오를 div공간에 추가한다.
-      
+
     };
 
 
@@ -378,11 +378,11 @@ class MeetingRoom extends Component {
               <span style={{ float: "left", fontSize: "19px" }}>&nbsp;&nbsp;🎥&nbsp;&nbsp;00:00</span><br />
               <hr color="#b6adf3" noshade="noshade" size="1" />
 
-              <p style={{ fontWeight: "bold", fontSize: "19px", color: "#6D42F8" }}>[ 회의 분위기 ]</p>
+              <p style={{ fontFamily: 'GmarketSansMedium', fontWeight: "bold", fontSize: "18px", color: "#6D42F8" }}> 회의<br />평균 분위기 </p>
               <span style={{ fontSize: "40px" }}>🤩</span><br />
               <hr color="#b6adf3" noshade="noshade" size="1" />
 
-              <p style={{ fontWeight: "bold", fontSize: "19px", color: "#6D42F8" }}>[ 참여도 1등 ]</p>
+              <p style={{ fontFamily: 'GmarketSansMedium', fontWeight: "bold", fontSize: "18px", color: "#6D42F8" }}>현재<br />참여도 1등</p>
               <span className="menu-rank"> 김홍시 </span><br />
             </ul>
 
@@ -396,6 +396,18 @@ class MeetingRoom extends Component {
             </div>
             <div className="chatting">
 
+            </div>
+            <div className="emotion-guide-title">
+              <span style={{ fontFamily: 'GmarketSansMedium', fontWeight: "bold", fontSize: "20px", color: "#6D42F8" }}>[ 감정 가이드 ]</span>
+              <hr color="#D8D5EB" noshade="noshade" size="1.5" />
+              <div className="emotion-guide">
+                <span style={{ fontSize: "18px" }}>😃</span> <span style={{ fontFamily: 'GmarketSansMedium', fontSize: "18px", backgroundColor: "#FFFF85" }}>기쁨</span>
+                <span style={{ fontSize: "18px" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🙂</span> <span style={{ fontFamily: 'GmarketSansMedium', fontSize: "18px", backgroundColor: "#E3E0EC" }}>평범</span>
+                <span style={{ fontSize: "18px" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;😨</span> <span style={{ fontFamily: 'GmarketSansMedium', fontSize: "18px", backgroundColor: "#B3EBD8" }}>긴장</span><br />
+
+                <span style={{ fontSize: "18px" }}>😥</span> <span style={{ fontFamily: 'GmarketSansMedium', fontSize: "18px", backgroundColor: "#95BEEF" }}>슬픔</span>
+                <span style={{ fontSize: "18px" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;😡</span> <span style={{ fontFamily: 'GmarketSansMedium', fontSize: "18px", backgroundColor: "#FFB7DD" }}>화남</span>
+              </div>
             </div>
           </div>
         </div>
