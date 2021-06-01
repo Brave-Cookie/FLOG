@@ -101,19 +101,43 @@ function EmotionGraph(props) {
           })
     }, [])
 
-    console.log(1111111111);
     useEffect(() => {
       axios.get('https://localhost:3000/api/meetingLog/log/avgFeeling/' + meeting_id)
           .then(res => {
-              console.log(res);
-              console.log(111);
+              let list = res.data.avg;
+              let time = [];
+              let emotion = [];
+              for(let i=0; i<list.length; i++){
+                  time.push(list[i].time);
+                  if(list[i].emotion === "happiness") {
+                    emotion.push(50);
+                  }
+                  else if(list[i].emotion === "neutral") {
+                    emotion.push(40);
+                  }
+                  else if(list[i].emotion === "fear") {
+                    emotion.push(30);
+                  }
+                  else if(list[i].emotion === "sadness") {
+                    emotion.push(20);
+                  }
+                  else if(list[i].emotion === "anger") {
+                    emotion.push(10);
+                  }
+              }
+              
+              set_avgFeeling(emotion);
+              set_avgTime(time);
           })
     }, [])
 
-    const chartData = [50, 50, 40, 20, 30, 10, 40, 50]
+    console.log(avg_feeling);
+    console.log(avg_time);
+
+    const chartData = avg_feeling;
     const graph_data = {
         // x축 하단 표시되는 값
-        labels: ["00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30"],
+        labels: avg_time,
         datasets: [
           {
             label: "50:😃 / 40:🙂 / 30:😨 / 20:😥 / 10:😡",
