@@ -101,8 +101,15 @@ class MeetingRoom extends Component {
       //var width = 692.78 / 2;
       var width = 840 / 2;
 
+      // 매핑 리스트에서 label_id를 찾아낸다
+      for (let row of mapping_list) {
+        if (row[0] === event.userid) {
+          label_id = row[1]
+        }
+      }
       var mediaElement = service.getHTMLMediaElement(video, {
-        //title: event.userid,
+        title: '🙂',
+        label_id : label_id,
         buttons: ["mute-audio", "mute-video"],
         width: width,
         showOnMouseEnter: false,
@@ -113,8 +120,6 @@ class MeetingRoom extends Component {
       var mediaBox = document.getElementsByClassName("media-box");
       //mediaContainer.setAttribute('style', 'margin-right: 50px;');
 
-
-
       // 라벨 태그를 js로 생성
       var labelBox = document.createElement("div");
       labelBox.setAttribute("style", "width:355px; height:30px; padding-left: 8px; padding-right: 20px;");
@@ -123,14 +128,9 @@ class MeetingRoom extends Component {
       label.setAttribute('style',
         'width:348px; height:20px; float:right; padding-top:5px; padding-bottom:5px; background-color:#e9e6fc; font-family:GmarketSansMedium; color:#6D42F8; border: 2px solid #b6adf3; border-radius:0.5rem; text-align:center; font-size:19px; font-weight:bold;'
       )
-      // 매핑 리스트에서 label_id를 찾아낸다
-      for (let row of mapping_list) {
-        if (row[0] === event.userid) {
-          label_id = row[1]
-        }
-      }
+      
       // 라벨에 내용 추가
-      label.innerHTML = "<span id='" + label_id + "'>" + label_id + "</span>"
+      label.innerHTML = "<span>" + label_id + "</span>"
       labelBox.appendChild(label);
       mediaElement.appendChild(labelBox);
 
@@ -317,11 +317,13 @@ class MeetingRoom extends Component {
     // ***** 회의 시작시 알림 *****
     client_socket.on('start_log',
       function (res) {
-        // 타이머 시작
-        start_timer();
-        alert('회의가 시작되었습니다. 회의록이 생성됩니다.')
         // 전역변수에 meeting_id를 저장
         meeting_id = res.meeting_id
+        // 타이머 시작
+        start_timer();
+        // REC 버튼 변경
+        document.getElementById('rec_span').innerHTML = "<button class='Rec'></button>";
+        alert('📝 회의가 시작되었습니다. 회의록이 생성됩니다.')
         // stt 시작
         start_stt();
       }
@@ -331,9 +333,32 @@ class MeetingRoom extends Component {
     client_socket.on('chat',
       function (res) {
         console.log('STT 결과 : ', res)
-        // 여기서 채팅창 업데이트 해준다
-        // {user_id, stt_result, log_time}
-        // FIXME
+        // 여기서 채팅창 업데이트
+        let new_chat_box = document.createElement("div")
+        let new_chat = document.createElement("div")
+        let new_time = document.createElement("div")
+        let new_chat_id = document.createElement("div")
+        new_chat_id.className = 'chat_id'
+        new_chat_id.innerHTML = res.user_id
+        // 내 결과일때
+        if(res.user_id === user_id){
+          new_chat_box.className = 'local_box'
+          new_chat.className = 'local_chat'
+          new_time.className = 'local_time'
+        }
+        // 다른 사람 결과일때
+        else{
+          new_chat_box.className = 'remote_box'
+          new_chat.className = 'remote_chat'
+          new_time.className = 'remote_time'
+        }
+        new_chat.innerHTML = res.stt_result
+        new_time.innerHTML = res.log_time
+        new_chat_box.append(new_chat_id, new_chat, new_time)
+
+        let chat_el = document.getElementById('chatting')
+        chat_el.append(new_chat_box);
+        chat_el.scrollTop = chat_el.scrollHeight;
       }
     )
 
@@ -348,9 +373,8 @@ class MeetingRoom extends Component {
           sum_log_realtime[res.user_id] += res.log_realtime;
           sum_log_len[res.user_id] += res.log_text.length;
         }
-        // 여기서 감정 결과 업데이트 해준다
-        // {user_id, emotion_result, log_realtime}
-        // FIXME
+        // 결과 주인의 이모티콘을 업데이트
+        document.getElementById(res.user_id).innerHTML = emotion_emoticon(res.emotion_result);
       }
     )
 
@@ -360,11 +384,33 @@ class MeetingRoom extends Component {
         console.log('30초결과 : ', res)
         // 여기서 평균감정/참여도순위  업데이트 해준다
         // {avg_emotion, ranking}
-        // FIXME
+        // 평균감정 업데이트
+        document.getElementById('avg_emotion_span').innerHTML = emotion_emoticon(res.avg_emotion);
+        // 참여도 업데이트
+        let rank_result = res.ranking
+        document.getElementById('ranking_span').innerHTML = rank_emoticon(rank_result[user_id])
       }
     )
 
     // ------------------------------------------------------ 기타 함수 ------------------------------------------------------
+    function emotion_emoticon(emotion){
+      let emoticon;
+      if(emotion === 'anger'){ emoticon = '😡' }
+      else if(emotion === 'fear'){ emoticon = '😨' }
+      else if(emotion === 'happiness'){ emoticon = '😃' }
+      else if(emotion === 'neutral'){ emoticon = '🙂' }
+      else if(emotion === 'sadness'){ emoticon = '😥' }
+      return emoticon;
+    }
+
+    function rank_emoticon(user_rank){
+      let emoticon;
+      if(user_rank === 1){ emoticon = '🥇'}
+      else if(user_rank === 2){ emoticon = '🥈'}
+      else if(user_rank === 3){ emoticon = '🥉'}
+      return emoticon;
+    }
+    
     function addZero(num) {
       return (num < 10 ? '0' + num : '' + num)
     }
@@ -427,8 +473,10 @@ class MeetingRoom extends Component {
         'project_id': project_id,
       })
       // 버튼 교체
-      document.getElementById('start_log').disabled = true;
-      document.getElementById('end_log').disabled = false;
+      document.getElementById('start_log').style.backgroundColor  = '#a186fa';
+      document.getElementById('start_log').style.pointerEvents = 'none'
+      document.getElementById('end_log').style.backgroundColor  = '#6D42F8';
+      document.getElementById('end_log').style.pointerEvents = 'auto';
     }
 
     // 클립보드 복사하기
@@ -440,8 +488,6 @@ class MeetingRoom extends Component {
     }
   }
 
-  
-
   render() {
 
     const icon = {
@@ -451,13 +497,6 @@ class MeetingRoom extends Component {
       height: '30px',
     }
 
-    function copy_clipboard(){
-      navigator.clipboard.writeText('this.props.match.params.roomCode').then(() => {
-        console.log('success');
-    });
-  }
-
-
     return (
       <div>
         <HeaderMeetingRoom />
@@ -466,22 +505,30 @@ class MeetingRoom extends Component {
           <div className="left-component">
             <ul className="menu-wrap">
               
-              <span style={{ fontFamily: 'GmarketSansMedium', float: "left", fontSize: "19px", fontWeight: "bold", letterSpacing: "2px", color: "#6D42F8" }}>&nbsp;🎥&nbsp;02:43</span><br />
-              <hr color="#b6adf3" noshade="noshade" size="1" />
-              <li><button id='clip_btn' className="clip-button">🔗 코드공유</button></li>
-              <li><button className="start-log-button">🚀 회의시작</button></li>
-              <li><button className="end-log-button">🚨 종료하기</button></li>
+              <div className='rec_timer'>
+                <span id='rec_span'>&nbsp;🎥&nbsp;</span>
+                <span id='timer'>00:00</span>
+                <hr color="#b6adf3" noshade="noshade" size="1" />
+              </div>
 
+              <br/>
+
+              <li><button id='clip_btn' className="clip-button">🔗 코드공유</button></li>
+              <div id='host_btn' style={{ display: 'none' }}>
+                <li><button id='start_log' className="start-log-button">🚀 회의시작</button></li>
+                <li><button id='end_log' className="end-log-button">🚨 종료하기</button></li>
+              </div>
               <hr color="#b6adf3" noshade="noshade" size="1" />
               
               <div className="menu-bottom">
               <p style={{ fontFamily: 'GmarketSansMedium', fontWeight: "bold", fontSize: "16px", color: "#6D42F8" }}> [ 회의 분위기 ] </p>
-              <span style={{ fontSize: "40px" }}>🤩</span><br />
+              <span id='avg_emotion_span' style={{ fontSize: "40px" }}>❔</span>
+              <br />
               <hr color="#b6adf3" noshade="noshade" size="1" />
 
               <p style={{ fontFamily: 'GmarketSansMedium', fontWeight: "bold", fontSize: "16px", color: "#6D42F8" }}>[ 내 참여도 순위 ]</p>
               {/*<span className="menu-rank"> 김홍시 </span><br />*/}
-              <span style={{ fontSize: "40px" }}>🥇</span><br />
+              <span id='ranking_span' style={{ fontSize: "40px" }}>❔</span><br />
               </div>
             </ul>
 
@@ -491,73 +538,42 @@ class MeetingRoom extends Component {
 
           <div className="right-component">
             <div className="chatting-title">
-              {this.props.match.params.meetingName}
+              회의명 : {this.props.match.params.meetingName}
             </div>
+
             <div className="chatting" id="chatting">
 
-              <div className='remote_box'>
-                <div className='remote_chat'>hanjo : 안녕하세요</div>
-                <div className='remote_time'>00 : 05</div>
+              <div className='local_box'>
+                <div className='chat_id'>hanjo</div>
+                <div className='local_chat'>어쩌구저쩌구</div>
+                <div className='local_time'>00:00</div>
               </div>
 
               <div className='remote_box'>
-                <div className='remote_chat'>hanjo : 안녕하세요 dddddd dddddddddd dddddddd ddd ddddd </div>
-                <div className='remote_time'>00 : 05</div>
-              </div>
-
-              <div className='remote_box'>
-                <div className='remote_chat'>hanjo : 안녕하세요</div>
-                <div className='remote_time'>00 : 05</div>
+                <div className='chat_id'>test</div>
+                <div className='remote_chat'>어쩌구저쩌구</div>
+                <div className='remote_time'>00:00</div>
               </div>
 
               <div className='local_box'>
-                <div className='local_time'>00 : 05</div>
-                <div className='local_chat'>안녕하세요</div>
-              </div>
-
-              <div className='remote_box'>
-                <div className='remote_chat'>hanjo : 안녕하세요</div>
-                <div className='remote_time'>00 : 05</div>
+                <div className='chat_id'>hanjo</div>
+                <div className='local_chat'>어쩌구저쩌구</div>
+                <div className='local_time'>00:00</div>
               </div>
 
               <div className='local_box'>
-                <div className='local_time'>00 : 05</div>
-                <div className='local_chat'>안녕하세요</div>
+                <div className='chat_id'>hanjo</div>
+                <div className='local_chat'>어쩌구저쩌구</div>
+                <div className='local_time'>00:00</div>
               </div>
-
-              <div className='remote_box'>
-                <div className='remote_chat'>hanjo : 안녕하세요</div>
-                <div className='remote_time'>00 : 05</div>
-              </div>
-
+              
               <div className='local_box'>
-                <div className='local_time'>00 : 05</div>
-                <div className='local_chat'>안녕하세요</div>
+                <div className='chat_id'>hanjo</div>
+                <div className='local_chat'>어쩌구저쩌구</div>
+                <div className='local_time'>00:00</div>
               </div>
-
-              <div className='remote_box'>
-                <div className='remote_chat'>hanjo : 안녕하세요</div>
-                <div className='remote_time'>00 : 05</div>
-              </div>
-
-              <div className='local_box'>
-                <div className='local_time'>00 : 05</div>
-                <div className='local_chat'>안녕하세요</div>
-              </div>
-
-              <div className='remote_box'>
-                <div className='remote_chat'>hanjo : 안녕하세요</div>
-                <div className='remote_time'>00 : 05</div>
-              </div>
-
-              <div className='local_box'>
-                <div className='local_time'>00 : 05</div>
-                <div className='local_chat'>안녕하세요</div>
-              </div>
-
-
-
             </div>
+            
 
             <div className="emotion-guide-title">
               <span style={{ fontFamily: 'GmarketSansMedium', fontWeight: "bold", fontSize: "20px", color: "#6D42F8" }}>[ 감정 가이드 ]</span>
@@ -574,13 +590,6 @@ class MeetingRoom extends Component {
           </div>
         </div>
         <br /><br />
-
-        <div id='host_btn' style={{ display: 'none' }}>
-          <button id='start_log'>회의 시작</button>
-          <button id='end_log' disabled>회의 종료</button>
-        </div>
-        <button className='Rec'></button>
-        <span id='timer'>00 : 00</span>
       </div>
     );
   }

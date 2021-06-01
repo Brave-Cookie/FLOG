@@ -847,9 +847,10 @@
   cursor: pointer;
   background-color: #7951fc;
 }
+
 .end-log-button {
   font-family: 'GmarketSansMedium';
-  background-color: #6D42F8;
+  background-color: #a186fa;
   border: 1px solid #b39efa;
   border-radius: 0.25rem;
   color: white;
@@ -858,6 +859,7 @@
   height: 40px;
   font-size: 16px;
   letter-spacing: 1px;
+  pointer-events : none;
 }
 
 .end-log-button:hover {
@@ -904,6 +906,13 @@
   display: block;
 }
 
+.chat_id{
+  padding : 0px 8px 4px 8px;
+  font-weight: bold;
+  font-size:16px;
+  
+}
+
 .remote_box{
   float:left;
   width:290px;
@@ -915,7 +924,7 @@
 
 .remote_chat{
   width: 200px;
-  padding : 15px 20px 15px 20px;
+  padding : 12px 20px 12px 20px;
   background-color: #e7e5f5;
   border: 2px solid #d8d5ec;
   border-radius: 0.75rem;
@@ -941,12 +950,13 @@
 
 .local_chat{
   width: 200px;
-  padding : 15px 20px 15px 20px;
+  padding : 12px 20px 12px 20px;
   background-color: white;
   border: 2px solid #d8d5ec;
   border-radius: 0.75rem;
   display:inline-block;
 }
+
 
 .local_time{
   position:absolute;
@@ -967,14 +977,15 @@
   line-height: 40px;
   word-spacing: 2px;
 }
+
 .Rec {
-	width: 19px;
-	height: 19px;
+	width: 14px;
+	height: 14px;
 	font-size: 0;
 	background-color: red;
 	border: 0;
 	border-radius: 19px;
-	margin: 18px;
+	margin: 5px 18px 18px 12px;
 	outline: none;
 }
 
@@ -997,3 +1008,11 @@
 	}
 }
 
+.rec_timer{
+  font-family: GmarketSansMedium;
+  float: left;
+  font-size: 19px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #6D42F8;
+}

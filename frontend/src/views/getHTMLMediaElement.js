@@ -331,9 +331,11 @@ export const getHTMLMediaElement = (mediaElement, config) => {
     if (config.title) {
         var h2 = document.createElement("h2");
         h2.innerHTML = config.title;
+        // 사용자 id값을 이모티콘의 id에 설정
+        h2.id = config.label_id
         h2.setAttribute(
             "style",
-            "position: absolute;color:white;font-size:17px;text-shadow: 1px 1px black;padding:0;margin:0;text-align: left; margin-top: 10px; margin-left: 10px; display: block; border: 0;line-height:1.5;z-index:1;"
+            "position: absolute; font-size:30px; padding:0;margin:0;text-align: left; margin-top: 10px; margin-left: 10px; display: block; border: 0;line-height:1.5;z-index:1;"
         );
         mediaBox.appendChild(h2);
     }
