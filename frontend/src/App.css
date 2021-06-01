@@ -792,9 +792,15 @@
   font-size: 17px;
   margin-right: 25px;
   margin-left: -35px;
+  margin-top: -2px;
+  position: relative;
 }
 .menu-icon {
   float: left;
+}
+.menu-bottom {
+  position: absolute;
+  bottom: 0px;
 }
 .videos-container {
   display: flex;
@@ -813,11 +819,12 @@
   border: 1px solid #b39efa;
   border-radius: 0.25rem;
   color: white;
-  padding: 5px;
+  padding: 7px;
   width: 120px;
   height: 40px;
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 7px;
+  letter-spacing: 1px;
 }
 .clip-button:hover {
   cursor: pointer;
@@ -829,11 +836,12 @@
   border: 1px solid #b39efa;
   border-radius: 0.25rem;
   color: white;
-  padding: 5px;
+  padding: 7px;
   width: 120px;
   height: 40px;
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 7px;
+  letter-spacing: 1px;
 }
 .start-log-button:hover {
   cursor: pointer;
@@ -845,10 +853,11 @@
   border: 1px solid #b39efa;
   border-radius: 0.25rem;
   color: white;
-  padding: 5px;
+  padding: 7px;
   width: 120px;
   height: 40px;
-  font-size: 18px;
+  font-size: 16px;
+  letter-spacing: 1px;
 }
 
 .end-log-button:hover {

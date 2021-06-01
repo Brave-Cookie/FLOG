@@ -8,7 +8,6 @@ import HeaderMeetingRoom from '../components/HeaderMeetingRoom';
 
 import * as service from "./getHTMLMediaElement";
 
-
 class MeetingRoom extends Component {
 
   componentDidMount() {
@@ -122,7 +121,7 @@ class MeetingRoom extends Component {
 
       var label = document.createElement("div");
       label.setAttribute('style',
-        'width:348px; height:20px; float:right; padding-top:5px; padding-bottom:5px; background-color:#e9e6fc; color:#6D42F8; border: 2px solid #b6adf3; border-radius:0.5rem; text-align:left; font-size:19px; font-weight:bold;'
+        'width:348px; height:20px; float:right; padding-top:5px; padding-bottom:5px; background-color:#e9e6fc; font-family:GmarketSansMedium; color:#6D42F8; border: 2px solid #b6adf3; border-radius:0.5rem; text-align:center; font-size:19px; font-weight:bold;'
       )
       // 매핑 리스트에서 label_id를 찾아낸다
       for (let row of mapping_list) {
@@ -433,12 +432,15 @@ class MeetingRoom extends Component {
     }
 
     // 클립보드 복사하기
-    document.getElementsByClassName('clip-button').onclick = function () {
-      navigator.clipboard.writeText(room_code).then(() => {
-        console.log('success');
-      });
+    document.getElementById('clip_btn').onclick = function () {
+      navigator.clipboard.writeText(room_code).then(
+        () => {
+          alert('🥕 초대코드가 클립보드에 복사되었습니다 🥕')
+        });
     }
   }
+
+  
 
   render() {
 
@@ -449,6 +451,13 @@ class MeetingRoom extends Component {
       height: '30px',
     }
 
+    function copy_clipboard(){
+      navigator.clipboard.writeText('this.props.match.params.roomCode').then(() => {
+        console.log('success');
+    });
+  }
+
+
     return (
       <div>
         <HeaderMeetingRoom />
@@ -456,20 +465,28 @@ class MeetingRoom extends Component {
         <div className="rtcRoom-content">
           <div className="left-component">
             <ul className="menu-wrap">
-              <li><button className="clip-button">🔗 코드공유</button></li>
+<<<<<<< HEAD
+              <li><button id='clip_btn' className="clip-button">🔗 코드공유</button></li>
+=======
+              
+              <span style={{ fontFamily: 'GmarketSansMedium', float: "left", fontSize: "19px", fontWeight: "bold", letterSpacing: "2px", color: "#6D42F8" }}>&nbsp;🎥&nbsp;02:43</span><br />
+              <hr color="#b6adf3" noshade="noshade" size="1" />
+              <li><button className="clip-button" onClick={copy_clipboard}>🔗 코드공유</button></li>
+>>>>>>> master
               <li><button className="start-log-button">🚀 회의시작</button></li>
               <li><button className="end-log-button">🚨 종료하기</button></li>
 
               <hr color="#b6adf3" noshade="noshade" size="1" />
-              <span style={{ float: "left", fontSize: "19px" }}>&nbsp;&nbsp;🎥&nbsp;&nbsp;00:00</span><br />
-              <hr color="#b6adf3" noshade="noshade" size="1" />
-
-              <p style={{ fontFamily: 'GmarketSansMedium', fontWeight: "bold", fontSize: "18px", color: "#6D42F8" }}> 회의<br />평균 분위기 </p>
+              
+              <div className="menu-bottom">
+              <p style={{ fontFamily: 'GmarketSansMedium', fontWeight: "bold", fontSize: "16px", color: "#6D42F8" }}> [ 회의 분위기 ] </p>
               <span style={{ fontSize: "40px" }}>🤩</span><br />
               <hr color="#b6adf3" noshade="noshade" size="1" />
 
-              <p style={{ fontFamily: 'GmarketSansMedium', fontWeight: "bold", fontSize: "18px", color: "#6D42F8" }}>현재<br />참여도 1등</p>
-              <span className="menu-rank"> 김홍시 </span><br />
+              <p style={{ fontFamily: 'GmarketSansMedium', fontWeight: "bold", fontSize: "16px", color: "#6D42F8" }}>[ 내 참여도 순위 ]</p>
+              {/*<span className="menu-rank"> 김홍시 </span><br />*/}
+              <span style={{ fontSize: "40px" }}>🥇</span><br />
+              </div>
             </ul>
 
             <div className="videos-container" id="videos-container" />
