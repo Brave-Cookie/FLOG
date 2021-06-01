@@ -331,7 +331,7 @@ class MeetingRoom extends Component {
     // ***** stt 결과 받아주는 소켓 *****
     client_socket.on('chat',
       function (res) {
-        console.log('STT 결과 : ' ,res)
+        console.log('STT 결과 : ', res)
         // 여기서 채팅창 업데이트 해준다
         // {user_id, stt_result, log_time}
         // FIXME
@@ -341,7 +341,7 @@ class MeetingRoom extends Component {
     // ***** 감정결과 받아주는 소켓 *****
     client_socket.on('emotion_result',
       function (res) {
-        console.log('emotion 결과 : ' ,res)
+        console.log('emotion 결과 : ', res)
         // 호스트가 모든 결과를 저장해둔다.
         if (room_state === 'open') {
           // 감정 리스트에 추가
@@ -383,11 +383,11 @@ class MeetingRoom extends Component {
         // 30초마다 평균 감정 + 참여도 계산 (호스트가 대표로 보낸다.)
         if (room_state === 'open' && Number(now_sec) % 30 === 0) {
           client_socket.emit("calculate", {
-            'meeting_id' : meeting_id,
-            'time' : now_time,
+            'meeting_id': meeting_id,
+            'time': now_time,
             'emotion_list': emotion_list,
             'sum_log_realtime': sum_log_realtime,
-            'sum_log_len' : sum_log_len,
+            'sum_log_len': sum_log_len,
           })
           console.log(' @@@@@@@@@@@@@ 30초 경과 : 결과 전송 @@@@@@@@@@@@@')
         }
@@ -408,7 +408,7 @@ class MeetingRoom extends Component {
       console.log('참가자 입장')
       connection.join(room_code);
     }
-    
+
     // 회의 시작 버튼 눌렀을때 (호스트에게만 작동)
     document.getElementById('start_log').onclick = function () {
       // 시작 날짜 생성
@@ -417,7 +417,7 @@ class MeetingRoom extends Component {
       let date = new Date().getDate()
       const meeting_date = year + '-' + month + '-' + date
       // 호스트가 현재 참가한 사람별로 emotion_list / sum_log_realtime init
-      for(let row of mapping_list){
+      for (let row of mapping_list) {
         sum_log_realtime[row[1]] = 0
         sum_log_len[row[1]] = 0
       }
@@ -430,6 +430,13 @@ class MeetingRoom extends Component {
       // 버튼 교체
       document.getElementById('start_log').disabled = true;
       document.getElementById('end_log').disabled = false;
+    }
+
+    // 클립보드 복사하기
+    document.getElementsByClassName('clip-button').onclick = function () {
+      navigator.clipboard.writeText(room_code).then(() => {
+        console.log('success');
+      });
     }
   }
 
@@ -555,7 +562,7 @@ class MeetingRoom extends Component {
         </div>
         <br /><br />
 
-        <div id='host_btn' style={{ display : 'none'}}>
+        <div id='host_btn' style={{ display: 'none' }}>
           <button id='start_log'>회의 시작</button>
           <button id='end_log' disabled>회의 종료</button>
         </div>
