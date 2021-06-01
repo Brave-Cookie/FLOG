@@ -171,11 +171,13 @@ def preprocess_audio(f, fs):
     myaudio = AudioSegment.from_wav(fs)
     dBFS = myaudio.dBFS
     silence_section = silence.detect_silence(
-        myaudio, min_silence_len=1000, silence_thresh=dBFS - 16
+        myaudio, min_silence_len=2000, silence_thresh=dBFS - 16
     )
     silence_section = [
         ((start / 1000), (stop / 1000)) for start, stop in silence_section
     ]
+
+    print('묵음 구간!!!', silence_section)
 
     # 묵음 구간을 없앤 실제 음성 구간 파싱
     section_list = []

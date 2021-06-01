@@ -378,7 +378,7 @@ class MeetingRoom extends Component {
         // 분/초는 전역 변수로 빼서 사용
         now_min = addZero(now_date.getMinutes())
         now_sec = addZero(now_date.getSeconds())
-        now_time = now_min + ' : ' + now_sec
+        now_time = now_min + ':' + now_sec
         document.getElementById('timer').innerText = now_time
         // 30초마다 평균 감정 + 참여도 계산 (호스트가 대표로 보낸다.)
         if (room_state === 'open' && Number(now_sec) % 30 === 0) {
@@ -474,22 +474,69 @@ class MeetingRoom extends Component {
               {this.props.match.params.meetingName}
             </div>
             <div className="chatting" id="chatting">
-              <div className="stt-remote">: 안녕하세요1</div>
-              <div className="stt-local">안녕하세요2</div>
-              <div className="stt-remote">안녕하세요배고파요 집에 가고싶어요 맛있는거 먹게 해주세요 슨성님 실러용3</div>
-              <div className="stt-remote">안녕하세요4</div>
-              <div className="stt-remote">안녕하세요5</div>
-              <div className="stt-local">안녕하세요6</div>
-              <div className="stt-remote">안녕하세요7</div>
-              <div className="stt-remote">안녕하세요8</div>
-              <div className="stt-remote">안녕하세요</div>
-              <div className="stt-remote">안녕하세요</div>
-              <div className="stt-local">안녕하세요</div>
-              <div className="stt-remote">안녕하세요</div>
-              <div className="stt-local">안녕하세요</div>
-              <div className="stt-remote">안녕하세요</div>
-              <div className="stt-local">안녕하세요</div>
-              <div className="stt-local">안녕하세요</div>
+
+              <div className='remote_box'>
+                <div className='remote_chat'>hanjo : 안녕하세요</div>
+                <div className='remote_time'>00 : 05</div>
+              </div>
+
+              <div className='remote_box'>
+                <div className='remote_chat'>hanjo : 안녕하세요 dddddd dddddddddd dddddddd ddd ddddd </div>
+                <div className='remote_time'>00 : 05</div>
+              </div>
+
+              <div className='remote_box'>
+                <div className='remote_chat'>hanjo : 안녕하세요</div>
+                <div className='remote_time'>00 : 05</div>
+              </div>
+
+              <div className='local_box'>
+                <div className='local_time'>00 : 05</div>
+                <div className='local_chat'>안녕하세요</div>
+              </div>
+
+              <div className='remote_box'>
+                <div className='remote_chat'>hanjo : 안녕하세요</div>
+                <div className='remote_time'>00 : 05</div>
+              </div>
+
+              <div className='local_box'>
+                <div className='local_time'>00 : 05</div>
+                <div className='local_chat'>안녕하세요</div>
+              </div>
+
+              <div className='remote_box'>
+                <div className='remote_chat'>hanjo : 안녕하세요</div>
+                <div className='remote_time'>00 : 05</div>
+              </div>
+
+              <div className='local_box'>
+                <div className='local_time'>00 : 05</div>
+                <div className='local_chat'>안녕하세요</div>
+              </div>
+
+              <div className='remote_box'>
+                <div className='remote_chat'>hanjo : 안녕하세요</div>
+                <div className='remote_time'>00 : 05</div>
+              </div>
+
+              <div className='local_box'>
+                <div className='local_time'>00 : 05</div>
+                <div className='local_chat'>안녕하세요</div>
+              </div>
+
+              <div className='remote_box'>
+                <div className='remote_chat'>hanjo : 안녕하세요</div>
+                <div className='remote_time'>00 : 05</div>
+              </div>
+
+              <div className='local_box'>
+                <div className='local_time'>00 : 05</div>
+                <div className='local_chat'>안녕하세요</div>
+              </div>
+
+
+
             </div>
 
             <div className="emotion-guide-title">
@@ -512,7 +559,7 @@ class MeetingRoom extends Component {
           <button id='start_log'>회의 시작</button>
           <button id='end_log' disabled>회의 종료</button>
         </div>
-        <button class='Rec'></button>
+        <button className='Rec'></button>
         <span id='timer'>00 : 00</span>
       </div>
     );
