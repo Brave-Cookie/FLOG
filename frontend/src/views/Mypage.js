@@ -32,6 +32,7 @@ function Mypage(props) {
     useEffect(() => {
         axios.get('https://localhost:3000/api/project/list/' + user_id)
             .then(res => {
+                console.log(res.data);
                 set_projects(res.data.list);
             })
         console.log(projects);
@@ -163,7 +164,15 @@ function Mypage(props) {
                         <ul className="project-list">
                             {projects.map((project, id) => (
                                 <li className="project-item" key={id}>
-                                    <Link to={`/${user_id}/project/${project.project_id}/${project.project_name}`}>{project.project_name}</Link>
+                                    <Link to={`/${user_id}/project/${project.project_id}/${project.project_name}`}>
+                                        <span style={{ fontWeight: 'bold' }}>{project.project_name}</span> &nbsp;|&nbsp; 참여자 수: [ <span style={{ fontWeight: 'bold' }}>{project.count} 명</span> ] 
+                                        &nbsp;&nbsp;최근 회의 날짜: [ {(function () {
+                                            if(project.date === "null"){
+                                                return(<span style={{ color: "#b9bada" }}>아직 개설된 회의가 없어요.</span>);
+                                            }
+                                            else return(<span style={{ fontWeight: 'bold' }}>{project.date}</span>)
+                                        })()} ]
+                                    </Link>
                                 </li>
                             ))}
                             <br />

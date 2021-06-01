@@ -5,5 +5,5 @@ const controller = require('./meetingLog.controller');
 router.get('/log/fetch/:meeting_id', controller.logFetch);
 router.get('/log/fetch/:meeting_id/:feeling', controller.logFilter);
 router.get('/log/rank/:meeting_id/:feeling', controller.logRank);
-router.get('/log/avgFeeling/:meeing_id/', controller.avgFeeling)
+router.get('/log/avgFeeling/:meeting_id', controller.avgFeeling)
 module.exports = router;

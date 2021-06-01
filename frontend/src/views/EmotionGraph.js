@@ -16,6 +16,7 @@ function EmotionGraph(props) {
     const [meeting_name, set_meetingName] = useState(props.match.params.meetingName);
 
     const [avg_feeling, set_avgFeeling] = useState([]);
+    const [avg_time, set_avgTime] = useState([]);
     const [pi_feeling, set_piFeeling] = useState([]);
 
     const [top_feeling, set_topFeeling] = useState("");
@@ -97,6 +98,15 @@ function EmotionGraph(props) {
               set_topFeeling("격양된");
               set_feedback("잠시 휴식이 필요할 때, * 화면 조정 중입니다. *");
             }
+          })
+    }, [])
+
+    console.log(1111111111);
+    useEffect(() => {
+      axios.get('https://localhost:3000/api/meetingLog/log/avgFeeling/' + meeting_id)
+          .then(res => {
+              console.log(res);
+              console.log(111);
           })
     }, [])
 
