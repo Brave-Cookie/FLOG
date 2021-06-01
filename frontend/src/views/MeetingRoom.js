@@ -465,14 +465,10 @@ class MeetingRoom extends Component {
         <div className="rtcRoom-content">
           <div className="left-component">
             <ul className="menu-wrap">
-<<<<<<< HEAD
-              <li><button id='clip_btn' className="clip-button">🔗 코드공유</button></li>
-=======
               
               <span style={{ fontFamily: 'GmarketSansMedium', float: "left", fontSize: "19px", fontWeight: "bold", letterSpacing: "2px", color: "#6D42F8" }}>&nbsp;🎥&nbsp;02:43</span><br />
               <hr color="#b6adf3" noshade="noshade" size="1" />
-              <li><button className="clip-button" onClick={copy_clipboard}>🔗 코드공유</button></li>
->>>>>>> master
+              <li><button id='clip_btn' className="clip-button">🔗 코드공유</button></li>
               <li><button className="start-log-button">🚀 회의시작</button></li>
               <li><button className="end-log-button">🚨 종료하기</button></li>
 
