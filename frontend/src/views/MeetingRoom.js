@@ -543,35 +543,6 @@ class MeetingRoom extends Component {
 
             <div className="chatting" id="chatting">
 
-              <div className='local_box'>
-                <div className='chat_id'>hanjo</div>
-                <div className='local_chat'>어쩌구저쩌구</div>
-                <div className='local_time'>00:00</div>
-              </div>
-
-              <div className='remote_box'>
-                <div className='chat_id'>test</div>
-                <div className='remote_chat'>어쩌구저쩌구</div>
-                <div className='remote_time'>00:00</div>
-              </div>
-
-              <div className='local_box'>
-                <div className='chat_id'>hanjo</div>
-                <div className='local_chat'>어쩌구저쩌구</div>
-                <div className='local_time'>00:00</div>
-              </div>
-
-              <div className='local_box'>
-                <div className='chat_id'>hanjo</div>
-                <div className='local_chat'>어쩌구저쩌구</div>
-                <div className='local_time'>00:00</div>
-              </div>
-              
-              <div className='local_box'>
-                <div className='chat_id'>hanjo</div>
-                <div className='local_chat'>어쩌구저쩌구</div>
-                <div className='local_time'>00:00</div>
-              </div>
             </div>
             
 
