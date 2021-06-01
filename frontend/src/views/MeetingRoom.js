@@ -50,7 +50,7 @@ class MeetingRoom extends Component {
       video.style.width = "100%";
       video.style.height = "100%";
 
-      video.style.border = "solid 2px #6D42F8";
+      video.style.border = "solid 2px #9172F6";
 
       event.mediaElement.removeAttribute("src");
       event.mediaElement.removeAttribute("srcObject");
@@ -394,9 +394,25 @@ class MeetingRoom extends Component {
             <div className="chatting-title">
               {this.props.match.params.meetingName}
             </div>
-            <div className="chatting">
-
+            <div className="chatting" id="chatting">
+              <div className="stt-remote">: 안녕하세요1</div>
+              <div className="stt-local">안녕하세요2</div>
+              <div className="stt-remote">안녕하세요배고파요 집에 가고싶어요 맛있는거 먹게 해주세요 슨성님 실러용3</div>
+              <div className="stt-remote">안녕하세요4</div>
+              <div className="stt-remote">안녕하세요5</div>
+              <div className="stt-local">안녕하세요6</div>
+              <div className="stt-remote">안녕하세요7</div>
+              <div className="stt-remote">안녕하세요8</div>
+              <div className="stt-remote">안녕하세요</div>
+              <div className="stt-remote">안녕하세요</div>
+              <div className="stt-local">안녕하세요</div>
+              <div className="stt-remote">안녕하세요</div>
+              <div className="stt-local">안녕하세요</div>
+              <div className="stt-remote">안녕하세요</div>
+              <div className="stt-local">안녕하세요</div>
+              <div className="stt-local">안녕하세요</div>
             </div>
+
             <div className="emotion-guide-title">
               <span style={{ fontFamily: 'GmarketSansMedium', fontWeight: "bold", fontSize: "20px", color: "#6D42F8" }}>[ 감정 가이드 ]</span>
               <hr color="#D8D5EB" noshade="noshade" size="1.5" />
