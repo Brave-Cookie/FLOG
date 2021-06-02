@@ -39,10 +39,9 @@ function EmotionGraph(props) {
             let neutral = 0;
             let sad = 0;
             let fear = 0;
-            let sum = dic[0][1]+dic[1][1]+dic[2][1]+dic[3][1]+dic[4][1];
-
-            for(let i=0;i<5;i++){
-              console.log(dic[i][0], dic[i][1])
+            
+            for(let i=0;i<dic.length;i++){
+              //console.log(dic[i][0], dic[i][1])
               if(dic[i][0] === "happiness") {
                 happy = dic[i][1];
               }
@@ -60,7 +59,7 @@ function EmotionGraph(props) {
               }
 
             }
-            
+            let sum = happy + anger + neutral + sad + fear;
             let data = [
               { title: '기쁨', value: happy, color: '#FFFF85' },
               { title: '격양', value: anger, color: '#FFB7DD' },
