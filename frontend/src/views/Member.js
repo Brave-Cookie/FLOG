@@ -14,14 +14,15 @@ function Member(props) {
     const [search_name, set_searchName] = useState("");
     const [search_result, set_searchResult] = useState([]);
     const [current_members, set_currentMemebers] = useState([]);
+
     useEffect(() => {
-        axios.get('https://localhost:3000/api/project/member/list/' +project_id)
+        axios.get('https://localhost:3000/api/project/member/list/' + project_id)
             .then(res => {
                 console.log(res);
                 set_currentMemebers(res.data.list);
             })
     }, []);
-    
+
     const onSearchNameHandler = (event) => {
         set_searchName(event.currentTarget.value);
     }
@@ -35,30 +36,25 @@ function Member(props) {
                     set_searchName("");
                 }
                 else if (res.status === 202) {
-                    alert('존재하지 않는 사용자 입니다.');
+                    alert('⚠ 존재하지 않는 사용자 입니다. ⚠');
                 }
-                // 여기선 새로고침하면 검색 내역이 사라짐
-                //window.location.replace('/'+user_id+'/project/'+project_id+"/"+project_name+"/member");
             })
     }
 
-    const addUser = (event) => {
+    const addUser = async (event) => {
         let id = event.target.value;
-        console.log(id, project_id);
-        const res = addMember(id, project_id)
-            .then((res) => {
-                console.log(res);
-                if (res.status === 200) {
-                    //set_currentMemebers(res.data.list);
-                    alert('추가되었습니다.');
-                }
-                else if (res.status === 202) {
-                    alert('이미 추가된 사용자 입니다.');
-                }
-                window.location.replace('/' + user_id + '/project/' + project_id + "/" + project_name + "/member");
-            })
+        console.log(event.target);
+
+        const res = await addMember(id, project_id);
+        if (res.status === 200) {
+            // 화면에 추가-참여자 추가
+            set_currentMemebers([...current_members, {'user_id' : id}])
+            alert('🙊 프로젝트에 새로운 참가자가 추가되었습니다.');
+        }
+        else if (res.status === 202) {
+            alert('⚠ 이미 추가된 사용자 입니다. ⚠');
+        }
     }
-    console.log(current_members);
     return (
         <div className="content">
             <HeaderAuth />

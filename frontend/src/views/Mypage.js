@@ -10,9 +10,11 @@ import joinIcon from '../assets/image/joinRoom.png';
 
 async function register(user_id, project_name) {
     var res = await createProject(user_id, project_name);
-    console.log(res);
-
     return res;
+}
+
+async function get_projcet_list(user_id) {
+    return axios.get('https://localhost:3000/api/project/list/' + user_id);
 }
 
 function Mypage(props) {
@@ -30,12 +32,12 @@ function Mypage(props) {
     const [input, set_input] = useState(0);
 
     useEffect(() => {
-        axios.get('https://localhost:3000/api/project/list/' + user_id)
-            .then(res => {
-                console.log(res.data);
-                set_projects(res.data.list);
-            })
-        console.log(projects);
+        get_projcet_list(user_id).then(
+            res => {
+                console.log('프로젝트 리스트 받아옴 : ', res)
+                set_projects(res.data.list); 
+            }
+        )
     }, []);
 
     /*const onUserHandler = (event) => {
@@ -64,22 +66,29 @@ function Mypage(props) {
     }
 
 
-    const registProject = () => {
+    const registProject = async () => {
         if (project_name !== "") {
-            const res = register(user_id, project_name);
-            console.log(res);
-            alert('프로젝트가 생성되었습니다.');
-            // clear
-            set_project("");
-            set_projectModal(false);
-
-            //window.location.replace('/mypage/' + user_id);
-            window.location = `/mypage/${user_id}`;
+            // 프젝 삽입요청
+            const res = await register(user_id, project_name);
+            // 프젝 리스트 다시 다 받고 마지막 추가된 것만 useState 배열에 추가
+            if(res.status === 200){
+                alert('🎉 프로젝트가 생성되었습니다.');
+                get_projcet_list(user_id).then(
+                    res => {
+                        let new_list = res.data.list
+                        set_projects([...projects, new_list[new_list.length - 1]])
+                    }
+                )
+                set_project("");
+                set_projectModal(false);
+            }
         }
         else {
-            alert('프로젝트명을 입력해주세요.')
+            alert('⚠ 프로젝트명을 입력해주세요. ⚠')
         }
     }
+
+
     const enterMeeting = () => {
         if (meeting_code !== "") {
             let res = axios.get('https://localhost:3000/api/auth/check/' + meeting_code)
@@ -87,10 +96,10 @@ function Mypage(props) {
                     if (res.status === 200) {
                         let meeting_name = res.data.meeting_name;
                         let room_state = 'join';
-                        window.location = `/mypage/${user_id}/meetingRoom/${room_state}/${meeting_name}/${meeting_code}`;
+                        props.history.push(`/mypage/${user_id}/meetingRoom/${room_state}/${meeting_name}/${meeting_code}`)
                     }
                     else {
-                        alert('존재하지 않는 회의입니다.')
+                        alert('🚫 존재하지 않는 회의입니다. 🚫')
                     }
                 })
 
@@ -98,7 +107,7 @@ function Mypage(props) {
             set_codeModal(false);
         }
         else {
-            alert('코드를 입력해주세요.');
+            alert('⚠ 코드를 입력해주세요. ⚠');
         }
     }
 
@@ -111,7 +120,6 @@ function Mypage(props) {
         padding: '5px',
     }
 
-    console.log(projects.length);
     return (
         <div className="content">
             <HeaderAuth />

@@ -51,7 +51,7 @@ function Project(props) {
             const room_code = (Math.random() * new Date().getTime()).toString(32).toUpperCase().replace(/\./g, '-');
             const res = getStart(room_code, meeting_name);
             const room_state = 'open';
-            window.location = `/${user_id}/project/${project_id}/${project_name}/meetingRoom/${room_state}/${meeting_name}/${room_code}`
+            props.history.push(`/${user_id}/project/${project_id}/${project_name}/meetingRoom/${room_state}/${meeting_name}/${room_code}`)
             set_meetingName("");
             set_modal(false);
         }
