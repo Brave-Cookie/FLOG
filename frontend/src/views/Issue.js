@@ -6,13 +6,6 @@ import { addIssue } from '../api/axios';
 import axios from 'axios';
 
 
-async function addNewIssue(project_id, issue_content) {
-    var res = await addIssue(project_id, issue_content);
-    console.log(res);
-
-    return res;
-}
-
 function Issue(props) {
 
     const [user_id, set_userId] = useState(props.match.params.userId);
@@ -41,15 +34,19 @@ function Issue(props) {
         set_issue(event.currentTarget.value);
     }
 
-    const newIssue = () => {
+    const newIssue = async () => {
         if(issue!==""){
-            const res = addNewIssue(project_id, issue);
-            alert('이슈가 등록되었습니다.');
-            // clear
-            set_issue("");
             set_modal(false);
-
-            window.location.replace('/'+user_id+'/project/'+project_id+"/"+project_name+"/issue");
+            var res = await addIssue(project_id, issue);
+            if(res.status == 200){
+                // 삽입성공신호 오면 issues 리스트에 새로 입력된 issue를 추가 -> 화면에 추가됨
+                issues.push({issue_content : issue})
+                alert('이슈가 등록되었습니다.');
+                set_issue("");
+            }
+            else{
+                alert('이슈 등록에 실패했습니다.');
+            }
         }
         else {
             alert('내용을 입력해주세요.')

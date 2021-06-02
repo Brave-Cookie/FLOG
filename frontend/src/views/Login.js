@@ -6,7 +6,7 @@ import { userLogin } from '../api/axios.js'
 //import { login } from '../action/auth';
 
 
-async function getLogin(user_id, user_pw) {
+async function getLogin(props, user_id, user_pw) {
     console.log(3);
     var res = await userLogin(user_id, user_pw);
     console.log(res);
@@ -15,7 +15,7 @@ async function getLogin(user_id, user_pw) {
         console.log(token);
         localStorage.setItem('accessToken', token);
         if (localStorage.getItem('accessToken')) {
-            window.location = `/mypage/${user_id}`;
+            props.history.push(`/mypage/${user_id}`)
         }
         return true;
     }
@@ -50,7 +50,7 @@ function Login(props) {
         if (user_id === "" || user_pw === "") {
             return alert('모든 정보를 입력해주세요.')
         }
-        getLogin(user_id, user_pw)
+        getLogin(props, user_id, user_pw)
         
     }
 

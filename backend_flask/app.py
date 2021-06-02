@@ -92,7 +92,15 @@ def start_log(req):
 
     db.session.close()
     # meeting_id를 보내준다.
-    socketio.emit("start_log", {'meeting_id' : new_m_id})
+    socketio.emit("start_log", {
+        'meeting_id' : new_m_id,
+        'project_name' : req['project_name'],
+        })
+
+@socketio.on("end_log")
+def end_log(req):
+    # 호스트의 종료 신호를 받고 모두에게 뿌려줌
+    socketio.emit("end_log", {})
 
 @socketio.on("chat")
 def start_log(req):
@@ -313,7 +321,10 @@ def wordcloud(meeting_id):
 
     print(noun_list)
     '''
+
+    
     noun_list = [('부분', 14), ('진행', 8), ('구현', 8), ('프론트엔드', 7), ('백엔드', 7), ('뷰', 7), ('프로젝트', 6), ('프레임워크', 6), ('저', 6), ('기능', 6), ('화상회의', 4), ('제', 4), ('일단', 4), ('요', 4), ('지금', 4)]
+    
     return jsonify({"message": "워드클라우드 단어리스트 보내기"}, noun_list)
 
 

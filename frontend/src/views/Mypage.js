@@ -132,6 +132,7 @@ function Mypage(props) {
             </div>
             <Modal visible={projectModal} width="350" height="220" effect="fadeInUp">
                 <div>
+                    <br />
                     <h3>프로젝트의 이름을 입력해주세요.</h3>
                     <br />
                     <input type="text" value={project_name} onChange={onProjectHandler} style={modal_input} />
@@ -143,6 +144,7 @@ function Mypage(props) {
 
             <Modal visible={codeModal} width="350" height="220" effect="fadeInUp">
                 <div>
+                <br />
                     <h3>회의 코드를 입력해주세요.</h3>
                     <br />
                     <input type="text" value={meeting_code} onChange={onCodeHandler} style={modal_input} />

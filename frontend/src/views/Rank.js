@@ -22,43 +22,70 @@ function Rank(props) {
     const [count_happy, set_countHappy] = useState("0");
     const [count_sad, set_countSad] = useState("0");
     const [count_fear, set_countFear] = useState("0");
+
     useState(() => {
         let feeling = "anger";
         axios.get('https://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
             .then((res) => {
-                console.log(res.data);
-                // 참여도 순위 저장 및 anger 감정 대표자 저장
-                set_firstRank(res.data.total_rank[0]);
-                set_secondRank(res.data.total_rank[1]);
-                set_thirdRank(res.data.total_rank[2]);
-
-                set_userAnger(res.data.firstrank);
-                set_countAnger(res.data.count);
+                // 참여도 순위
+                let total_rank = res.data.total_rank;
+                for(let i=0; i < total_rank.length; i++ ){
+                    if(i == 0){ set_firstRank(total_rank[i]); }
+                    else if(i == 1){ set_secondRank(total_rank[i]); }
+                    else if(i == 2){ set_thirdRank(total_rank[i]); }
+                }
+                // anger 감정 대표자 저장
+                if(res.status === 200){
+                    set_userAnger(res.data.firstrank);
+                    set_countAnger(res.data.count);
+                }
+                else{
+                    set_userAnger('없음');
+                    set_countAnger(0);
+                }
+                
             })
     }, [])
     useState(() => {
         let feeling = "happiness";
         axios.get('https://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
             .then((res) => {
-                console.log(res);
-                set_userHappy(res.data.firstrank);
-                set_countHappy(res.data.count);
+                if(res.status === 200){
+                    set_userHappy(res.data.firstrank);
+                    set_countHappy(res.data.count);
+                }
+                else{
+                    set_userHappy('없음');
+                    set_countHappy(0);
+                }
             })
     }, [])
     useState(() => {
         let feeling = "sadness";
         axios.get('https://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
             .then((res) => {
-                set_userSad(res.data.firstrank);
-                set_countSad(res.data.count);
+                if(res.status === 200){
+                    set_userSad(res.data.firstrank);
+                    set_countSad(res.data.count);
+                }
+                else{
+                    set_userSad('없음');
+                    set_countSad(0);
+                }
             })
     }, [])
     useState(() => {
         let feeling = "fear";
         axios.get('https://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
             .then((res) => {
-                set_userFear(res.data.firstrank);
-                set_countFear(res.data.count);
+                if(res.status === 200){
+                    set_userFear(res.data.firstrank);
+                    set_countFear(res.data.count);
+                }
+                else{
+                    set_userFear('없음');
+                    set_countFear(0);
+                }
             })
     }, [])
 
@@ -75,9 +102,18 @@ function Rank(props) {
             </div>
             <div className="rank-box">
                 <div className="ranking">
-                    <div className="first">🥇 {first_rank}</div>
-                    <div className="second">🥈 {second_rank}</div>
-                    <div className="third">🥉 {third_rank}</div>
+                    <div className="first">
+                        <div className='rank_emoticon'>🥇</div>
+                        <div>{first_rank}</div>
+                    </div>
+                    <div className="second">
+                        <div className='rank_emoticon'>🥈</div>
+                        <div>{second_rank}</div>
+                    </div>
+                    <div className="third">
+                        <div className='rank_emoticon'>🥉</div>
+                        <div>{third_rank}</div>
+                    </div>
                 </div>
             </div>
 

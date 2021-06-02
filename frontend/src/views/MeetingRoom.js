@@ -10,8 +10,14 @@ import * as service from "./getHTMLMediaElement";
 
 class MeetingRoom extends Component {
 
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     // ------------------------------------------------------ init ------------------------------------------------------
+
+    let new_props = this.props;
 
     // url로 코드와 상태 정보를 받아옴.
     const user_id = this.props.match.params.userId
@@ -20,6 +26,7 @@ class MeetingRoom extends Component {
     const meeting_name = this.props.match.params.meetingName;
     const project_id = this.props.match.params.projectId;
     let meeting_id;
+    let project_name;
 
     //
     let mapping_list = []
@@ -28,6 +35,7 @@ class MeetingRoom extends Component {
     let sum_log_len = {}
     let time_capture;
     let now_time;
+    let dummy_time;
 
     // ------------------------------------------------------ Web RTC 요소 핸들링 ------------------------------------------------------
 
@@ -230,7 +238,6 @@ class MeetingRoom extends Component {
 
     // STT 종료시 발동됨
     recognition.onend = function () {
-      alert('STT 종료')
       isRecognizing = false;
       if (ignoreEndProcess) {
         return false;
@@ -269,6 +276,7 @@ class MeetingRoom extends Component {
     recognition.onerror = function (event) {
       console.log("onerror", event);
       if (event.error.match(/no-speech|audio-capture|not-allowed/)) {
+        alert('오류 발생! STT가 종료됩니다.')
         ignoreEndProcess = true;
       }
     };
@@ -317,17 +325,34 @@ class MeetingRoom extends Component {
     // ***** 회의 시작시 알림 *****
     client_socket.on('start_log',
       function (res) {
-        // 전역변수에 meeting_id를 저장
+        // 전역변수에 meeting_id/project_name 저장
         meeting_id = res.meeting_id
+        project_name = res.project_name
         // 타이머 시작
         start_timer();
         // REC 버튼 변경
         document.getElementById('rec_span').innerHTML = "<button class='Rec'></button>";
-        alert('📝 회의가 시작되었습니다. 회의록이 생성됩니다.')
+        alert('📝 회의가 시작되었습니다! 회의록이 생성됩니다.')
         // stt 시작
         start_stt();
       }
     )
+
+    // ***** 회의 종료시 알림 *****
+    client_socket.on('end_log',
+      function (res) {
+        end_record();
+        end_stt();
+        clearInterval(dummy_time);
+        setTimeout(() =>{
+          alert('🚫 회의가 종료되었습니다! 회의록 결과 페이지로 이동합니다. 💨')
+          //window.location = '/'+ user_id + '/project/' + project_id + '/' + project_name + '/log/' + meeting_id + '/' + meeting_name;
+          let url = '/'+ user_id + '/project/' + project_id + '/' + project_name + '/log/' + meeting_id + '/' + meeting_name;
+          new_props.history.push(url)
+        }, 5000)
+      }
+    )
+    console.log(new_props)
 
     // ***** stt 결과 받아주는 소켓 *****
     client_socket.on('chat',
@@ -417,7 +442,7 @@ class MeetingRoom extends Component {
 
     function start_timer() {
       let start_time = Date.now()
-      let dummy_time, now_date, now_min, now_sec;
+      let now_date, now_min, now_sec;
       dummy_time = setInterval(function () {
         now_date = new Date(Date.now() - start_time)
         // 분/초는 전역 변수로 빼서 사용
@@ -444,6 +469,7 @@ class MeetingRoom extends Component {
     // 회의방 생성시
     if (room_state == 'open') {
       console.log('호스트 입장')
+      project_name = this.props.match.params.projectName
       connection.open(room_code);
       document.getElementById('host_btn').style.display = 'block'
     }
@@ -452,6 +478,15 @@ class MeetingRoom extends Component {
     else {
       console.log('참가자 입장')
       connection.join(room_code);
+    }
+
+    
+    // 클립보드 복사하기
+    document.getElementById('clip_btn').onclick = function () {
+      navigator.clipboard.writeText(room_code).then(
+        () => {
+          alert('🥕 초대코드가 클립보드에 복사되었습니다 🥕')
+        });
     }
 
     // 회의 시작 버튼 눌렀을때 (호스트에게만 작동)
@@ -471,25 +506,29 @@ class MeetingRoom extends Component {
         'meeting_name': meeting_name,
         'meeting_date': meeting_date,
         'project_id': project_id,
+        'project_name' : project_name,
       })
-      // 버튼 교체
+      // 회의 관련 버튼 교체
       document.getElementById('start_log').style.backgroundColor  = '#a186fa';
       document.getElementById('start_log').style.pointerEvents = 'none'
       document.getElementById('end_log').style.backgroundColor  = '#6D42F8';
       document.getElementById('end_log').style.pointerEvents = 'auto';
     }
 
-    // 클립보드 복사하기
-    document.getElementById('clip_btn').onclick = function () {
-      navigator.clipboard.writeText(room_code).then(
-        () => {
-          alert('🥕 초대코드가 클립보드에 복사되었습니다 🥕')
-        });
+    // 회의 종료 버튼 클릭
+    document.getElementById('end_log').onclick = function () {
+      // 회의 종료 신호 전송
+      client_socket.emit("end_log", {})
+      // 버튼 막기
+      document.getElementById('end_log').style.backgroundColor  = '#a186fa';
+      document.getElementById('end_log').style.pointerEvents = 'none'
     }
+
   }
 
-  render() {
 
+  render() {
+    
     const icon = {
       height: '40px',
     }

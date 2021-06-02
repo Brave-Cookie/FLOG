@@ -721,26 +721,34 @@
   background-position: center;
   display: flex;
 }
-.first {
+
+.ranking{
   font-weight: bold;
   font-size: 18px;
-  margin-top: 60px;
-  margin-left: 250px;
-  text-align: center;
+  position : relative;
+}
+
+.rank_emoticon{
+  font-size: 25px;
+}
+
+.first {
+  width:100px;
+  position:absolute;
+  top : 40px;
+  left : 380px;
 }
 .second {
-  font-weight: bold;
-  font-size: 18px;
-  margin-top: 10px;
-  margin-left: 270px;
-  float: left;
+  width:100px;
+  position:absolute;
+  top : 70px;
+  left : 270px;
 }
 .third {
-  font-weight: bold;
-  font-size: 18px;
-  margin-top: 25px;
-  margin-left: 140px;
-  float: right;
+  width:100px;
+  position:absolute;
+  top : 85px;
+  left : 485px;
 }
 
 .state-title {
