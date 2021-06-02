@@ -93,8 +93,9 @@ exports.logRank = async (req, res, next) => {
             order: [[sequelize.fn('SUM', sequelize.col('log_realtime')),'DESC']]
             })
         
+        
         let total_ranking = []
-        for (let i = 0; i < 3; i++){
+        for (let i = 0; i < rank.length; i++){
             total_ranking.push(rank[i].user_id)
         }
         //-------------------------------------------------------------------------------------
@@ -122,8 +123,8 @@ exports.logRank = async (req, res, next) => {
                 count++;
             }
         }
-        console.log(first)
-        console.log(firstrank,"가",feeling,"감정을",count,"번 말했습니다")
+        //console.log(first)
+        //console.log(firstrank,"가",feeling,"감정을",count,"번 말했습니다")
 
         //user_id 로 이름 찾아오기
         let table_ui = models.user_info;
@@ -174,10 +175,3 @@ exports.avgFeeling = async (req, res, next) => {
         });
         }
 }
-
-
-        
-        
-        
-     
-        
