@@ -18,10 +18,10 @@ function Rank(props) {
     const [user_happy, set_userHappy] = useState("");
     const [user_sad, set_userSad] = useState("");
     const [user_fear, set_userFear] = useState("");
-    const [count_anger, set_countAnger] = useState("");
-    const [count_happy, set_countHappy] = useState("");
-    const [count_sad, set_countSad] = useState("");
-    const [count_fear, set_countFear] = useState("");
+    const [count_anger, set_countAnger] = useState("0");
+    const [count_happy, set_countHappy] = useState("0");
+    const [count_sad, set_countSad] = useState("0");
+    const [count_fear, set_countFear] = useState("0");
     useState(() => {
         let feeling = "anger";
         axios.get('https://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
