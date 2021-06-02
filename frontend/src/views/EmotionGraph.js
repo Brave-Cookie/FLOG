@@ -22,11 +22,11 @@ function EmotionGraph(props) {
     const [top_feeling, set_topFeeling] = useState("");
     const [feedback, set_feedback] = useState("");
 
-    const [happy_count, set_happyCount] = useState();
-    const [neutral_count, set_neutralCount] = useState();
-    const [fear_count, set_fearCount] = useState();
-    const [sad_count, set_sadCount] = useState();
-    const [anger_count, set_angerCount] = useState();
+    const [happy_count, set_happyCount] = useState("0");
+    const [neutral_count, set_neutralCount] = useState("0");
+    const [fear_count, set_fearCount] = useState("0");
+    const [sad_count, set_sadCount] = useState("0");
+    const [anger_count, set_angerCount] = useState("0");
     
     useEffect(() => {
         axios.get('https://localhost:5000/api/log/feelingCount/' + meeting_id)
