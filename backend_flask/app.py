@@ -66,7 +66,7 @@ def insert_mapping(req):
     
 @socketio.on("start_log")
 def start_log(req):
-    print('start_log 요청 받음')
+    print(' ---------------- 회의 시작 요청 ---------------- ')
 
     # meeting_info 마지막 인덱스 추출
     new_m_id = db.session.query(func.max(MeetingInfo.meeting_id)).scalar() + 1
@@ -121,6 +121,10 @@ def calculate(req):
     avg_emotion = max(emotion_list, key=emotion_list.count)
     # 참여도 산정
     sum_dict = {}
+
+    print(sum_log_realtime)
+    print(sum_log_len)
+
     # 음성길이 + stt 길이를 더한걸 sum_dict에 저장
     for user_id in sum_log_realtime.keys():
         sum_dict[user_id] = sum_log_realtime[user_id] + sum_log_len[user_id]
@@ -139,7 +143,7 @@ def calculate(req):
     db.session.commit()
     db.session.close()
     #
-    print(" **************** 30초 경과 **************** ")
+    print(" **************** 30초 경과! **************** ")
     print('평균 감정 : ', avg_emotion, ' / 참여도 랭킹 : ', ranking)
     print(" ******************************************* ")
     socketio.emit("calculate", {
@@ -185,7 +189,7 @@ def preprocess_audio(f, fs):
         ((start / 1000), (stop / 1000)) for start, stop in silence_section
     ]
 
-    print('묵음 구간!!!', silence_section)
+    #print('묵음 구간!!!', silence_section)
 
     # 묵음 구간을 없앤 실제 음성 구간 파싱
     section_list = []
@@ -198,7 +202,8 @@ def preprocess_audio(f, fs):
     for i, section in enumerate(section_list):
         if i % 2 == 0:
             new_section.append([section, section_list[i + 1]])
-    print(signal)
+
+    print('음성데이터 전처리 결과 : ', signal)
 
     # 실제 음성 구간을 추출, 모두 합쳐줌
     reform_signal = []
@@ -245,18 +250,18 @@ def emotion_recognition(audio_len, reform_signal, sr):
 # 음성데이터 요청 응답
 @app.route("/api/record", methods=["POST"])
 def record():
-    print( "-------------------------------------- 요청완료 => 분석시작 --------------------------------------")
+    print( "-------------------------------------- 음성감지 => 분석시작 --------------------------------------")
 
     # 넘어온 wav 음성 데이터
     fs = request.files["for_silence"]
     f = request.files["for_librosa"]
     # 넘어온 회의정보 텍스트 데이터
     log_info_row = json.loads(request.form['log_info_row'])
-    print(log_info_row['meeting_id'])
+    #print(log_info_row['meeting_id'])
 
     # 음성 전처리 + 묵음 제거
     audio_len, reform_signal = preprocess_audio(f, fs)
-    print('audio_len : ', audio_len)
+    #print('audio_len : ', audio_len)
 
     # 감정 분석하기
     emotion_result = ''
@@ -265,7 +270,13 @@ def record():
         emotion_result = 'neutral'
     else:
         emotion_result = emotion_recognition(audio_len, reform_signal, 16000)
-    print('emotion_result : ', emotion_result)
+
+    print( "------------------------------------------------------------------------------------------------")
+    print('>>> 최종 음성 길이 : ( ', audio_len, ' )')
+    print('>>> 최종 감정분석 결과 : ( ', emotion_result, ' )')
+    print( "------------------------------------------------------------------------------------------------")
+
+
     # 유저의 감정 분석 결과를 뿌려줌
     socketio.emit("emotion_result", {
         'user_id' : log_info_row['user_id'],
@@ -286,7 +297,7 @@ def record():
     db.session.add(query)
     db.session.commit()
     db.session.close()
-    print('log_info에 row 삽입완료')
+    #print('log_info에 row 삽입완료')
     return jsonify({"message": "log_info에 row 삽입완료"})
 
 
