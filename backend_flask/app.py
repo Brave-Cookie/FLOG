@@ -301,19 +301,18 @@ def record():
     return jsonify({"message": "log_info에 row 삽입완료"})
 
 
+try:
+    import jpype
+    import jpype1
+except:
+    import jpype
+from konlpy.tag import Okt
+
 # 설명
 @app.route("/api/log/wordcloud/<int:meeting_id>")
 def wordcloud(meeting_id):
     
-    try:
-        import jpype
-        import jpype1
-    except:
-        import jpype
-
-    from konlpy.tag import Okt
-    from collections import Counter
-    from wordcloud import WordCloud
+    
 
     li = LogInfo.query.all()
     text = ""
