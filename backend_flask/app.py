@@ -300,39 +300,34 @@ def record():
     #print('log_info에 row 삽입완료')
     return jsonify({"message": "log_info에 row 삽입완료"})
 
-
+'''
 try:
     import jpype
     import jpype1
 except:
     import jpype
+'''
+
+import jpype1
+import jpype
 from konlpy.tag import Okt
 
 # 설명
 @app.route("/api/log/wordcloud/<int:meeting_id>")
 def wordcloud(meeting_id):
-    
-    
-
     li = LogInfo.query.all()
     text = ""
-
     # for로 모두 출력
     for row in li:
         if row.meeting_id == meeting_id:
             text = text + row.log_text + "\n"
-    okt = Okt()
-    noun = okt.nouns(text)
+    noun = Okt().nouns(text)
 
     count = Counter(noun)
-
     # 명사빈도 카운트 most_common(뽑아주고 싶은 단어의 갯수)
     noun_list = count.most_common(15)
 
     print(noun_list)
-
-
-    
     #noun_list = [('부분', 14), ('진행', 8), ('구현', 8), ('프론트엔드', 7), ('백엔드', 7), ('뷰', 7), ('프로젝트', 6), ('프레임워크', 6), ('저', 6), ('기능', 6), ('화상회의', 4), ('제', 4), ('일단', 4), ('요', 4), ('지금', 4)]
     
     return jsonify({"message": "워드클라우드 단어리스트 보내기"}, noun_list)
