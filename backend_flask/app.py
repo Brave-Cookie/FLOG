@@ -300,16 +300,16 @@ def record():
     #print('log_info에 row 삽입완료')
     return jsonify({"message": "log_info에 row 삽입완료"})
 
-'''
+
 try:
     import jpype
     import jpype1
 except:
     import jpype
-'''
 
-import jpype1
-import jpype
+
+#import jpype1
+#import jpype
 from konlpy.tag import Okt
 okt = Okt()
 
