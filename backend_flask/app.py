@@ -311,17 +311,19 @@ except:
 import jpype1
 import jpype
 from konlpy.tag import Okt
+okt = Okt()
 
 # 설명
 @app.route("/api/log/wordcloud/<int:meeting_id>")
 def wordcloud(meeting_id):
+    global okt
     li = LogInfo.query.all()
     text = ""
     # for로 모두 출력
     for row in li:
         if row.meeting_id == meeting_id:
             text = text + row.log_text + "\n"
-    noun = Okt().nouns(text)
+    noun = okt.nouns(text)
 
     count = Counter(noun)
     # 명사빈도 카운트 most_common(뽑아주고 싶은 단어의 갯수)
