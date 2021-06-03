@@ -2,14 +2,29 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import HeaderAuth from '../components/HeaderAuth';
 import SidebarLog from '../components/SidebarLog';
+import Modal from 'react-awesome-modal';
+import music from "../assets/audio/TTS.wav"
 
 function Log(props) {
+
+    const [tts_modal, set_tts_modal] = useState(false);
+    const open_tts_modal = () => {
+        if (props.match.params.meetingId == 3) {
+            set_tts_modal(true);
+        }
+        else {
+            alert('😥 현재 tts 기능은 과금문제로 사용할 수 없습니다.')
+        }
+    }
+    const closeModal = () => {
+        set_tts_modal(false);
+    }
+
     const [user_id, set_userId] = useState(props.match.params.userId);
     const [project_id, set_projectId] = useState(props.match.params.projectId);
     const [project_name, set_projectName] = useState(props.match.params.projectName);
     const [meeting_id, set_logId] = useState(props.match.params.meetingId);
     const [meeting_name, set_meetingName] = useState(props.match.params.meetingName);
-    console.log(meeting_name);
     const [log_content, set_logContent] = useState([]);
 
     const [log_anger, set_anger] = useState([]);
@@ -21,15 +36,12 @@ function Log(props) {
     useEffect(() => {
         axios.get('https://localhost:3000/api/meetingLog/log/fetch/' + meeting_id)
             .then(res => {
-                console.log(res);
                 set_logContent(res.data.list);
                 set_showLog(res.data.list);
-                //console.log(show_log);
             })
     }, [])
 
     const [show_log, set_showLog] = useState(log_content);
-    console.log(show_log);
     useEffect(() => {
         /*console.log("in useEffect: " + log_content)
         let res = log_content.filter((it, id) => it.log_feeling === "anger");
@@ -40,7 +52,6 @@ function Log(props) {
         let feeling = "anger";
         axios.get('https://localhost:3000/api/meetingLog/log/fetch/' + meeting_id + '/' + feeling)
             .then(res => {
-                console.log(res);
                 set_anger(res.data.list);
             })
 
@@ -50,7 +61,6 @@ function Log(props) {
         let feeling = "happiness";
         axios.get('https://localhost:3000/api/meetingLog/log/fetch/' + meeting_id + '/' + feeling)
             .then(res => {
-                console.log(res);
                 set_happy(res.data.list);
             })
     }, [])
@@ -58,7 +68,6 @@ function Log(props) {
         let feeling = "neutral";
         axios.get('https://localhost:3000/api/meetingLog/log/fetch/' + meeting_id + '/' + feeling)
             .then(res => {
-                console.log(res);
                 set_neutral(res.data.list);
             })
     }, [])
@@ -66,7 +75,6 @@ function Log(props) {
         let feeling = "sadness";
         axios.get('https://localhost:3000/api/meetingLog/log/fetch/' + meeting_id + '/' + feeling)
             .then(res => {
-                console.log(res);
                 set_sad(res.data.list);
             })
     }, [])
@@ -74,12 +82,10 @@ function Log(props) {
         let feeling = "fear";
         axios.get('https://localhost:3000/api/meetingLog/log/fetch/' + meeting_id + '/' + feeling)
             .then(res => {
-                console.log(res);
                 set_fear(res.data.list);
             })
     }, [])
 
-    console.log(show_log);
     const filter_all = () => {
         set_showLog(log_content);
     }
@@ -102,14 +108,31 @@ function Log(props) {
     return (
         <div className="content">
             <HeaderAuth />
-            <SidebarLog user_id={user_id} project_id={project_id} project_name={project_name} meeting_id={meeting_id} meeting_name={meeting_name}/>
+            <SidebarLog user_id={user_id} project_id={project_id} project_name={project_name} meeting_id={meeting_id} meeting_name={meeting_name} />
+
+            <Modal visible={tts_modal} width="440" height="280" effect="fadeInUp">
+                <div>
+                    <br /><br />
+                    <h3>🔊 감정이 반영된 TTS로 회의록을 들어보세요!</h3>
+                    <br />
+
+                    <audio src={music} controls ></audio>
+                    <br /><br /><br />
+                    
+                    <button className="close-button" onClick={closeModal}>창 닫기</button>
+                    <br />
+                </div>
+            </Modal>
+
             <br /><br />
             <div className="entire-log-title">
-                <h3 style={{ fontSize: '20px' }}>📝 회의록 전문<button className="listen-button">음성으로 회의 듣기</button></h3>
+                <h3 style={{ fontSize: '20px' }}>📝 회의록 전문
+                    <button onClick={open_tts_modal} className="listen-button">음성으로 회의 듣기</button>
+                </h3>
                 <p style={{ fontSize: '16px' }}>실시간 회의의 내용이 자동으로 텍스트화 됩니다. 우측 버튼을 통해 감정 별로 필터링 해보세요!</p>
             </div>
             <div className="log-with-buttons">
-            <ul className="emotion-button">
+                <ul className="emotion-button">
                     <li><button className="all-button" onClick={filter_all}>전체</button></li>
                     <li><button className="happy-button" onClick={filter_happiness}>기쁨</button></li>
                     <li><button className="anger-button" onClick={filter_anger}>격양</button></li>
@@ -148,7 +171,7 @@ function Log(props) {
                     <br />
                 </div>
             </div>
-            
+
 
         </div>
     )

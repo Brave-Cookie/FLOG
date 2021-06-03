@@ -104,8 +104,8 @@ function EmotionGraph(props) {
       axios.get('https://localhost:3000/api/meetingLog/log/avgFeeling/' + meeting_id)
           .then(res => {
               let list = res.data.avg;
-              let time = [];
-              let emotion = [];
+              let time = ['00:00'];
+              let emotion = [50];
               for(let i=0; i<list.length; i++){
                   time.push(list[i].time);
                   if(list[i].emotion === "happiness") {

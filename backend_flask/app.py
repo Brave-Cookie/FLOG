@@ -304,7 +304,7 @@ def record():
 # 설명
 @app.route("/api/log/wordcloud/<int:meeting_id>")
 def wordcloud(meeting_id):
-    '''
+    
     try:
         import jpype
         import jpype1
@@ -331,10 +331,10 @@ def wordcloud(meeting_id):
     noun_list = count.most_common(15)
 
     print(noun_list)
-    '''
+
 
     
-    noun_list = [('부분', 14), ('진행', 8), ('구현', 8), ('프론트엔드', 7), ('백엔드', 7), ('뷰', 7), ('프로젝트', 6), ('프레임워크', 6), ('저', 6), ('기능', 6), ('화상회의', 4), ('제', 4), ('일단', 4), ('요', 4), ('지금', 4)]
+    #noun_list = [('부분', 14), ('진행', 8), ('구현', 8), ('프론트엔드', 7), ('백엔드', 7), ('뷰', 7), ('프로젝트', 6), ('프레임워크', 6), ('저', 6), ('기능', 6), ('화상회의', 4), ('제', 4), ('일단', 4), ('요', 4), ('지금', 4)]
     
     return jsonify({"message": "워드클라우드 단어리스트 보내기"}, noun_list)
 
