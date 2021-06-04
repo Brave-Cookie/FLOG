@@ -376,5 +376,6 @@ def feeling_count(meeting_id):
 
 # flask 서버를 5000번 포트로 구동
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True, ssl_context=('./https/certificate.pem', './https/privatekey.pem'))
+    #app.run(host='0.0.0.0', port=5000, debug=True, ssl_context=('./https/certificate.pem', './https/privatekey.pem'))
+    app.run(host='0.0.0.0', port=5000, debug=True)
     socketio.run(app, debug=True)
