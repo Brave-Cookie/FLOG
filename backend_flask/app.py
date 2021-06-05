@@ -336,7 +336,7 @@ def wordcloud(meeting_id):
     
     return jsonify({"message": "워드클라우드 단어리스트 보내기"}, noun_list)
     '''
-    return jsonify({"message": "서버 오류"}, [('서버',2), {'오류',1}])
+    return jsonify({"message": "서버 오류"}, [('서버',2), ('오류',1)])
 
 
 from gensim.summarization.summarizer import summarize

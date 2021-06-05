@@ -40,7 +40,7 @@ class MeetingRoom extends Component {
     // ------------------------------------------------------ Web RTC 요소 핸들링 ------------------------------------------------------
 
     var connection = new window.RTCMultiConnection();
-    connection.socketURL = 'http://rtcmulticonnection.herokuapp.com:443/';
+    connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
 
     connection.session = {
       audio: true,
@@ -195,8 +195,10 @@ class MeetingRoom extends Component {
               headers: {
                 'Accept': 'application/json',
                 "Content-Type": "multipart/form-data"
-              },
-            })
+              }
+            }).then(
+              res => { console.log(res) }
+            )
           };
         }
       )
