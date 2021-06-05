@@ -299,14 +299,11 @@ def record():
     db.session.close()
     #print('log_info에 row 삽입완료')
     return jsonify({"message": "log_info에 row 삽입완료"})
-
-
 try:
     import jpype
     import jpype1
 except:
     import jpype
-
 
 #import jpype1
 #import jpype
@@ -315,6 +312,8 @@ from konlpy.tag import Okt
 # 설명
 @app.route("/api/log/wordcloud/<int:meeting_id>")
 def wordcloud(meeting_id):
+    
+
     li = LogInfo.query.all()
     text = ""
     # for로 모두 출력
@@ -376,6 +375,6 @@ def feeling_count(meeting_id):
 
 # flask 서버를 5000번 포트로 구동
 if __name__ == "__main__":
-    #app.run(host='0.0.0.0', port=5000, debug=True, ssl_context=('./https/certificate.pem', './https/privatekey.pem'))
     app.run(host='0.0.0.0', port=5000, debug=True)
+    #app.run(host='0.0.0.0', port=5000, debug=True, ssl_context=('./https/certificate.pem', './https/privatekey.pem'))
     socketio.run(app, debug=True)

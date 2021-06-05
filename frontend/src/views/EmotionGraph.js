@@ -29,7 +29,7 @@ function EmotionGraph(props) {
     const [anger_count, set_angerCount] = useState("0");
     
     useEffect(() => {
-        axios.get('https://localhost:5000/api/log/feelingCount/' + meeting_id)
+        axios.get('http://localhost:5000/api/log/feelingCount/' + meeting_id)
           .then((res) => {
             let dic = res.data[1];
             console.log(dic);
@@ -101,7 +101,7 @@ function EmotionGraph(props) {
     }, [])
 
     useEffect(() => {
-      axios.get('https://localhost:3000/api/meetingLog/log/avgFeeling/' + meeting_id)
+      axios.get('http://localhost:3000/api/meetingLog/log/avgFeeling/' + meeting_id)
           .then(res => {
               let list = res.data.avg;
               let time = ['00:00'];

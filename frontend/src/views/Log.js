@@ -34,7 +34,7 @@ function Log(props) {
     const [log_fear, set_fear] = useState([]);
 
     useEffect(() => {
-        axios.get('https://localhost:3000/api/meetingLog/log/fetch/' + meeting_id)
+        axios.get('http://localhost:3000/api/meetingLog/log/fetch/' + meeting_id)
             .then(res => {
                 set_logContent(res.data.list);
                 set_showLog(res.data.list);
@@ -50,7 +50,7 @@ function Log(props) {
         set_anger(res);
         console.log(log_anger);*/
         let feeling = "anger";
-        axios.get('https://localhost:3000/api/meetingLog/log/fetch/' + meeting_id + '/' + feeling)
+        axios.get('http://localhost:3000/api/meetingLog/log/fetch/' + meeting_id + '/' + feeling)
             .then(res => {
                 set_anger(res.data.list);
             })
@@ -59,28 +59,28 @@ function Log(props) {
     }, [])
     useEffect(() => {
         let feeling = "happiness";
-        axios.get('https://localhost:3000/api/meetingLog/log/fetch/' + meeting_id + '/' + feeling)
+        axios.get('http://localhost:3000/api/meetingLog/log/fetch/' + meeting_id + '/' + feeling)
             .then(res => {
                 set_happy(res.data.list);
             })
     }, [])
     useEffect(() => {
         let feeling = "neutral";
-        axios.get('https://localhost:3000/api/meetingLog/log/fetch/' + meeting_id + '/' + feeling)
+        axios.get('http://localhost:3000/api/meetingLog/log/fetch/' + meeting_id + '/' + feeling)
             .then(res => {
                 set_neutral(res.data.list);
             })
     }, [])
     useEffect(() => {
         let feeling = "sadness";
-        axios.get('https://localhost:3000/api/meetingLog/log/fetch/' + meeting_id + '/' + feeling)
+        axios.get('http://localhost:3000/api/meetingLog/log/fetch/' + meeting_id + '/' + feeling)
             .then(res => {
                 set_sad(res.data.list);
             })
     }, [])
     useEffect(() => {
         let feeling = "fear";
-        axios.get('https://localhost:3000/api/meetingLog/log/fetch/' + meeting_id + '/' + feeling)
+        axios.get('http://localhost:3000/api/meetingLog/log/fetch/' + meeting_id + '/' + feeling)
             .then(res => {
                 set_fear(res.data.list);
             })

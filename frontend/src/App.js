@@ -12,15 +12,13 @@ import Log from './views/Log';
 import WordCloud from './views/WordCloud';
 import EmotionGraph from './views/EmotionGraph';
 import Rank from './views/Rank';
-
-// hanjo
+// Component class
+import Demo from './views/Demo';
 import MeetingRoom from './views/MeetingRoom'
 
 
 
 const App = () => {
-
-  
 
   return (
     <BrowserRouter>
@@ -40,7 +38,8 @@ const App = () => {
           <Route path="/:userId/project/:projectId/:projectName/log/:meetingId/:meetingName/emotion-graph" component={ EmotionGraph } exact />
           <Route path="/:userId/project/:projectId/:projectName/log/:meetingId/:meetingName/rank" component={ Rank } exact />
 
-          {/* hanjo */}
+          {/* Component class */}
+          <Route path="/demo" component={ Demo } exact />
           <Route path="/:userId/project/:projectId/:projectName/meetingRoom/:roomState/:meetingName/:roomCode" component={MeetingRoom} exact/>
           <Route path="/mypage/:userId/meetingRoom/:roomState/:meetingName/:roomCode" component={MeetingRoom} exact/>
 

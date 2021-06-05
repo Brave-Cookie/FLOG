@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const DefalutAxios = axios.create({
-    baseURL : 'https://localhost:3000/api'
+    baseURL : 'http://localhost:3000/api'
 })
 
 export function registUser(user_data){

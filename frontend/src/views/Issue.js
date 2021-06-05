@@ -16,7 +16,7 @@ function Issue(props) {
     const [issues, set_issues] = useState([]);
 
     useEffect(() => {
-        axios.get('https://localhost:3000/api/project/issue/list/' + project_id)
+        axios.get('://localhost:3000/api/project/issue/list/' + project_id)
             .then((res) => {
                 console.log(res);
                 set_issues(res.data.list);

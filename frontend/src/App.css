@@ -28,9 +28,23 @@
   text-align: left;
   line-height: 15px;
 }
+
+.demo_link{
+  font-family: 'GmarketSansMedium';
+  color: #6D42F8;
+  margin-left: 60px;
+  font-size: 27px;
+  float: left;
+  clear :left;
+  text-align: left;
+  line-height: 15px;
+}
+
+.demo_link a:hover,
 .home-link a:hover {
   color: #c7c4f8;
 }
+
 .home-title {
   font-family: 'NanumSquareRound';
   color: #595959;
@@ -38,7 +52,7 @@
   text-align: right;
   font-weight: bold;
   margin-right: 450px;
-  margin-top: 250px;
+  margin-top: 140px;
   float: right;
 }
 .home-sub {

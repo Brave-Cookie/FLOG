@@ -8,7 +8,7 @@
 
  var app = require('../app');
  var debug = require('debug')('dummy-express:server');
- //var http = require('http');
+ var http = require('http');
  var https = require('https');
  var fs = require('fs');
  
@@ -24,14 +24,16 @@
   * Create HTTP server.
   */
  
- //var server = http.createServer(app);
+ var server = http.createServer(app);
  
+ /*
  const options = {
    key: fs.readFileSync('./https/privatekey.pem'),
    cert: fs.readFileSync('./https/certificate.pem')
  };
  var server = https.createServer(options, app);
- 
+ */
+
  /**
   * Listen on provided port, on all network interfaces.
   */
