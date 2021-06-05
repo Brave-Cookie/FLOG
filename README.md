@@ -6,6 +6,7 @@
 
 ## 프로젝트 관련 링크
 
+- FLOG 사이트 링크 : https://flog.tk
 - [프로젝트 팀 계정](https://github.com/Brave-Cookie)
 - [협업 문서 Wiki](https://github.com/Brave-Cookie/Wiki)
 - [감정분석 모델](https://github.com/Brave-Cookie/Emotion-recognition)
