@@ -299,19 +299,20 @@ def record():
     db.session.close()
     #print('log_info에 row 삽입완료')
     return jsonify({"message": "log_info에 row 삽입완료"})
-try:
-    import jpype
-    import jpype1
-except:
-    import jpype
-
-#import jpype1
-#import jpype
-from konlpy.tag import Okt
 
 # 설명
 @app.route("/api/log/wordcloud/<int:meeting_id>")
 def wordcloud(meeting_id):
+    ''' 오류로 막아둠
+    try:
+        import jpype
+        import jpype1
+    except:
+        import jpype
+
+    #import jpype1
+    #import jpype
+    from konlpy.tag import Okt
     
 
     li = LogInfo.query.all()
@@ -323,7 +324,6 @@ def wordcloud(meeting_id):
 
     if jpype.isJVMStarted():
 	    jpype.attachThreadToJVM()
-        
     okt = Okt()
     noun = okt.nouns(text)
 
@@ -335,6 +335,8 @@ def wordcloud(meeting_id):
     #noun_list = [('부분', 14), ('진행', 8), ('구현', 8), ('프론트엔드', 7), ('백엔드', 7), ('뷰', 7), ('프로젝트', 6), ('프레임워크', 6), ('저', 6), ('기능', 6), ('화상회의', 4), ('제', 4), ('일단', 4), ('요', 4), ('지금', 4)]
     
     return jsonify({"message": "워드클라우드 단어리스트 보내기"}, noun_list)
+    '''
+    return jsonify({"message": "서버 오류"}, [('서버',2), {'오류',1}])
 
 
 from gensim.summarization.summarizer import summarize
