@@ -6,6 +6,7 @@
 
 ## 프로젝트 관련 링크
 > FLOG 사이트 링크 : https://flog.tk
+> 시연 영상 : https://www.youtube.com/watch?v=2GBn35r4F1s&t=272s
 
 - [프로젝트 팀 계정](https://github.com/Brave-Cookie)
 - [협업 문서 Wiki](https://github.com/Brave-Cookie/Wiki)
