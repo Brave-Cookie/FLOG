@@ -5,12 +5,12 @@
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FBrave-Cookie%2FFLOG&count_bg=%23CBC5FF&title_bg=%239172F6&icon=ello.svg&icon_color=%23E7E7E7&title=FLOG&edge_flat=false)](https://hits.seeyoufarm.com)
 [![GitHub issues](https://img.shields.io/github/issues/Brave-Cookie/FLOG)](https://github.com/Brave-Cookie/FLOG/issues)
-![node-bg](https://img.shields.io/badge/nodejs-v14.16.1-blue?logo=node.js)
-![react-bg](https://img.shields.io/badge/React-v17.0.2-blue?logo=react)
-![express-bg](https://img.shields.io/badge/React-v4.16.1-blue?logo=Express)
-![python-bg](https://img.shields.io/badge/React-v3.9-blue?logo=Python)
-![flask-bg](https://img.shields.io/badge/React-v1.1.2-blue?logo=Flask)
-![docker-bg](https://img.shields.io/badge/React-v20.10.6-blue?logo=Docker)
+![node-bg](https://img.shields.io/badge/Nodejs-v14.16.1-yellowgreen?logo=node.js)
+![react-bg](https://img.shields.io/badge/React-v17.0.2-1cf?logo=react)
+![express-bg](https://img.shields.io/badge/Express-v4.16.1-yellow?logo=Express)
+![python-bg](https://img.shields.io/badge/Python-v3.9-blue?logo=Python)
+![flask-bg](https://img.shields.io/badge/Flask-v1.1.2-lightgray?logo=Flask)
+![docker-bg](https://img.shields.io/badge/Docker-v20.10.6-3cf?logo=Docker)
 
 ## 프로젝트 관련 링크
 > FLOG 사이트 링크 : https://flog.tk   
