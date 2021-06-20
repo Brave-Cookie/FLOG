@@ -13,6 +13,8 @@
 - [협업 문서 Wiki](https://github.com/Brave-Cookie/Wiki)
 - [감정분석 모델](https://github.com/Brave-Cookie/Emotion-recognition)
 
+<br>
+
 ## 팀원
 
 <table>
@@ -44,7 +46,7 @@
 ![flask-bg](https://img.shields.io/badge/Flask-v1.1.2-lightgray?logo=Flask)
 ![docker-bg](https://img.shields.io/badge/Docker-v20.10.6-3cf?logo=Docker)
 
-![image](https://user-images.githubusercontent.com/71180414/120897507-87f46400-c661-11eb-8371-6ccb3409fa7e.png)
+![FLOG 표지](https://user-images.githubusercontent.com/71180414/122667016-8becbe00-d1eb-11eb-99c7-dda557b310fa.png)
 
 FLOG는 실시간 화상회의와 음성 감정분석을 결합한 차세대 화상회의 플랫폼입니다.
 
