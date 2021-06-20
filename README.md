@@ -13,20 +13,18 @@
 - [협업 문서 Wiki](https://github.com/Brave-Cookie/Wiki)
 - [감정분석 모델](https://github.com/Brave-Cookie/Emotion-recognition)
 
-<br>
-
 ## 팀원
 
 <table>
   <tr>
-    <td align="center"><img src="https://avatars.githubusercontent.com/u/48341341?v=4" width="100px" /> </td>
-    <td align="center"><img src="https://avatars.githubusercontent.com/u/76610357?v=4" width="100px" /> </td>
-    <td align="center"><img src="https://avatars.githubusercontent.com/u/71180414?v=4" width="100px" /> </td>
+    <td align="center"><a href="https://github.com/jerimo"><img src="https://avatars.githubusercontent.com/u/48341341?v=4" width="100px" /></a></td>
+    <td align="center"><a href="https://github.com/jeonbar2"><img src="https://avatars.githubusercontent.com/u/76610357?v=4" width="100px" /></a></td>
+    <td align="center"><a href="https://github.com/hanjo8813"><img src="https://avatars.githubusercontent.com/u/71180414?v=4" width="100px" /></a></td>
   </tr>
   <tr>
-    <td align="center"><b><a href="https://github.com/jerimo">김수지</a></b></td>
-    <td align="center"><b><a href="https://github.com/jeonbar2">강전호</a></b></td>
-    <td align="center"><b><a href="https://github.com/hanjo8813">한재원</a></b></td>
+    <td align="center"><b>김수지</b></td>
+    <td align="center"><b>강전호</b></td>
+    <td align="center"><b>한재원</b></td>
   </tr>
   <tr>
     <td align="center"><b>💻Frontend</b></td>
@@ -69,4 +67,12 @@ FLOG는 실시간 화상회의와 음성 감정분석을 결합한 차세대 화
 <br>
 
 ## 기술 스택
+
+### AI model
+
+### Frontend
+
+### Backend
+
+### Infrastructure
 
