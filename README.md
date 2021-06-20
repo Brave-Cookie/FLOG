@@ -4,7 +4,6 @@
 > 🥉 장려상 수상
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FBrave-Cookie%2FFLOG&count_bg=%23CBC5FF&title_bg=%239172F6&icon=ello.svg&icon_color=%23E7E7E7&title=FLOG&edge_flat=false)](https://hits.seeyoufarm.com)
-[![GitHub issues](https://img.shields.io/github/issues/Brave-Cookie/FLOG)](https://github.com/Brave-Cookie/FLOG/issues)
 ![node-bg](https://img.shields.io/badge/Nodejs-v14.16.1-yellowgreen?logo=node.js)
 ![react-bg](https://img.shields.io/badge/React-v17.0.2-1cf?logo=react)
 ![express-bg](https://img.shields.io/badge/Express-v4.16.1-yellow?logo=Express)
@@ -26,15 +25,15 @@
 
 <table>
   <tr>
-    <td align="center"><img src="https://avatars.githubusercontent.com/u/48341341?v=4" width="150px" /> </td>
-    <td align="center"><img src="https://avatars.githubusercontent.com/u/76610357?v=4" width="150px" /> </td>
-    <td align="center"><img src="https://avatars.githubusercontent.com/u/71180414?v=4" width="150px" /> </td>
+    <td align="center"><img src="https://avatars.githubusercontent.com/u/48341341?v=4" width="100px" /> </td>
+    <td align="center"><img src="https://avatars.githubusercontent.com/u/76610357?v=4" width="100px" /> </td>
+    <td align="center"><img src="https://avatars.githubusercontent.com/u/71180414?v=4" width="100px" /> </td>
   </tr>
   
   <tr>
-    <td align="center"><a href="https://github.com/jerimo">김수지</a></td>
-    <td align="center"><a href="https://github.com/jeonbar2">강전호</a></td>
-    <td align="center"><a href="https://github.com/hanjo8813">한재원</a></td>
+    <td align="center"><b><a href="https://github.com/jerimo">김수지</a></b></td>
+    <td align="center"><b><a href="https://github.com/jeonbar2">강전호</a></b></td>
+    <td align="center"><b><a href="https://github.com/hanjo8813">한재원</a></b></td>
   </tr>
   
   <tr>
