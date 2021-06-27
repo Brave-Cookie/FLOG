@@ -3,6 +3,7 @@ from flask import Flask, render_template, redirect, url_for, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 from flask_cors import CORS
+import os, json
 
 from model import *
 
@@ -12,9 +13,10 @@ app = Flask(__name__)
 CORS(app)
 
 # DB 연동하는 부분
-app.config[
-    "SQLALCHEMY_DATABASE_URI"
-] = "mysql+pymysql://root:11111111@flogdb.csbcfamkafav.ap-northeast-2.rds.amazonaws.com:3306/flog"
+secret_file = os.path.join(os.path.dirname(__file__), 'secret.json')
+with open(secret_file) as f:
+    secret = json.loads(f.read())
+app.config[ "SQLALCHEMY_DATABASE_URI"] = secret['connect']
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
@@ -164,7 +166,6 @@ def test():
     print("요청 잘 왔어요!!!")
     return jsonify({"message": "요청테스트"})
 
-import json
 import librosa
 import joblib
 import numpy as np

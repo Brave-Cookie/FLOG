@@ -4,3 +4,4 @@ node_modules
 .venv
 *.whl
 __pycache__
+secret.json
