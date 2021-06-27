@@ -61,9 +61,9 @@ FLOG는 실시간 화상회의와 음성 감정분석을 결합한 차세대 화
 
 ## 주요 기능
 
-|![BRVdel2ski](https://user-images.githubusercontent.com/71180414/123557220-a665ff00-d7ca-11eb-9e86-51b56843ba71.gif)|
-|:--:|
-|** 실시간 회의 기본 기능 **|
+### 실시간 회의 기본 기능
+
+![BRVdel2ski](https://user-images.githubusercontent.com/71180414/123557220-a665ff00-d7ca-11eb-9e86-51b56843ba71.gif)
 
 1. 회의방을 생성 후 참여코드를 클립보드에 복사하여 공유할 수 있습니다.
 2. 회의가 시작되면 모든 발언은 회의록에 저장됩니다.
@@ -71,9 +71,9 @@ FLOG는 실시간 화상회의와 음성 감정분석을 결합한 차세대 화
 
 <br>
 
-|![oDbwVDMI4W](https://user-images.githubusercontent.com/71180414/123557562-7cadd780-d7cc-11eb-8af2-531e7180cd9d.gif)|
-|:--:|
-|** 실시간 회의 감정분석 **|
+### 실시간 회의 감정분석 
+
+![oDbwVDMI4W](https://user-images.githubusercontent.com/71180414/123557562-7cadd780-d7cc-11eb-8af2-531e7180cd9d.gif)
 
 1. 화자의 음성으로 감정을 분석한 결과를 이모티콘으로 나타냅니다. (정확도 85% : [감정분석 모델 Repo](https://github.com/Brave-Cookie/Emotion-recognition))
 2. 30초마다 회의의 평균 감정과 참여도 순위를 산정합니다. (왼쪽 아래)
@@ -81,15 +81,14 @@ FLOG는 실시간 화상회의와 음성 감정분석을 결합한 차세대 화
 
 <br>
 
-|![EUcsu5cCGJ](https://user-images.githubusercontent.com/71180414/123556787-30f92f00-d7c8-11eb-9dfc-0903215f5494.gif)|
-|:--:|
-|** 감정 회의록 분석 **|
+### 감정 회의록 분석
+
+![EUcsu5cCGJ](https://user-images.githubusercontent.com/71180414/123556787-30f92f00-d7c8-11eb-9dfc-0903215f5494.gif)
 
 1. 감정 회의록을 감정별로 필터링하여 볼수 있습니다.
 2. koNLpy/gensim 라이브러리를 사용해 워드 클라우드와 회의록을 3문장으로 요약하여 보여줍니다.
 3. 시간별 회의 평균감정 변화 추이와 감정의 빈도를 그래프로 나타냅니다.
 4. 참여도 및 감정 순위를 보여줍니다.
-
 
 <br>
 
@@ -99,7 +98,9 @@ FLOG는 실시간 화상회의와 음성 감정분석을 결합한 차세대 화
 
 ![최종아키텍처](https://user-images.githubusercontent.com/71180414/120897349-a1e17700-c660-11eb-864e-e3d86c714734.png)
 
-### 음성 감정분석
+### 실시간 음성처리
+
+![음성전달](https://user-images.githubusercontent.com/71180414/123558249-365a7780-d7d0-11eb-815f-fd9926351c31.png)
 
 <br>
 
@@ -107,11 +108,25 @@ FLOG는 실시간 화상회의와 음성 감정분석을 결합한 차세대 화
 
 ### AI model
 
+|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558541-c1883d00-d7d1-11eb-93da-fc958d9dd4ee.png' />|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558520-a7e6f580-d7d1-11eb-9e6e-a07fc85820e4.png' />|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558553-d06eef80-d7d1-11eb-8a0e-59848072e879.png' />|
+|:--:|:--:|:--:|
+|sklearn|librosa|pydub|
 
 
 ### Frontend
 
+|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558580-fe543400-d7d1-11eb-8d64-468f5ed59150.png' />|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558719-b97ccd00-d7d2-11eb-9349-ec8e85356450.png' />|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558722-bd105400-d7d2-11eb-8241-1813e793cd75.png' />|
+|:--:|:--:|:--:|
+|React|Web RTC|Socket.io|
+
 ### Backend
+
+|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558788-14162900-d7d3-11eb-8ae8-dfe43184f827.png' />|<img width=50 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1597622693/noticon/m9x6mei2mo39iesqulm9.png' />|<img width=50 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566919737/noticon/gjxns0py6vnakzyu3msu.png' />|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558861-838c1880-d7d3-11eb-859a-73008f10bbe4.png' />|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558722-bd105400-d7d2-11eb-8241-1813e793cd75.png' />|<img width=50 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1603423163/noticon/az0cvs28lm7gxoowlsva.png' />|
+|:--:|:--:|:--:|:--:|:--:|:--:|
+|Express|Sequelize ORM|Flask|SQLAlchemy ORM|Socket.io|MySql|
 
 ### Infrastructure
 
+|<img width=50 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566913282/noticon/xyzfawahazvkwiyje7it.png' />|<img width=50 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566798146/noticon/lku5cppzh8r7awwsmmko.png' />|<img width=50 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566914346/noticon/eaj5maxvh8jwaviozt5p.png' />|<img width=50 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566914173/noticon/kos1xkevxtr81zgwvyoe.svg' />|<img width=50 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1570176339/noticon/izlj41f9z1jt6ykiwsyl.png' />|
+|:--:|:--:|:--:|:--:|:--:|:--:|
+|Docker|Nginx|Netlify|AWS EC2|AWS RDS|
