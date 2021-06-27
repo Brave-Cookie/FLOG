@@ -73,7 +73,7 @@ FLOG는 실시간 화상회의와 음성 감정분석을 결합한 차세대 화
 
 |![oDbwVDMI4W](https://user-images.githubusercontent.com/71180414/123557562-7cadd780-d7cc-11eb-8af2-531e7180cd9d.gif)|
 |:--:|
-|**실시간 회의 감정분석 **|
+|**실시간 회의 감정분석**|
 
 1. 화자의 음성으로 감정을 분석한 결과를 이모티콘으로 나타냅니다. (정확도 85% : [감정분석 모델 Repo](https://github.com/Brave-Cookie/Emotion-recognition))
 2. 30초마다 회의의 평균 감정과 참여도 순위를 산정합니다. (왼쪽 아래)
