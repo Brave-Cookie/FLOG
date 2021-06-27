@@ -37,7 +37,7 @@
 
 <br>
 
-## FLOG 소개
+## ✨ FLOG 소개
 
 ![node-bg](https://img.shields.io/badge/Nodejs-v14.16.1-yellowgreen?logo=node.js)
 ![react-bg](https://img.shields.io/badge/React-v17.0.2-1cf?logo=react)
@@ -59,7 +59,7 @@ FLOG는 실시간 화상회의와 음성 감정분석을 결합한 차세대 화
 <br>
 
 
-## 주요 기능
+## 🎮 주요 기능
 
 |![BRVdel2ski](https://user-images.githubusercontent.com/71180414/123557220-a665ff00-d7ca-11eb-9e86-51b56843ba71.gif)|
 |:--:|
@@ -92,25 +92,25 @@ FLOG는 실시간 화상회의와 음성 감정분석을 결합한 차세대 화
 
 <br>
 
-## 시스템 아키텍처
+## ⚙ 시스템 아키텍처
 
-### 전체 아키텍처
-
-![최종아키텍처](https://user-images.githubusercontent.com/71180414/120897349-a1e17700-c660-11eb-864e-e3d86c714734.png)
-
-<br>
-
-### 실시간 음성처리
-
-![음성전달](https://user-images.githubusercontent.com/71180414/123558249-365a7780-d7d0-11eb-815f-fd9926351c31.png)
+|![최종아키텍처](https://user-images.githubusercontent.com/71180414/120897349-a1e17700-c660-11eb-864e-e3d86c714734.png)|
+|:--:|
+|**전체 시스템**|
 
 <br>
 
-## 기술 스택
+|![음성전달](https://user-images.githubusercontent.com/71180414/123558249-365a7780-d7d0-11eb-815f-fd9926351c31.png)|
+|:--:|
+|**실시간 음성처리**|
+
+<br>
+
+## 📜 기술 스택
 
 ### AI model
 
-|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558541-c1883d00-d7d1-11eb-93da-fc958d9dd4ee.png' />|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558520-a7e6f580-d7d1-11eb-9e6e-a07fc85820e4.png' />|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558553-d06eef80-d7d1-11eb-8a0e-59848072e879.png' />|
+|<img width=70 src='https://user-images.githubusercontent.com/71180414/123558541-c1883d00-d7d1-11eb-93da-fc958d9dd4ee.png' />|<img width=70 src='https://user-images.githubusercontent.com/71180414/123558520-a7e6f580-d7d1-11eb-9e6e-a07fc85820e4.png' />|<img width=70 src='https://user-images.githubusercontent.com/71180414/123558553-d06eef80-d7d1-11eb-8a0e-59848072e879.png' />|
 |:--:|:--:|:--:|
 |sklearn|librosa|pydub|
 
@@ -118,7 +118,7 @@ FLOG는 실시간 화상회의와 음성 감정분석을 결합한 차세대 화
 
 ### Frontend
 
-|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558580-fe543400-d7d1-11eb-8d64-468f5ed59150.png' />|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558719-b97ccd00-d7d2-11eb-9349-ec8e85356450.png' />|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558722-bd105400-d7d2-11eb-8241-1813e793cd75.png' />|
+|<img width=70 src='https://user-images.githubusercontent.com/71180414/123558580-fe543400-d7d1-11eb-8d64-468f5ed59150.png' />|<img width=70 src='https://user-images.githubusercontent.com/71180414/123558719-b97ccd00-d7d2-11eb-9349-ec8e85356450.png' />|<img width=70 src='https://user-images.githubusercontent.com/71180414/123558722-bd105400-d7d2-11eb-8241-1813e793cd75.png' />|
 |:--:|:--:|:--:|
 |React|Web RTC|Socket.io|
 
@@ -126,7 +126,7 @@ FLOG는 실시간 화상회의와 음성 감정분석을 결합한 차세대 화
 
 ### Backend
 
-|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558788-14162900-d7d3-11eb-8ae8-dfe43184f827.png' />|<img width=50 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1597622693/noticon/m9x6mei2mo39iesqulm9.png' />|<img width=50 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566919737/noticon/gjxns0py6vnakzyu3msu.png' />|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558861-838c1880-d7d3-11eb-859a-73008f10bbe4.png' />|<img width=50 src='https://user-images.githubusercontent.com/71180414/123558722-bd105400-d7d2-11eb-8241-1813e793cd75.png' />|<img width=50 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1603423163/noticon/az0cvs28lm7gxoowlsva.png' />|
+|<img width=70 src='https://user-images.githubusercontent.com/71180414/123558788-14162900-d7d3-11eb-8ae8-dfe43184f827.png' />|<img width=70 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1597622693/noticon/m9x6mei2mo39iesqulm9.png' />|<img width=70 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566919737/noticon/gjxns0py6vnakzyu3msu.png' />|<img width=70 src='https://user-images.githubusercontent.com/71180414/123558861-838c1880-d7d3-11eb-859a-73008f10bbe4.png' />|<img width=70 src='https://user-images.githubusercontent.com/71180414/123558722-bd105400-d7d2-11eb-8241-1813e793cd75.png' />|<img width=70 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1603423163/noticon/az0cvs28lm7gxoowlsva.png' />|
 |:--:|:--:|:--:|:--:|:--:|:--:|
 |Express|Sequelize ORM|Flask|SQLAlchemy ORM|Socket.io|MySql|
 
@@ -134,7 +134,7 @@ FLOG는 실시간 화상회의와 음성 감정분석을 결합한 차세대 화
 
 ### Infrastructure
 
-|<img width=50 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566913282/noticon/xyzfawahazvkwiyje7it.png' />|<img width=50 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566798146/noticon/lku5cppzh8r7awwsmmko.png' />|<img width=50 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566914346/noticon/eaj5maxvh8jwaviozt5p.png' />|<img width=50 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566914173/noticon/kos1xkevxtr81zgwvyoe.svg' />|<img width=50 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1570176339/noticon/izlj41f9z1jt6ykiwsyl.png' />|
+|<img width=70 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566913282/noticon/xyzfawahazvkwiyje7it.png' />|<img width=70 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566798146/noticon/lku5cppzh8r7awwsmmko.png' />|<img width=70 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566914346/noticon/eaj5maxvh8jwaviozt5p.png' />|<img width=70 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566914173/noticon/kos1xkevxtr81zgwvyoe.svg' />|<img width=70 src='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1570176339/noticon/izlj41f9z1jt6ykiwsyl.png' />|
 |:--:|:--:|:--:|:--:|:--:|
 |Docker|Nginx|Netlify|AWS EC2|AWS RDS|
 
