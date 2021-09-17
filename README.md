@@ -1,12 +1,12 @@
 # 🔮 FLOG
 
 ### 실시간 감정분석 화상회의 및 감정상황 회의록 서비스
-> 🥉 장려상 수상
+> 🥉 세종창의설계경진대회 장려상 수상
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FBrave-Cookie%2FFLOG&count_bg=%23CBC5FF&title_bg=%239172F6&icon=ello.svg&icon_color=%23E7E7E7&title=FLOG&edge_flat=false)](https://hits.seeyoufarm.com)
 
 ## 프로젝트 관련 링크
-> FLOG 사이트 링크 : https://flog.tk   
+> FLOG 사이트 링크 : ~~https://flog.tk~~ (서비스중지)   
 > 시연 영상 : https://www.youtube.com/watch?v=LY4to2DHiIE
 
 - [프로젝트 팀 계정](https://github.com/Brave-Cookie)
