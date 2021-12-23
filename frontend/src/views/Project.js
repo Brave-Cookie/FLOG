@@ -5,9 +5,10 @@ import Sidebar from '../components/Sidebar';
 import axios from 'axios';
 import Modal from 'react-awesome-modal';
 import meetingIcon from '../assets/image/createRoom.png';
+import origin from "../api/origin";
 
 async function getStart(room_code, meeting_name) {
-    var res = axios.post('http://localhost:3000/api/auth/createRoom', 
+    var res = axios.post(`${origin.express}/auth/createRoom`, 
         { room_code, meeting_name });
     console.log(res);
 
@@ -38,7 +39,7 @@ function Project(props) {
     }
 
     useEffect(() => {
-        axios.get('http://localhost:3000/api/project/log/list/' + project_id)
+        axios.get(`${origin.express}/project/log/list/${project_id}`)
             .then(res => {
                 console.log(res);
                 //let list = res.data.list;

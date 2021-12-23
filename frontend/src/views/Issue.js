@@ -4,7 +4,7 @@ import Sidebar from '../components/Sidebar';
 import Modal from 'react-awesome-modal';
 import { addIssue } from '../api/axios';
 import axios from 'axios';
-
+import origin from "../api/origin";
 
 function Issue(props) {
 
@@ -16,7 +16,7 @@ function Issue(props) {
     const [issues, set_issues] = useState([]);
 
     useEffect(() => {
-        axios.get('://localhost:3000/api/project/issue/list/' + project_id)
+        axios.get(`${origin.express}/project/issue/list/${project_id}`)
             .then((res) => {
                 console.log(res);
                 set_issues(res.data.list);

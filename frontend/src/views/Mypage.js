@@ -7,6 +7,7 @@ import axios from 'axios'
 import Modal from 'react-awesome-modal';
 import projectIcon from '../assets/image/createProject.png';
 import joinIcon from '../assets/image/joinRoom.png';
+import origin from "../api/origin";
 
 async function register(user_id, project_name) {
     var res = await createProject(user_id, project_name);
@@ -14,7 +15,7 @@ async function register(user_id, project_name) {
 }
 
 async function get_projcet_list(user_id) {
-    return axios.get('http://localhost:3000/api/project/list/' + user_id);
+    return axios.get(`${origin.express}/project/list/${user_id}`);
 }
 
 function Mypage(props) {
@@ -91,7 +92,7 @@ function Mypage(props) {
 
     const enterMeeting = () => {
         if (meeting_code !== "") {
-            let res = axios.get('http://localhost:3000/api/auth/check/' + meeting_code)
+            let res = axios.get(`${origin.express}/auth/check/${meeting_code}`)
                 .then((res) => {
                     if (res.status === 200) {
                         let meeting_name = res.data.meeting_name;

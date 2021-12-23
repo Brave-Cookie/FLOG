@@ -3,7 +3,7 @@ import HeaderAuth from '../components/HeaderAuth';
 import Sidebar from '../components/Sidebar';
 import { addMember, searchMember } from '../api/axios';
 import axios from 'axios';
-
+import origin from "../api/origin";
 
 function Member(props) {
 
@@ -16,7 +16,7 @@ function Member(props) {
     const [current_members, set_currentMemebers] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3000/api/project/member/list/' + project_id)
+        axios.get(`${origin.express}/project/member/list/${project_id}`)
             .then(res => {
                 console.log(res);
                 set_currentMemebers(res.data.list);

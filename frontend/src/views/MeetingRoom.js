@@ -7,6 +7,7 @@ import { connect } from 'extendable-media-recorder-wav-encoder';
 import HeaderMeetingRoom from '../components/HeaderMeetingRoom';
 
 import * as service from "./getHTMLMediaElement";
+import origin from "../api/origin";
 
 class MeetingRoom extends Component {
 
@@ -190,7 +191,7 @@ class MeetingRoom extends Component {
             // 파일 전송
             axios({
               method: "post",
-              url: 'http://localhost:5000/api/record',
+              url: `${origin.flask}/record`,
               data: fd,
               headers: {
                 'Accept': 'application/json',
@@ -301,7 +302,7 @@ class MeetingRoom extends Component {
     // ------------------------------------------------------ socket 통신 ------------------------------------------------------
 
     // 소켓 연결
-    let client_socket = socketio.connect('http://localhost:5000')
+    let client_socket = socketio.connect(`${origin.flask}`)
 
     // 참가자 입장시
     client_socket.on('insert_mapping',
