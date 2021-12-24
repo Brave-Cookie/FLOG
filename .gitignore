@@ -5,3 +5,6 @@ node_modules
 *.whl
 __pycache__
 secret.json
+fake-ssl
+.env
+build
