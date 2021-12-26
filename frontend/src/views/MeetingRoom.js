@@ -302,7 +302,7 @@ class MeetingRoom extends Component {
     // ------------------------------------------------------ socket 통신 ------------------------------------------------------
 
     // 소켓 연결
-    let client_socket = socketio.connect(`${origin.flask}`)
+    let client_socket = socketio.connect(`${origin.socket}`)
 
     // 참가자 입장시
     client_socket.on('insert_mapping',
