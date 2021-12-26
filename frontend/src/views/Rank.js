@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import HeaderAuth from '../components/HeaderAuth';
 import SidebarLog from '../components/SidebarLog';
 import axios from 'axios'
+import origin from "../api/origin";
 
 function Rank(props) {
     const [user_id, set_userId] = useState(props.match.params.userId);
@@ -25,7 +26,7 @@ function Rank(props) {
 
     useState(() => {
         let feeling = "anger";
-        axios.get('http://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
+        axios.get(`${origin.express}/meetingLog/log/rank/${meeting_id}/${feeling}`)
             .then((res) => {
                 // 참여도 순위
                 let total_rank = res.data.total_rank;
@@ -48,7 +49,7 @@ function Rank(props) {
     }, [])
     useState(() => {
         let feeling = "happiness";
-        axios.get('http://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
+        axios.get(`${origin.express}/meetingLog/log/rank/${meeting_id}/${feeling}`)
             .then((res) => {
                 if(res.status === 200){
                     set_userHappy(res.data.firstrank);
@@ -62,7 +63,7 @@ function Rank(props) {
     }, [])
     useState(() => {
         let feeling = "sadness";
-        axios.get('http://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
+        axios.get(`${origin.express}/meetingLog/log/rank/${meeting_id}/${feeling}`)
             .then((res) => {
                 if(res.status === 200){
                     set_userSad(res.data.firstrank);
@@ -76,7 +77,7 @@ function Rank(props) {
     }, [])
     useState(() => {
         let feeling = "fear";
-        axios.get('http://localhost:3000/api/meetingLog/log/rank/' + meeting_id + '/' + feeling)
+        axios.get(`${origin.express}/meetingLog/log/rank/${meeting_id}/${feeling}`)
             .then((res) => {
                 if(res.status === 200){
                     set_userFear(res.data.firstrank);

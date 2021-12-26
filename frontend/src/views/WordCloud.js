@@ -3,6 +3,7 @@ import HeaderAuth from '../components/HeaderAuth';
 import SidebarLog from '../components/SidebarLog';
 import { TagCloud } from 'react-tagcloud';
 import axios from 'axios';
+import origin from "../api/origin";
 
 function WordCloud(props) {
     const [user_id, set_userId] = useState(props.match.params.userId);
