@@ -1,7 +1,7 @@
 config
 node_modules
 *.pkl
-.venv
+venv
 *.whl
 __pycache__
 secret.json
